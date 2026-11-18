@@ -1,0 +1,1150 @@
+public final class ai/verispec/core/evidence/BundleCodec {
+	public static final field INSTANCE Lai/verispec/core/evidence/BundleCodec;
+	public final fun decode (Ljava/lang/String;)Lai/verispec/core/domain/model/EvidenceBundle;
+	public final fun decode ([B)Lai/verispec/core/domain/model/EvidenceBundle;
+	public final fun decodeManifest (Ljava/lang/String;)Lai/verispec/core/domain/model/RunManifest;
+	public final fun encode (Lai/verispec/core/domain/model/EvidenceBundle;)[B
+	public final fun encodeManifest (Lai/verispec/core/domain/model/RunManifest;)[B
+	public final fun encodeManifestPretty (Lai/verispec/core/domain/model/RunManifest;)Ljava/lang/String;
+	public final fun encodePretty (Lai/verispec/core/domain/model/EvidenceBundle;)Ljava/lang/String;
+	public final fun fileNameFor (Lai/verispec/core/domain/model/EvidenceBundle;)Ljava/lang/String;
+}
+
+public final class ai/verispec/core/evidence/EvidenceCanonicalizer : ai/verispec/core/domain/port/Canonicalizer {
+	public static final field INSTANCE Lai/verispec/core/evidence/EvidenceCanonicalizer;
+	public fun bundleBytes (Lai/verispec/core/domain/model/UnsignedBundle;)[B
+	public final fun getJson ()Lkotlinx/serialization/json/Json;
+	public fun manifestBytes (Lai/verispec/core/domain/model/RunManifest;)[B
+}
+
+public final class ai/verispec/core/evidence/Hashing : ai/verispec/core/domain/port/Hasher {
+	public static final field INSTANCE Lai/verispec/core/evidence/Hashing;
+	public final fun sha256-T3v2b3Q (Ljava/io/File;)Ljava/lang/String;
+	public final fun sha256-T3v2b3Q (Ljava/io/InputStream;)Ljava/lang/String;
+	public final fun sha256-T3v2b3Q (Ljava/lang/String;)Ljava/lang/String;
+	public fun sha256-T3v2b3Q ([B)Ljava/lang/String;
+	public final fun sha256-T3v2b3Q ([F)Ljava/lang/String;
+}
+
+public final class ai/verispec/core/evidence/canonical/CanonicalJson {
+	public static final field INSTANCE Lai/verispec/core/evidence/canonical/CanonicalJson;
+	public final fun encode (Lkotlinx/serialization/json/JsonElement;)[B
+	public final fun encodeToString (Lkotlinx/serialization/json/JsonElement;)Ljava/lang/String;
+}
+
+public final class ai/verispec/core/evidence/verify/AttestationChainVerifier : ai/verispec/core/domain/port/AttestationVerifier {
+	public static final field ATTESTATION_OID Ljava/lang/String;
+	public static final field Companion Lai/verispec/core/evidence/verify/AttestationChainVerifier$Companion;
+	public static final field SECURITY_LEVEL_SOFTWARE J
+	public static final field SECURITY_LEVEL_STRONGBOX J
+	public static final field SECURITY_LEVEL_TEE J
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Set;Z)V
+	public synthetic fun <init> (Ljava/util/Set;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun parseKeyDescription (Ljava/security/cert/X509Certificate;)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
+	public fun verifyChain (Ljava/util/List;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
+}
+
+public final class ai/verispec/core/evidence/verify/AttestationChainVerifier$Companion {
+	public final fun getGOOGLE_ROOT_SPKI_SHA256 ()Ljava/util/Set;
+}
+
+public final class ai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription {
+	public synthetic fun <init> (JJJJLjava/lang/String;[BLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun component5-bg13i64 ()Ljava/lang/String;
+	public final fun component6 ()[B
+	public final fun copy-Rt9315E (JJJJLjava/lang/String;[B)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
+	public static synthetic fun copy-Rt9315E$default (Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;JJJJLjava/lang/String;[BILjava/lang/Object;)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttestationSecurityLevel ()J
+	public final fun getAttestationVersion ()J
+	public final fun getChallenge-bg13i64 ()Ljava/lang/String;
+	public final fun getChallengeRaw ()[B
+	public final fun getKeymasterSecurityLevel ()J
+	public final fun getKeymasterVersion ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/evidence/verify/Der {
+	public static final field Companion Lai/verispec/core/evidence/verify/Der$Companion;
+	public static final field TAG_ENUMERATED I
+	public static final field TAG_INTEGER I
+	public static final field TAG_OCTET_STRING I
+	public static final field TAG_SEQUENCE I
+	public fun <init> ([BII)V
+	public synthetic fun <init> ([BIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun hasMore ()Z
+	public final fun read ()Lai/verispec/core/evidence/verify/Der$Tlv;
+	public final fun readAll ()Ljava/util/List;
+}
+
+public final class ai/verispec/core/evidence/verify/Der$Companion {
+}
+
+public final class ai/verispec/core/evidence/verify/Der$Tlv {
+	public fun <init> (I[B)V
+	public final fun asInt ()J
+	public final fun children ()Ljava/util/List;
+	public final fun getContent ()[B
+	public final fun getTag ()I
+	public final fun isOctetString ()Z
+	public final fun isSequence ()Z
+}
+
+public final class ai/verispec/core/evidence/verify/JcaSignatureVerifier : ai/verispec/core/domain/port/SignatureVerifier {
+	public static final field Companion Lai/verispec/core/evidence/verify/JcaSignatureVerifier$Companion;
+	public fun <init> ()V
+	public fun verify ([BLai/verispec/core/domain/model/DetachedSignature;Lai/verispec/core/domain/model/EncodedCertificate;)Z
+}
+
+public final class ai/verispec/core/evidence/verify/JcaSignatureVerifier$Companion {
+	public final fun getALLOWED_ALGORITHMS ()Ljava/util/Set;
+	public final fun parse (Lai/verispec/core/domain/model/EncodedCertificate;)Ljava/security/cert/X509Certificate;
+}
+
+public final class ai/verispec/core/evidence/wire/BackendRefDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/BackendRefDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()I
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lai/verispec/core/evidence/wire/BackendRefDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/BackendRefDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)Lai/verispec/core/evidence/wire/BackendRefDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDelegate ()Ljava/lang/String;
+	public final fun getRuntime ()Ljava/lang/String;
+	public final fun getRuntimeVersion ()Ljava/lang/String;
+	public final fun getThreadCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/BackendRefDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/BackendRefDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/BackendRefDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/BackendRefDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/BackendRefDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ClauseCoverageDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ClauseCoverageDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)Lai/verispec/core/evidence/wire/ClauseCoverageDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ClauseCoverageDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ClauseCoverageDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClauseId ()Ljava/lang/String;
+	public final fun getFramework ()Ljava/lang/String;
+	public final fun getGapDescription ()Ljava/lang/String;
+	public final fun getMissing ()Ljava/util/List;
+	public final fun getReference ()Ljava/lang/String;
+	public final fun getSatisfied ()Ljava/util/List;
+	public final fun getStatus ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ClauseCoverageDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ClauseCoverageDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ClauseCoverageDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ClauseCoverageDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ClauseCoverageDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ClockReadingDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ClockReadingDto$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/lang/Long;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun copy (Ljava/util/List;Ljava/lang/Long;)Lai/verispec/core/evidence/wire/ClockReadingDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ClockReadingDto;Ljava/util/List;Ljava/lang/Long;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ClockReadingDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCpuKhz ()Ljava/util/List;
+	public final fun getGpuKhz ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ClockReadingDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ClockReadingDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ClockReadingDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ClockReadingDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ClockReadingDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/DeviceConditionsDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/DeviceConditionsDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;ZZLjava/lang/Integer;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;ZZLjava/lang/Integer;)Lai/verispec/core/evidence/wire/DeviceConditionsDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/DeviceConditionsDto;Ljava/lang/String;Ljava/lang/Float;Ljava/lang/Integer;ZZLjava/lang/Integer;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/DeviceConditionsDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBatteryPercent ()Ljava/lang/Integer;
+	public final fun getBatteryTemperatureDeciC ()Ljava/lang/Integer;
+	public final fun getPlugged ()Z
+	public final fun getScreenOn ()Z
+	public final fun getThermalHeadroom ()Ljava/lang/Float;
+	public final fun getThermalStatus ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/DeviceConditionsDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/DeviceConditionsDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/DeviceConditionsDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/DeviceConditionsDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/DeviceConditionsDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/DeviceProfileDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/DeviceProfileDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/SocDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;JILjava/util/List;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()J
+	public final fun component12 ()I
+	public final fun component13 ()Ljava/util/List;
+	public final fun component14 ()Ljava/lang/String;
+	public final fun component15 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/SocDto;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()I
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/SocDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;JILjava/util/List;Ljava/lang/String;Ljava/lang/String;)Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/DeviceProfileDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/SocDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;JILjava/util/List;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAndroidRelease ()Ljava/lang/String;
+	public final fun getApiLevel ()I
+	public final fun getCpuCoreCount ()I
+	public final fun getDeviceModel ()Ljava/lang/String;
+	public final fun getFingerprint ()Ljava/lang/String;
+	public final fun getGpuDriverVersion ()Ljava/lang/String;
+	public final fun getGpuRenderer ()Ljava/lang/String;
+	public final fun getKernelVersion ()Ljava/lang/String;
+	public final fun getManufacturer ()Ljava/lang/String;
+	public final fun getNpuDriverVersion ()Ljava/lang/String;
+	public final fun getSecurityPatch ()Ljava/lang/String;
+	public final fun getSoc ()Lai/verispec/core/evidence/wire/SocDto;
+	public final fun getSupportedAbis ()Ljava/util/List;
+	public final fun getThermalHalVersion ()Ljava/lang/String;
+	public final fun getTotalRamBytes ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/DeviceProfileDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/DeviceProfileDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/DeviceProfileDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/DeviceProfileDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/EvidenceBundleDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/EvidenceBundleDto$Companion;
+	public static final field DOCUMENT_TYPE Ljava/lang/String;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/ManifestDto;Lai/verispec/core/evidence/wire/DeviceProfileDto;Lai/verispec/core/evidence/wire/ProvenanceDto;Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;Lai/verispec/core/evidence/wire/SignatureDto;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/ManifestDto;Lai/verispec/core/evidence/wire/DeviceProfileDto;Lai/verispec/core/evidence/wire/ProvenanceDto;Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;Lai/verispec/core/evidence/wire/SignatureDto;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/util/List;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/ManifestDto;
+	public final fun component5 ()Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public final fun component6 ()Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public final fun component7 ()Lai/verispec/core/evidence/wire/ObservationsDto;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Lai/verispec/core/evidence/wire/SignatureDto;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/ManifestDto;Lai/verispec/core/evidence/wire/DeviceProfileDto;Lai/verispec/core/evidence/wire/ProvenanceDto;Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;Lai/verispec/core/evidence/wire/SignatureDto;Ljava/util/List;)Lai/verispec/core/evidence/wire/EvidenceBundleDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/EvidenceBundleDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/ManifestDto;Lai/verispec/core/evidence/wire/DeviceProfileDto;Lai/verispec/core/evidence/wire/ProvenanceDto;Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;Lai/verispec/core/evidence/wire/SignatureDto;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/EvidenceBundleDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttestationChain ()Ljava/util/List;
+	public final fun getBundleId ()Ljava/lang/String;
+	public final fun getClauseCoverage ()Ljava/util/List;
+	public final fun getDevice ()Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public final fun getDocumentType ()Ljava/lang/String;
+	public final fun getManifest ()Lai/verispec/core/evidence/wire/ManifestDto;
+	public final fun getObservations ()Lai/verispec/core/evidence/wire/ObservationsDto;
+	public final fun getProvenance ()Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public final fun getSchemaVersion ()Ljava/lang/String;
+	public final fun getSignature ()Lai/verispec/core/evidence/wire/SignatureDto;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/EvidenceBundleDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/EvidenceBundleDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/EvidenceBundleDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/EvidenceBundleDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/EvidenceBundleDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/IterationDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/IterationDto$Companion;
+	public fun <init> (IJJJIIDDLjava/lang/String;Ljava/lang/String;ZLai/verispec/core/evidence/wire/ClockReadingDto;)V
+	public synthetic fun <init> (IJJJIIDDLjava/lang/String;Ljava/lang/String;ZLai/verispec/core/evidence/wire/ClockReadingDto;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Z
+	public final fun component12 ()Lai/verispec/core/evidence/wire/ClockReadingDto;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()D
+	public final fun component8 ()D
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (IJJJIIDDLjava/lang/String;Ljava/lang/String;ZLai/verispec/core/evidence/wire/ClockReadingDto;)Lai/verispec/core/evidence/wire/IterationDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/IterationDto;IJJJIIDDLjava/lang/String;Ljava/lang/String;ZLai/verispec/core/evidence/wire/ClockReadingDto;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/IterationDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClocks ()Lai/verispec/core/evidence/wire/ClockReadingDto;
+	public final fun getDecodeTokens ()I
+	public final fun getDecodeTokensPerSecond ()D
+	public final fun getElapsedMillis ()J
+	public final fun getIndex ()I
+	public final fun getPrefillTokens ()I
+	public final fun getPrefillTokensPerSecond ()D
+	public final fun getThermalStatusAtEnd ()Ljava/lang/String;
+	public final fun getThermalStatusAtStart ()Ljava/lang/String;
+	public final fun getTimeToFirstTokenMicros ()J
+	public final fun getTotalMicros ()J
+	public final fun getWasThrottled ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/IterationDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/IterationDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/IterationDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/IterationDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/IterationDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ManifestContentDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ManifestContentDto$Companion;
+	public fun <init> (Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;)V
+	public synthetic fun <init> (Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lai/verispec/core/evidence/wire/ModelRefDto;
+	public final fun component2 ()Lai/verispec/core/evidence/wire/BackendRefDto;
+	public final fun component3 ()Lai/verispec/core/evidence/wire/WorkloadDto;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public final fun component5 ()J
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public final fun copy (Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;)Lai/verispec/core/evidence/wire/ManifestContentDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ManifestContentDto;Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ManifestContentDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackend ()Lai/verispec/core/evidence/wire/BackendRefDto;
+	public final fun getLabel ()Ljava/lang/String;
+	public final fun getModel ()Lai/verispec/core/evidence/wire/ModelRefDto;
+	public final fun getPreconditions ()Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public final fun getSchedule ()Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public final fun getSeed ()J
+	public final fun getToolVersion ()Ljava/lang/String;
+	public final fun getWorkload ()Lai/verispec/core/evidence/wire/WorkloadDto;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ManifestContentDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ManifestContentDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ManifestContentDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ManifestContentDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ManifestContentDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ManifestDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ManifestDto$Companion;
+	public fun <init> (Ljava/lang/String;Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;)V
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/evidence/wire/ModelRefDto;
+	public final fun component3 ()Lai/verispec/core/evidence/wire/BackendRefDto;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/WorkloadDto;
+	public final fun component5 ()Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public final fun component6 ()J
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public final fun copy (Ljava/lang/String;Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;)Lai/verispec/core/evidence/wire/ManifestDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ManifestDto;Ljava/lang/String;Lai/verispec/core/evidence/wire/ModelRefDto;Lai/verispec/core/evidence/wire/BackendRefDto;Lai/verispec/core/evidence/wire/WorkloadDto;Lai/verispec/core/evidence/wire/RunScheduleDto;JLjava/lang/String;Ljava/lang/String;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ManifestDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackend ()Lai/verispec/core/evidence/wire/BackendRefDto;
+	public final fun getLabel ()Ljava/lang/String;
+	public final fun getManifestId ()Ljava/lang/String;
+	public final fun getModel ()Lai/verispec/core/evidence/wire/ModelRefDto;
+	public final fun getPreconditions ()Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public final fun getSchedule ()Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public final fun getSeed ()J
+	public final fun getToolVersion ()Ljava/lang/String;
+	public final fun getWorkload ()Lai/verispec/core/evidence/wire/WorkloadDto;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ManifestDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ManifestDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ManifestDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ManifestDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ManifestDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/MappersKt {
+	public static final fun toContentDto (Lai/verispec/core/domain/model/RunManifest;)Lai/verispec/core/evidence/wire/ManifestContentDto;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/BackendRefDto;)Lai/verispec/core/domain/model/BackendRef;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/ClauseCoverageDto;)Lai/verispec/core/domain/model/ClauseCoverage;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/DeviceConditionsDto;)Lai/verispec/core/domain/model/DeviceConditions;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/DeviceProfileDto;)Lai/verispec/core/domain/model/DeviceProfile;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/EvidenceBundleDto;)Lai/verispec/core/domain/model/EvidenceBundle;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/IterationDto;)Lai/verispec/core/domain/model/IterationRecord;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/ManifestDto;)Lai/verispec/core/domain/model/RunManifest;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;)Lai/verispec/core/domain/model/MemoryEnvelope;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/ModelRefDto;)Lai/verispec/core/domain/model/ModelRef;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/ObservationsDto;)Lai/verispec/core/domain/model/Observations;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/OutputDigestDto;)Lai/verispec/core/domain/model/OutputDigest;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/PowerSampleDto;)Lai/verispec/core/domain/model/PowerSample;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;)Lai/verispec/core/domain/model/PreconditionOutcome;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/PreconditionPolicyDto;)Lai/verispec/core/domain/model/PreconditionPolicy;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/ProvenanceDto;)Lai/verispec/core/domain/model/ProvenanceRecord;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/QuantizationDto;)Lai/verispec/core/domain/model/QuantizationSpec;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/RunScheduleDto;)Lai/verispec/core/domain/model/RunSchedule;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/SignatureDto;)Lai/verispec/core/domain/model/DetachedSignature;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/ThermalSampleDto;)Lai/verispec/core/domain/model/ThermalSample;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/UnsignedBundleDto;)Lai/verispec/core/domain/model/UnsignedBundle;
+	public static final fun toDomain (Lai/verispec/core/evidence/wire/WorkloadDto;)Lai/verispec/core/domain/model/Workload;
+	public static final fun toDto (Lai/verispec/core/domain/model/BackendRef;)Lai/verispec/core/evidence/wire/BackendRefDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/ClauseCoverage;)Lai/verispec/core/evidence/wire/ClauseCoverageDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/DetachedSignature;)Lai/verispec/core/evidence/wire/SignatureDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/DeviceConditions;)Lai/verispec/core/evidence/wire/DeviceConditionsDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/DeviceProfile;)Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/EvidenceBundle;)Lai/verispec/core/evidence/wire/EvidenceBundleDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/IterationRecord;)Lai/verispec/core/evidence/wire/IterationDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/MemoryEnvelope;)Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/ModelRef;)Lai/verispec/core/evidence/wire/ModelRefDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/Observations;)Lai/verispec/core/evidence/wire/ObservationsDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/OutputDigest;)Lai/verispec/core/evidence/wire/OutputDigestDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/PowerSample;)Lai/verispec/core/evidence/wire/PowerSampleDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/PreconditionOutcome;)Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/PreconditionPolicy;)Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/ProvenanceRecord;)Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/QuantizationSpec;)Lai/verispec/core/evidence/wire/QuantizationDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/RunManifest;)Lai/verispec/core/evidence/wire/ManifestDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/RunSchedule;)Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/ThermalSample;)Lai/verispec/core/evidence/wire/ThermalSampleDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/UnsignedBundle;)Lai/verispec/core/evidence/wire/UnsignedBundleDto;
+	public static final fun toDto (Lai/verispec/core/domain/model/Workload;)Lai/verispec/core/evidence/wire/WorkloadDto;
+}
+
+public final class ai/verispec/core/evidence/wire/MemoryEnvelopeDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/MemoryEnvelopeDto$Companion;
+	public fun <init> (JJLjava/lang/Long;JJ)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/lang/Long;
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun copy (JJLjava/lang/Long;JJ)Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;JJLjava/lang/Long;JJILjava/lang/Object;)Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvailableAtEndKb ()J
+	public final fun getAvailableAtStartKb ()J
+	public final fun getPeakNativeHeapKb ()J
+	public final fun getPeakPssKb ()J
+	public final fun getPeakRssKb ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/MemoryEnvelopeDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/MemoryEnvelopeDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/MemoryEnvelopeDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ModelRefDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ModelRefDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;Lai/verispec/core/evidence/wire/QuantizationDto;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/Long;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/QuantizationDto;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;Lai/verispec/core/evidence/wire/QuantizationDto;Ljava/lang/String;)Lai/verispec/core/evidence/wire/ModelRefDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ModelRefDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;Lai/verispec/core/evidence/wire/QuantizationDto;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ModelRefDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFormat ()Ljava/lang/String;
+	public final fun getParameterCount ()Ljava/lang/Long;
+	public final fun getQuantization ()Lai/verispec/core/evidence/wire/QuantizationDto;
+	public final fun getSha256 ()Ljava/lang/String;
+	public final fun getSourceUri ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ModelRefDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ModelRefDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ModelRefDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ModelRefDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ModelRefDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ObservationsDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ObservationsDto$Companion;
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/evidence/wire/PreconditionOutcomeDto;Lai/verispec/core/evidence/wire/TelemetryInventoryDto;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/evidence/wire/PreconditionOutcomeDto;Lai/verispec/core/evidence/wire/TelemetryInventoryDto;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component10 ()Lai/verispec/core/evidence/wire/TelemetryInventoryDto;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()J
+	public final fun component8 ()J
+	public final fun component9 ()Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/evidence/wire/PreconditionOutcomeDto;Lai/verispec/core/evidence/wire/TelemetryInventoryDto;)Lai/verispec/core/evidence/wire/ObservationsDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/evidence/wire/PreconditionOutcomeDto;Lai/verispec/core/evidence/wire/TelemetryInventoryDto;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ObservationsDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIterations ()Ljava/util/List;
+	public final fun getMemoryPeaks ()Lai/verispec/core/evidence/wire/MemoryEnvelopeDto;
+	public final fun getOutputDigests ()Ljava/util/List;
+	public final fun getPowerTimeline ()Ljava/util/List;
+	public final fun getPreconditions ()Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;
+	public final fun getRunDurationMillis ()J
+	public final fun getRunStartedAtEpochMillis ()J
+	public final fun getStoppedEarlyReason ()Ljava/lang/String;
+	public final fun getTelemetry ()Lai/verispec/core/evidence/wire/TelemetryInventoryDto;
+	public final fun getThermalTimeline ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ObservationsDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ObservationsDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ObservationsDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ObservationsDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ObservationsDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/OutputDigestDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/OutputDigestDto$Companion;
+	public fun <init> (ILjava/lang/String;Ljava/util/List;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (ILjava/lang/String;Ljava/util/List;)Lai/verispec/core/evidence/wire/OutputDigestDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/OutputDigestDto;ILjava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/OutputDigestDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIterationIndex ()I
+	public final fun getLogitProjection ()Ljava/util/List;
+	public final fun getSha256 ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/OutputDigestDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/OutputDigestDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/OutputDigestDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/OutputDigestDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/OutputDigestDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/PowerSampleDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/PowerSampleDto$Companion;
+	public fun <init> (JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Ljava/lang/Boolean;
+	public final fun copy (JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;)Lai/verispec/core/evidence/wire/PowerSampleDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/PowerSampleDto;JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/PowerSampleDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBatteryLevelPercent ()Ljava/lang/Integer;
+	public final fun getBatteryTemperatureDeciC ()Ljava/lang/Integer;
+	public final fun getCurrentMicroAmps ()Ljava/lang/Long;
+	public final fun getElapsedMillis ()J
+	public final fun getScreenOn ()Ljava/lang/Boolean;
+	public final fun getVoltageMilliVolts ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public final fun isCharging ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/PowerSampleDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/PowerSampleDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/PowerSampleDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/PowerSampleDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/PowerSampleDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/PreconditionOutcomeDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/PreconditionOutcomeDto$Companion;
+	public fun <init> (ZJLjava/util/List;Lai/verispec/core/evidence/wire/DeviceConditionsDto;)V
+	public final fun component1 ()Z
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/DeviceConditionsDto;
+	public final fun copy (ZJLjava/util/List;Lai/verispec/core/evidence/wire/DeviceConditionsDto;)Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;ZJLjava/util/List;Lai/verispec/core/evidence/wire/DeviceConditionsDto;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConditionsAtStart ()Lai/verispec/core/evidence/wire/DeviceConditionsDto;
+	public final fun getSatisfied ()Z
+	public final fun getUnmetAtStart ()Ljava/util/List;
+	public final fun getWaitedMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/PreconditionOutcomeDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/PreconditionOutcomeDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/PreconditionOutcomeDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/PreconditionOutcomeDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/PreconditionPolicyDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/PreconditionPolicyDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/Float;ZILjava/lang/String;JJZ)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Z
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()J
+	public final fun component7 ()J
+	public final fun component8 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/Float;ZILjava/lang/String;JJZ)Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/PreconditionPolicyDto;Ljava/lang/String;Ljava/lang/Float;ZILjava/lang/String;JJZILjava/lang/Object;)Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxWaitMillis ()J
+	public final fun getMinBatteryPercent ()I
+	public final fun getMinHeadroomMargin ()Ljava/lang/Float;
+	public final fun getProceedIfUnmet ()Z
+	public final fun getRequireUnplugged ()Z
+	public final fun getRequiredThermalStatus ()Ljava/lang/String;
+	public final fun getScreenPolicy ()Ljava/lang/String;
+	public final fun getStabilizationWindowMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/PreconditionPolicyDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/PreconditionPolicyDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/PreconditionPolicyDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/PreconditionPolicyDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/PreconditionPolicyDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ProvenanceDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ProvenanceDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()J
+	public final fun component12 ()Ljava/util/List;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/util/List;)Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ProvenanceDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/util/List;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCapturedAtEpochMillis ()J
+	public final fun getDelegate ()Ljava/lang/String;
+	public final fun getDelegateActuallyUsed ()Ljava/lang/String;
+	public final fun getGpuDriverVersion ()Ljava/lang/String;
+	public final fun getModelFormat ()Ljava/lang/String;
+	public final fun getModelSha256 ()Ljava/lang/String;
+	public final fun getNotes ()Ljava/util/List;
+	public final fun getNpuDriverVersion ()Ljava/lang/String;
+	public final fun getRuntime ()Ljava/lang/String;
+	public final fun getRuntimeVersionDeclared ()Ljava/lang/String;
+	public final fun getRuntimeVersionObserved ()Ljava/lang/String;
+	public final fun getToolVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ProvenanceDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ProvenanceDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ProvenanceDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ProvenanceDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/QuantizationDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/QuantizationDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/Double;Z)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Double;
+	public final fun component3 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/Double;Z)Lai/verispec/core/evidence/wire/QuantizationDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/QuantizationDto;Ljava/lang/String;Ljava/lang/Double;ZILjava/lang/Object;)Lai/verispec/core/evidence/wire/QuantizationDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBitsPerWeight ()Ljava/lang/Double;
+	public final fun getScheme ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isFloatingPoint ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/QuantizationDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/QuantizationDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/QuantizationDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/QuantizationDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/QuantizationDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/RunScheduleDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/RunScheduleDto$Companion;
+	public fun <init> (IIJLjava/lang/Long;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/lang/Long;
+	public final fun copy (IIJLjava/lang/Long;)Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/RunScheduleDto;IIJLjava/lang/Long;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInterIterationDelayMillis ()J
+	public final fun getIterations ()I
+	public final fun getSustainedDurationMillis ()Ljava/lang/Long;
+	public final fun getWarmupIterations ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/RunScheduleDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/RunScheduleDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/RunScheduleDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/RunScheduleDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/RunScheduleDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/SignatureDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/SignatureDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JZZLjava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()J
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JZZLjava/lang/String;)Lai/verispec/core/evidence/wire/SignatureDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/SignatureDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JZZLjava/lang/String;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/SignatureDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAlgorithm ()Ljava/lang/String;
+	public final fun getAttestationChallenge ()Ljava/lang/String;
+	public final fun getHardwareBacked ()Z
+	public final fun getKeyId ()Ljava/lang/String;
+	public final fun getSignature ()Ljava/lang/String;
+	public final fun getSignedAtEpochMillis ()J
+	public final fun getStrongBox ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/SignatureDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/SignatureDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/SignatureDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/SignatureDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/SignatureDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/SocDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/SocDto$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lai/verispec/core/evidence/wire/SocDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/SocDto;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/SocDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Ljava/lang/String;
+	public final fun getRevision ()Ljava/lang/String;
+	public final fun getVendor ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/SocDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/SocDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/SocDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/SocDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/SocDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/TelemetryInventoryDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/TelemetryInventoryDto$Companion;
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Lai/verispec/core/evidence/wire/TelemetryInventoryDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/TelemetryInventoryDto;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/TelemetryInventoryDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReadable ()Ljava/util/List;
+	public final fun getUnavailable ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/TelemetryInventoryDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/TelemetryInventoryDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/TelemetryInventoryDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/TelemetryInventoryDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/TelemetryInventoryDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ThermalSampleDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/ThermalSampleDto$Companion;
+	public fun <init> (JLjava/lang/String;Ljava/lang/Float;Ljava/util/Map;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/Float;
+	public final fun component4 ()Ljava/util/Map;
+	public final fun copy (JLjava/lang/String;Ljava/lang/Float;Ljava/util/Map;)Lai/verispec/core/evidence/wire/ThermalSampleDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/ThermalSampleDto;JLjava/lang/String;Ljava/lang/Float;Ljava/util/Map;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/ThermalSampleDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getElapsedMillis ()J
+	public final fun getHeadroom ()Ljava/lang/Float;
+	public final fun getStatus ()Ljava/lang/String;
+	public final fun getZoneTemperaturesCelsius ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/ThermalSampleDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/ThermalSampleDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/ThermalSampleDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/ThermalSampleDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/ThermalSampleDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/UnsignedBundleDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/UnsignedBundleDto$Companion;
+	public fun <init> (Ljava/lang/String;Lai/verispec/core/evidence/wire/ManifestDto;Lai/verispec/core/evidence/wire/DeviceProfileDto;Lai/verispec/core/evidence/wire/ProvenanceDto;Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/evidence/wire/ManifestDto;
+	public final fun component3 ()Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public final fun component4 ()Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public final fun component5 ()Lai/verispec/core/evidence/wire/ObservationsDto;
+	public final fun component6 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Lai/verispec/core/evidence/wire/ManifestDto;Lai/verispec/core/evidence/wire/DeviceProfileDto;Lai/verispec/core/evidence/wire/ProvenanceDto;Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;)Lai/verispec/core/evidence/wire/UnsignedBundleDto;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/UnsignedBundleDto;Ljava/lang/String;Lai/verispec/core/evidence/wire/ManifestDto;Lai/verispec/core/evidence/wire/DeviceProfileDto;Lai/verispec/core/evidence/wire/ProvenanceDto;Lai/verispec/core/evidence/wire/ObservationsDto;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/evidence/wire/UnsignedBundleDto;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClauseCoverage ()Ljava/util/List;
+	public final fun getDevice ()Lai/verispec/core/evidence/wire/DeviceProfileDto;
+	public final fun getManifest ()Lai/verispec/core/evidence/wire/ManifestDto;
+	public final fun getObservations ()Lai/verispec/core/evidence/wire/ObservationsDto;
+	public final fun getProvenance ()Lai/verispec/core/evidence/wire/ProvenanceDto;
+	public final fun getSchemaVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/UnsignedBundleDto$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/UnsignedBundleDto$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/UnsignedBundleDto;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/UnsignedBundleDto;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/UnsignedBundleDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class ai/verispec/core/evidence/wire/WorkloadDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/WorkloadDto$Companion;
+}
+
+public final class ai/verispec/core/evidence/wire/WorkloadDto$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/WorkloadDto$TensorInference : ai/verispec/core/evidence/wire/WorkloadDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/WorkloadDto$TensorInference$Companion;
+	public fun <init> (Ljava/util/List;DD)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun copy (Ljava/util/List;DD)Lai/verispec/core/evidence/wire/WorkloadDto$TensorInference;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/WorkloadDto$TensorInference;Ljava/util/List;DDILjava/lang/Object;)Lai/verispec/core/evidence/wire/WorkloadDto$TensorInference;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInputMax ()D
+	public final fun getInputMin ()D
+	public final fun getInputShape ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/WorkloadDto$TensorInference$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/WorkloadDto$TensorInference$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/WorkloadDto$TensorInference;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/WorkloadDto$TensorInference;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/WorkloadDto$TensorInference$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/WorkloadDto$TextGeneration : ai/verispec/core/evidence/wire/WorkloadDto {
+	public static final field Companion Lai/verispec/core/evidence/wire/WorkloadDto$TextGeneration$Companion;
+	public fun <init> (Ljava/util/List;IDI)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()I
+	public final fun component3 ()D
+	public final fun component4 ()I
+	public final fun copy (Ljava/util/List;IDI)Lai/verispec/core/evidence/wire/WorkloadDto$TextGeneration;
+	public static synthetic fun copy$default (Lai/verispec/core/evidence/wire/WorkloadDto$TextGeneration;Ljava/util/List;IDIILjava/lang/Object;)Lai/verispec/core/evidence/wire/WorkloadDto$TextGeneration;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxNewTokens ()I
+	public final fun getPrompts ()Ljava/util/List;
+	public final fun getTemperature ()D
+	public final fun getTopK ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class ai/verispec/core/evidence/wire/WorkloadDto$TextGeneration$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lai/verispec/core/evidence/wire/WorkloadDto$TextGeneration$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lai/verispec/core/evidence/wire/WorkloadDto$TextGeneration;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lai/verispec/core/evidence/wire/WorkloadDto$TextGeneration;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class ai/verispec/core/evidence/wire/WorkloadDto$TextGeneration$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+

@@ -1,0 +1,98 @@
+# VeriSpec-AI clause catalog — ISO/IEC 42001:2023 AI management system.
+# Paraphrased controls; not standard text.
+catalogVersion: "2026.1"
+framework: ISO_IEC_42001
+source: "ISO/IEC 42001:2023, clauses 6, 8, 9 and Annex A controls"
+clauses:
+  - id: ISO42001-6.1.2
+    reference: "6.1.2"
+    title: "AI risk assessment"
+    requirement: >
+      The organisation shall define and apply an AI risk assessment process that
+      identifies risks related to the AI system's performance and its operating
+      environment, and that produces consistent, comparable results.
+    evidence: [PERFORMANCE_ENVELOPE, THERMAL_TIMELINE, NUMERICAL_DIVERGENCE, CAPABILITY_GAPS_RECORDED]
+    rationale: >
+      Performance degradation under sustained load and cross-device divergence are
+      operating-environment risks that can only be assessed with measurements.
+
+  - id: ISO42001-6.1.4
+    reference: "6.1.4"
+    title: "AI system impact assessment"
+    requirement: >
+      The organisation shall assess the potential consequences for individuals and
+      society of the AI system across its lifecycle, including foreseeable misuse
+      and degraded operating conditions.
+    evidence: [PERFORMANCE_ENVELOPE, QUANTIZATION_DELTA, OUTPUT_PRIVACY]
+    rationale: >
+      Quantization loss is a foreseeable degradation with user impact. Evidence
+      that carries no raw outputs limits the impact of the evidence itself.
+
+  - id: ISO42001-8.4
+    reference: "8.4"
+    title: "AI system impact assessment in operation"
+    requirement: >
+      Planned changes shall be controlled and the consequences of unintended
+      changes reviewed, with action taken to mitigate adverse effects.
+    evidence: [REPRODUCIBLE_MANIFEST, MODEL_PROVENANCE, RUNTIME_PROVENANCE, DRIVER_PROVENANCE]
+    rationale: >
+      A driver or runtime update is an unintended change to a deployed model's
+      behaviour. Provenance in every bundle makes such changes detectable.
+
+  - id: ISO42001-9.1
+    reference: "9.1"
+    title: "Monitoring, measurement, analysis and evaluation"
+    requirement: >
+      The organisation shall determine what needs to be monitored and measured, the
+      methods ensuring valid results, when the measurement is performed and when
+      results are analysed, and retain documented information as evidence.
+    evidence: [REPRODUCIBLE_MANIFEST, PERFORMANCE_ENVELOPE, SIGNATURE]
+    rationale: >
+      "Methods ensuring valid results" is satisfied by a reproducible manifest and
+      identical measurement paths per backend; "documented information" by the
+      signed bundle.
+
+  - id: ISO42001-A.6.2.4
+    reference: "Annex A, A.6.2.4"
+    title: "AI system verification and validation"
+    requirement: >
+      The organisation shall define and document verification and validation
+      measures for the AI system and specify criteria for their use.
+    evidence: [REPRODUCIBLE_MANIFEST, PERFORMANCE_ENVELOPE, QUANTIZATION_DELTA, NUMERICAL_DIVERGENCE]
+    rationale: >
+      The manifest is the documented measure; envelope, delta and divergence are
+      the criteria it produces.
+
+  - id: ISO42001-A.6.2.6
+    reference: "Annex A, A.6.2.6"
+    title: "AI system operation and monitoring"
+    requirement: >
+      The organisation shall define the necessary elements for the ongoing
+      operation of the AI system, including performance monitoring and
+      management of the technical environment.
+    evidence: [DEVICE_PROFILE, THERMAL_TIMELINE, POWER_TIMELINE, MEMORY_ENVELOPE]
+    rationale: >
+      On a fleet the "technical environment" is the device: its SoC, drivers,
+      thermal behaviour and memory. These are captured per run.
+
+  - id: ISO42001-A.6.2.8
+    reference: "Annex A, A.6.2.8"
+    title: "AI system recording of event logs"
+    requirement: >
+      The organisation shall determine at which phases of the AI system lifecycle
+      record keeping of event logs should be enabled, and what is to be logged.
+    evidence: [SIGNATURE, HARDWARE_ATTESTATION, OUTPUT_PRIVACY]
+    rationale: >
+      An evidence bundle is a tamper-evident event log for a validation run; the
+      attestation proves where and when it was created.
+
+  - id: ISO42001-A.7.5
+    reference: "Annex A, A.7.5"
+    title: "Data provenance"
+    requirement: >
+      The organisation shall document provenance of data and artefacts used to
+      develop and operate the AI system.
+    evidence: [MODEL_PROVENANCE, RUNTIME_PROVENANCE, DRIVER_PROVENANCE]
+    rationale: >
+      The model artifact hash, runtime build and driver version are the provenance
+      of what actually executed.

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VeriSpec-AI</string>
+    <string name="nav_run">Run</string>
+    <string name="nav_bundles">Bundles</string>
+    <string name="nav_fleet">Fleet</string>
+    <string name="nav_verify">Verify</string>
+</resources>

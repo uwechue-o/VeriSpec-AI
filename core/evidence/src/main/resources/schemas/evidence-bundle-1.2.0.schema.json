@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://verispec.ai/schemas/evidence-bundle/1.2.0",
+  "title": "VeriSpec-AI Evidence Bundle",
+  "description": "Signed, canonical, self-describing conformance evidence for one on-device AI run. Published independently of the Kotlin code; downstream tools target this schema. 1.1.0 adds the optional precondition gate (manifest.preconditions, observations.preconditions); both are absent, never null, when unused, so every 1.0.0 bundle is also a valid 1.1.0 bundle. 1.2.0 adds, the same way, battery temperature and screen state per power sample, CPU/GPU clocks per iteration, observations.telemetry (which hardware signals were readable) and the ON_DIMMED screen policy; every 1.1.0 bundle is also a valid 1.2.0 bundle.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["documentType", "bundleId", "schemaVersion", "manifest", "device", "provenance", "observations", "clauseCoverage", "signature", "attestationChain"],
+  "properties": {
+    "documentType": { "const": "ai.verispec.evidence-bundle" },
+    "bundleId": { "$ref": "#/$defs/sha256" },
+    "schemaVersion": { "$ref": "#/$defs/semver" },
+    "manifest": { "$ref": "#/$defs/manifest" },
+    "device": { "$ref": "#/$defs/device" },
+    "provenance": { "$ref": "#/$defs/provenance" },
+    "observations": { "$ref": "#/$defs/observations" },
+    "clauseCoverage": { "type": "array", "items": { "$ref": "#/$defs/clauseCoverage" } },
+    "signature": { "$ref": "#/$defs/signature" },
+    "attestationChain": {
+      "type": "array",
+      "description": "Base64 DER X.509 certificates, leaf first.",
+      "items": { "$ref": "#/$defs/base64" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "semver": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$" },
+    "base64": { "type": "string", "pattern": "^[A-Za-z0-9+/]*={0,2}$" },
+    "nullableString": { "type": ["string", "null"] },
+    "modelFormat": { "enum": ["GGUF", "LITERT", "EXECUTORCH", "TFLITE", "ONNX"] },
+    "runtime": { "enum": ["LITERT", "LITERT_LM", "LLAMA_CPP", "EXECUTORCH", "MEDIAPIPE", "ONNX_RUNTIME"] },
+    "delegate": { "enum": ["CPU", "GPU", "NNAPI", "QNN", "VENDOR_NPU"] },
+    "thermalStatus": { "enum": ["NONE", "LIGHT", "MODERATE", "SEVERE", "CRITICAL", "EMERGENCY", "SHUTDOWN", "UNKNOWN"] },
+    "preconditionPolicy": {
+      "type": "object", "additionalProperties": false,
+      "description": "The device state the run had to start from. Part of the hashed manifest.",
+      "required": ["requiredThermalStatus", "minHeadroomMargin", "requireUnplugged", "minBatteryPercent", "screenPolicy", "stabilizationWindowMillis", "maxWaitMillis", "proceedIfUnmet"],
+      "properties": {
+        "requiredThermalStatus": { "$ref": "#/$defs/thermalStatus" },
+        "minHeadroomMargin": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "requireUnplugged": { "type": "boolean" },
+        "minBatteryPercent": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "screenPolicy": { "enum": ["OFF", "ON", "ON_DIMMED"] },
+        "stabilizationWindowMillis": { "type": "integer", "minimum": 0 },
+        "maxWaitMillis": { "type": "integer", "minimum": 1 },
+        "proceedIfUnmet": { "type": "boolean" }
+      }
+    },
+    "deviceConditions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["thermalStatus", "thermalHeadroom", "batteryPercent", "plugged", "screenOn", "batteryTemperatureDeciC"],
+      "properties": {
+        "thermalStatus": { "$ref": "#/$defs/thermalStatus" },
+        "thermalHeadroom": { "type": ["number", "null"] },
+        "batteryPercent": { "type": ["integer", "null"] },
+        "plugged": { "type": "boolean" },
+        "screenOn": { "type": "boolean" },
+        "batteryTemperatureDeciC": { "type": ["integer", "null"] }
+      }
+    },
+    "preconditionOutcome": {
+      "type": "object", "additionalProperties": false,
+      "description": "What the precondition gate found when the run started.",
+      "required": ["satisfied", "waitedMillis", "unmetAtStart", "conditionsAtStart"],
+      "properties": {
+        "satisfied": { "type": "boolean" },
+        "waitedMillis": { "type": "integer", "minimum": 0 },
+        "unmetAtStart": { "type": "array", "items": { "type": "string" } },
+        "conditionsAtStart": { "$ref": "#/$defs/deviceConditions" }
+      }
+    },
+    "framework": { "enum": ["EU_AI_ACT", "ISO_IEC_42001", "ISO_PAS_8800", "FDA_PCCP"] },
+    "evidenceRequirement": {
+      "enum": ["REPRODUCIBLE_MANIFEST", "MODEL_PROVENANCE", "RUNTIME_PROVENANCE", "DRIVER_PROVENANCE", "DEVICE_PROFILE", "PERFORMANCE_ENVELOPE", "THERMAL_TIMELINE", "POWER_TIMELINE", "MEMORY_ENVELOPE", "NUMERICAL_DIVERGENCE", "QUANTIZATION_DELTA", "OUTPUT_PRIVACY", "SIGNATURE", "HARDWARE_ATTESTATION", "CAPABILITY_GAPS_RECORDED"]
+    },
+
+    "quantization": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scheme", "bitsPerWeight", "isFloatingPoint"],
+      "properties": {
+        "scheme": { "type": "string", "minLength": 1 },
+        "bitsPerWeight": { "type": ["number", "null"] },
+        "isFloatingPoint": { "type": "boolean" }
+      }
+    },
+    "modelRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["format", "sha256", "parameterCount", "quantization", "sourceUri"],
+      "properties": {
+        "format": { "$ref": "#/$defs/modelFormat" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "parameterCount": { "type": ["integer", "null"] },
+        "quantization": { "$ref": "#/$defs/quantization" },
+        "sourceUri": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+    "backendRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["runtime", "runtimeVersion", "delegate", "threadCount"],
+      "properties": {
+        "runtime": { "$ref": "#/$defs/runtime" },
+        "runtimeVersion": { "$ref": "#/$defs/semver" },
+        "delegate": { "$ref": "#/$defs/delegate" },
+        "threadCount": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "workload": {
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "prompts", "maxNewTokens", "temperature", "topK"],
+          "properties": {
+            "type": { "const": "text_generation" },
+            "prompts": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "maxNewTokens": { "type": "integer", "minimum": 1 },
+            "temperature": { "type": "number" },
+            "topK": { "type": "integer" }
+          }
+        },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "inputShape", "inputMin", "inputMax"],
+          "properties": {
+            "type": { "const": "tensor_inference" },
+            "inputShape": { "type": "array", "minItems": 1, "items": { "type": "integer", "minimum": 1 } },
+            "inputMin": { "type": "number" },
+            "inputMax": { "type": "number" }
+          }
+        }
+      ]
+    },
+    "schedule": {
+      "type": "object", "additionalProperties": false,
+      "required": ["iterations", "warmupIterations", "interIterationDelayMillis", "sustainedDurationMillis"],
+      "properties": {
+        "iterations": { "type": "integer", "minimum": 1 },
+        "warmupIterations": { "type": "integer", "minimum": 0 },
+        "interIterationDelayMillis": { "type": "integer", "minimum": 0 },
+        "sustainedDurationMillis": { "type": ["integer", "null"] }
+      }
+    },
+    "manifest": {
+      "type": "object", "additionalProperties": false,
+      "required": ["manifestId", "model", "backend", "workload", "schedule", "seed", "toolVersion", "label"],
+      "properties": {
+        "manifestId": { "$ref": "#/$defs/sha256" },
+        "model": { "$ref": "#/$defs/modelRef" },
+        "backend": { "$ref": "#/$defs/backendRef" },
+        "workload": { "$ref": "#/$defs/workload" },
+        "schedule": { "$ref": "#/$defs/schedule" },
+        "seed": { "type": "integer" },
+        "toolVersion": { "$ref": "#/$defs/semver" },
+        "label": { "type": "string" },
+        "preconditions": { "$ref": "#/$defs/preconditionPolicy" }
+      }
+    },
+    "device": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fingerprint", "manufacturer", "deviceModel", "soc", "npuDriverVersion", "gpuDriverVersion", "gpuRenderer", "androidRelease", "apiLevel", "securityPatch", "totalRamBytes", "cpuCoreCount", "supportedAbis", "thermalHalVersion", "kernelVersion"],
+      "properties": {
+        "fingerprint": { "type": "string" },
+        "manufacturer": { "type": "string" },
+        "deviceModel": { "type": "string" },
+        "soc": {
+          "type": "object", "additionalProperties": false,
+          "required": ["vendor", "model", "revision"],
+          "properties": {
+            "vendor": { "type": "string" },
+            "model": { "type": "string" },
+            "revision": { "$ref": "#/$defs/nullableString" }
+          }
+        },
+        "npuDriverVersion": { "$ref": "#/$defs/nullableString" },
+        "gpuDriverVersion": { "$ref": "#/$defs/nullableString" },
+        "gpuRenderer": { "$ref": "#/$defs/nullableString" },
+        "androidRelease": { "type": "string" },
+        "apiLevel": { "type": "integer" },
+        "securityPatch": { "type": "string", "format": "date" },
+        "totalRamBytes": { "type": "integer" },
+        "cpuCoreCount": { "type": "integer" },
+        "supportedAbis": { "type": "array", "items": { "type": "string" } },
+        "thermalHalVersion": { "$ref": "#/$defs/nullableString" },
+        "kernelVersion": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["modelSha256", "modelFormat", "runtime", "runtimeVersionDeclared", "runtimeVersionObserved", "delegate", "delegateActuallyUsed", "npuDriverVersion", "gpuDriverVersion", "toolVersion", "capturedAtEpochMillis", "notes"],
+      "properties": {
+        "modelSha256": { "$ref": "#/$defs/sha256" },
+        "modelFormat": { "$ref": "#/$defs/modelFormat" },
+        "runtime": { "$ref": "#/$defs/runtime" },
+        "runtimeVersionDeclared": { "$ref": "#/$defs/semver" },
+        "runtimeVersionObserved": { "$ref": "#/$defs/nullableString" },
+        "delegate": { "$ref": "#/$defs/delegate" },
+        "delegateActuallyUsed": { "$ref": "#/$defs/delegate" },
+        "npuDriverVersion": { "$ref": "#/$defs/nullableString" },
+        "gpuDriverVersion": { "$ref": "#/$defs/nullableString" },
+        "toolVersion": { "$ref": "#/$defs/semver" },
+        "capturedAtEpochMillis": { "type": "integer" },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "iteration": {
+      "type": "object", "additionalProperties": false,
+      "required": ["index", "elapsedMillis", "timeToFirstTokenMicros", "totalMicros", "prefillTokens", "decodeTokens", "decodeTokensPerSecond", "prefillTokensPerSecond", "thermalStatusAtStart", "thermalStatusAtEnd", "wasThrottled"],
+      "properties": {
+        "index": { "type": "integer", "minimum": 0 },
+        "elapsedMillis": { "type": "integer", "minimum": 0 },
+        "timeToFirstTokenMicros": { "type": "integer", "minimum": 0 },
+        "totalMicros": { "type": "integer", "minimum": 0 },
+        "prefillTokens": { "type": "integer", "minimum": 0 },
+        "decodeTokens": { "type": "integer", "minimum": 0 },
+        "decodeTokensPerSecond": { "type": "number" },
+        "prefillTokensPerSecond": { "type": "number" },
+        "thermalStatusAtStart": { "$ref": "#/$defs/thermalStatus" },
+        "thermalStatusAtEnd": { "$ref": "#/$defs/thermalStatus" },
+        "wasThrottled": { "type": "boolean" },
+        "clocks": { "$ref": "#/$defs/clockReading" }
+      }
+    },
+    "clockReading": {
+      "type": "object", "additionalProperties": false,
+      "description": "Read after the iteration, outside its timed region. cpuKhz is per core and absent unless every core was readable.",
+      "properties": {
+        "cpuKhz": { "type": "array", "items": { "type": "integer", "minimum": 0 } },
+        "gpuKhz": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "telemetryInventory": {
+      "type": "object", "additionalProperties": false,
+      "required": ["readable", "unavailable"],
+      "properties": {
+        "readable": { "type": "array", "items": { "type": "string" } },
+        "unavailable": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "thermalSample": {
+      "type": "object", "additionalProperties": false,
+      "required": ["elapsedMillis", "status", "headroom", "zoneTemperaturesCelsius"],
+      "properties": {
+        "elapsedMillis": { "type": "integer" },
+        "status": { "$ref": "#/$defs/thermalStatus" },
+        "headroom": { "type": ["number", "null"] },
+        "zoneTemperaturesCelsius": { "type": "object", "additionalProperties": { "type": "number" } }
+      }
+    },
+    "powerSample": {
+      "type": "object", "additionalProperties": false,
+      "required": ["elapsedMillis", "currentMicroAmps", "voltageMilliVolts", "batteryLevelPercent", "isCharging"],
+      "properties": {
+        "elapsedMillis": { "type": "integer" },
+        "currentMicroAmps": { "type": ["integer", "null"] },
+        "voltageMilliVolts": { "type": ["integer", "null"] },
+        "batteryLevelPercent": { "type": ["integer", "null"] },
+        "isCharging": { "type": "boolean" },
+        "batteryTemperatureDeciC": { "type": "integer", "description": "Tenths of a degree Celsius." },
+        "screenOn": { "type": "boolean" }
+      }
+    },
+    "memoryEnvelope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["peakPssKb", "peakNativeHeapKb", "peakRssKb", "availableAtStartKb", "availableAtEndKb"],
+      "properties": {
+        "peakPssKb": { "type": "integer" },
+        "peakNativeHeapKb": { "type": "integer" },
+        "peakRssKb": { "type": ["integer", "null"] },
+        "availableAtStartKb": { "type": "integer" },
+        "availableAtEndKb": { "type": "integer" }
+      }
+    },
+    "outputDigest": {
+      "type": "object", "additionalProperties": false,
+      "description": "Never raw output. Hash plus optional fixed-size numeric projection.",
+      "required": ["iterationIndex", "sha256", "logitProjection"],
+      "properties": {
+        "iterationIndex": { "type": "integer", "minimum": 0 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "logitProjection": { "type": ["array", "null"], "items": { "type": "number" } }
+      }
+    },
+    "observations": {
+      "type": "object", "additionalProperties": false,
+      "required": ["iterations", "thermalTimeline", "powerTimeline", "memoryPeaks", "outputDigests", "stoppedEarlyReason", "runStartedAtEpochMillis", "runDurationMillis"],
+      "properties": {
+        "iterations": { "type": "array", "items": { "$ref": "#/$defs/iteration" } },
+        "thermalTimeline": { "type": "array", "items": { "$ref": "#/$defs/thermalSample" } },
+        "powerTimeline": { "type": "array", "items": { "$ref": "#/$defs/powerSample" } },
+        "memoryPeaks": { "$ref": "#/$defs/memoryEnvelope" },
+        "outputDigests": { "type": "array", "items": { "$ref": "#/$defs/outputDigest" } },
+        "stoppedEarlyReason": { "$ref": "#/$defs/nullableString" },
+        "runStartedAtEpochMillis": { "type": "integer" },
+        "runDurationMillis": { "type": "integer", "minimum": 0 },
+        "preconditions": { "$ref": "#/$defs/preconditionOutcome" },
+        "telemetry": { "$ref": "#/$defs/telemetryInventory" }
+      }
+    },
+    "clauseCoverage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["clauseId", "framework", "reference", "title", "status", "satisfied", "missing", "gapDescription"],
+      "properties": {
+        "clauseId": { "type": "string", "minLength": 1 },
+        "framework": { "$ref": "#/$defs/framework" },
+        "reference": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "enum": ["SATISFIED", "PARTIAL", "NOT_COVERED"] },
+        "satisfied": { "type": "array", "items": { "$ref": "#/$defs/evidenceRequirement" } },
+        "missing": { "type": "array", "items": { "$ref": "#/$defs/evidenceRequirement" } },
+        "gapDescription": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+    "signature": {
+      "type": "object", "additionalProperties": false,
+      "required": ["algorithm", "signature", "keyId", "signedAtEpochMillis", "hardwareBacked", "strongBox", "attestationChallenge"],
+      "properties": {
+        "algorithm": { "type": "string" },
+        "signature": { "$ref": "#/$defs/base64" },
+        "keyId": { "$ref": "#/$defs/sha256" },
+        "signedAtEpochMillis": { "type": "integer" },
+        "hardwareBacked": { "type": "boolean" },
+        "strongBox": { "type": "boolean" },
+        "attestationChallenge": { "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] }
+      }
+    }
+  }
+}

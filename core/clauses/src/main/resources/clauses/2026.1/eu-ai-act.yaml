@@ -1,0 +1,129 @@
+# VeriSpec-AI clause catalog — EU AI Act (Regulation (EU) 2024/1689), as amended
+# by the Digital Omnibus on AI. Paraphrased obligations; not legal text.
+#
+# Timeline note (2026.1): high-risk obligations for standalone Annex III systems
+# apply from 2027-12-02; for AI embedded in regulated products (Annex I) from
+# 2028-08-02. Catalog versions are immutable; publish a new version on change.
+catalogVersion: "2026.1"
+framework: EU_AI_ACT
+source: "Regulation (EU) 2024/1689, Art. 15 and Annex IV; Digital Omnibus on AI (2025)"
+clauses:
+  - id: EU-AIA-ART15-1
+    reference: "Art. 15(1)"
+    title: "Appropriate level of accuracy, robustness and cybersecurity"
+    requirement: >
+      High-risk AI systems shall be designed and developed to achieve an appropriate
+      level of accuracy, robustness and cybersecurity, and to perform consistently
+      in those respects throughout their lifecycle.
+    evidence: [PERFORMANCE_ENVELOPE, THERMAL_TIMELINE, NUMERICAL_DIVERGENCE, QUANTIZATION_DELTA]
+    rationale: >
+      "Perform consistently throughout the lifecycle" on a device fleet means the
+      same model must behave the same across SoCs, delegates and thermal states.
+      Divergence and decay measurements are the direct evidence.
+
+  - id: EU-AIA-ART15-2
+    reference: "Art. 15(2)"
+    title: "Measurement of accuracy and relevant metrics"
+    requirement: >
+      Technical aspects of how to measure the appropriate levels of accuracy and
+      robustness shall be addressed, including through benchmarks and measurement
+      methodologies.
+    evidence: [REPRODUCIBLE_MANIFEST, PERFORMANCE_ENVELOPE, QUANTIZATION_DELTA]
+    rationale: >
+      A hashed manifest is a benchmark definition that can be re-run by a third
+      party; the quantization delta is the accuracy metric against the FP reference.
+
+  - id: EU-AIA-ART15-3
+    reference: "Art. 15(3)"
+    title: "Declared accuracy levels and metrics in instructions for use"
+    requirement: >
+      The levels of accuracy and the relevant accuracy metrics shall be declared in
+      the accompanying instructions of use.
+    evidence: [PERFORMANCE_ENVELOPE, QUANTIZATION_DELTA, DEVICE_PROFILE]
+    rationale: >
+      Declared numbers must be tied to the hardware they were measured on; the
+      device profile makes the declaration specific rather than generic.
+
+  - id: EU-AIA-ART15-4
+    reference: "Art. 15(4)"
+    title: "Resilience to errors, faults and inconsistencies"
+    requirement: >
+      High-risk AI systems shall be as resilient as possible regarding errors,
+      faults or inconsistencies that may occur within the system or its environment,
+      in particular due to interaction with natural persons or other systems.
+    evidence: [THERMAL_TIMELINE, POWER_TIMELINE, MEMORY_ENVELOPE, CAPABILITY_GAPS_RECORDED]
+    rationale: >
+      Thermal throttling, low battery and memory pressure are the environmental
+      inconsistencies an on-device model actually meets. Recording capability gaps
+      (missing delegates) instead of crashing is resilience made visible.
+
+  - id: EU-AIA-ART15-5
+    reference: "Art. 15(5)"
+    title: "Resilience against unauthorised third-party alteration"
+    requirement: >
+      High-risk AI systems shall be resilient against attempts by unauthorised third
+      parties to alter their use, outputs or performance by exploiting vulnerabilities.
+    evidence: [MODEL_PROVENANCE, SIGNATURE, HARDWARE_ATTESTATION]
+    rationale: >
+      A hashed model artifact plus a hardware-attested signature over the evidence
+      is the tamper-evidence chain. Without attestation, alteration of the evidence
+      itself cannot be excluded.
+
+  - id: EU-AIA-ANNEX4-1
+    reference: "Annex IV §1"
+    title: "General description of the AI system"
+    requirement: >
+      Technical documentation shall contain a general description of the system,
+      including the hardware on which it is intended to run and the versions of
+      relevant software or firmware.
+    evidence: [DEVICE_PROFILE, RUNTIME_PROVENANCE, DRIVER_PROVENANCE]
+    rationale: >
+      "Versions of relevant software or firmware" includes the NPU driver and the
+      inference runtime. The bundle captures them as observed, not as assumed.
+
+  - id: EU-AIA-ANNEX4-2B
+    reference: "Annex IV §2(b)"
+    title: "Design specifications, key design choices and assumptions"
+    requirement: >
+      Documentation shall describe the design specifications, including the general
+      logic of the system, key design choices, and the main classification choices
+      and trade-offs made.
+    evidence: [REPRODUCIBLE_MANIFEST, MODEL_PROVENANCE, QUANTIZATION_DELTA]
+    rationale: >
+      Quantization is a key design trade-off. The manifest records the choice; the
+      delta records its cost.
+
+  - id: EU-AIA-ANNEX4-2C
+    reference: "Annex IV §2(c)"
+    title: "System architecture and computational resources"
+    requirement: >
+      Documentation shall describe the system architecture and the computational
+      resources used to develop, train, test and validate the system.
+    evidence: [DEVICE_PROFILE, RUNTIME_PROVENANCE, MEMORY_ENVELOPE, PERFORMANCE_ENVELOPE]
+    rationale: >
+      For an on-device system the computational resources at inference time are
+      the SoC, delegate and memory envelope in the bundle.
+
+  - id: EU-AIA-ANNEX4-2G
+    reference: "Annex IV §2(g)"
+    title: "Validation and testing procedures and metrics"
+    requirement: >
+      Documentation shall describe validation and testing procedures, the metrics
+      used to measure accuracy, robustness and cybersecurity, and test logs and
+      reports dated and signed by responsible persons.
+    evidence: [REPRODUCIBLE_MANIFEST, PERFORMANCE_ENVELOPE, SIGNATURE, OUTPUT_PRIVACY]
+    rationale: >
+      A signed bundle is a dated, signed test log. Output digests keep the log
+      free of personal data that raw outputs might contain.
+
+  - id: EU-AIA-ANNEX4-3
+    reference: "Annex IV §3"
+    title: "Monitoring, functioning and control"
+    requirement: >
+      Documentation shall describe the system's capabilities and limitations in
+      performance, including the degree of accuracy for specific persons or groups
+      and the overall expected level of accuracy in relation to its intended purpose.
+    evidence: [PERFORMANCE_ENVELOPE, THERMAL_TIMELINE, NUMERICAL_DIVERGENCE, CAPABILITY_GAPS_RECORDED]
+    rationale: >
+      Limitations include hardware the system does not run correctly on. Cross-
+      device divergence and recorded capability gaps are that limitation list.

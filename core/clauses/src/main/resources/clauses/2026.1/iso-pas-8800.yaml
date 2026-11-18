@@ -1,0 +1,76 @@
+# VeriSpec-AI clause catalog — ISO/PAS 8800:2024 Road vehicles — Safety and AI.
+# Paraphrased requirements; not standard text.
+catalogVersion: "2026.1"
+framework: ISO_PAS_8800
+source: "ISO/PAS 8800:2024, AI safety lifecycle clauses on verification, data, and operational monitoring"
+clauses:
+  - id: ISO8800-AI-SAFETY-REQ
+    reference: "§8 AI safety requirements"
+    title: "Derivation and allocation of AI safety requirements"
+    requirement: >
+      AI safety requirements shall be derived from vehicle-level safety goals and
+      allocated to the AI system, including performance targets under the operating
+      conditions of the target hardware.
+    evidence: [REPRODUCIBLE_MANIFEST, DEVICE_PROFILE, PERFORMANCE_ENVELOPE]
+    rationale: >
+      Performance targets are meaningless without the hardware they apply to. The
+      bundle binds targets to a device profile and a reproducible manifest.
+
+  - id: ISO8800-VERIFICATION
+    reference: "§10 Verification and validation of the AI system"
+    title: "Verification of the AI system against its safety requirements"
+    requirement: >
+      The AI system shall be verified against its safety requirements using
+      documented methods, with evidence that the deployed implementation, not only
+      the trained model, meets the requirements.
+    evidence: [MODEL_PROVENANCE, RUNTIME_PROVENANCE, QUANTIZATION_DELTA, NUMERICAL_DIVERGENCE]
+    rationale: >
+      The deployed implementation is the quantized model on the vehicle SoC's
+      delegate. Quantization delta and cross-SoC divergence verify that artefact,
+      not the floating-point original.
+
+  - id: ISO8800-PERF-INSUFFICIENCY
+    reference: "§9 AI performance insufficiencies"
+    title: "Identification and mitigation of performance insufficiencies"
+    requirement: >
+      Performance insufficiencies of the AI system, including those caused by the
+      execution platform, shall be identified, analysed and mitigated.
+    evidence: [THERMAL_TIMELINE, PERFORMANCE_ENVELOPE, MEMORY_ENVELOPE, CAPABILITY_GAPS_RECORDED]
+    rationale: >
+      Thermal throttling and memory pressure are execution-platform insufficiencies.
+      Recorded capability gaps document where a platform cannot run the model at all.
+
+  - id: ISO8800-HW-INTERACTION
+    reference: "§11 Interaction with hardware and software platform"
+    title: "Dependence on hardware and software platform behaviour"
+    requirement: >
+      The influence of the hardware and software platform, including accelerators,
+      drivers and numerical precision, on the AI system's behaviour shall be
+      analysed and controlled.
+    evidence: [DRIVER_PROVENANCE, RUNTIME_PROVENANCE, NUMERICAL_DIVERGENCE]
+    rationale: >
+      Quantized inference is not bit-identical across vendors. Divergence across
+      SoCs and delegates, with driver versions attached, is the analysis this
+      clause asks for.
+
+  - id: ISO8800-OPERATION-MONITORING
+    reference: "§12 Operation phase"
+    title: "Monitoring of the AI system during operation"
+    requirement: >
+      During operation, the AI system's performance and its execution environment
+      shall be monitored so that deviations from the validated state are detected.
+    evidence: [DEVICE_PROFILE, PERFORMANCE_ENVELOPE, POWER_TIMELINE, THERMAL_TIMELINE]
+    rationale: >
+      Repeating a bundle in the field and diffing it against the validated bundle
+      is how a deviation from the validated state becomes visible.
+
+  - id: ISO8800-EVIDENCE
+    reference: "§13 Safety argumentation and evidence"
+    title: "Safety case evidence for the AI system"
+    requirement: >
+      Evidence supporting the safety argument shall be traceable, reproducible and
+      protected against modification.
+    evidence: [REPRODUCIBLE_MANIFEST, SIGNATURE, HARDWARE_ATTESTATION, OUTPUT_PRIVACY]
+    rationale: >
+      Traceable by content hash, reproducible by manifest, protected by a
+      hardware-attested signature.

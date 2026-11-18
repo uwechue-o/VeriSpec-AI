@@ -1,0 +1,1722 @@
+public final class ai/verispec/core/domain/math/BatteryCurrent {
+	public static final field INSTANCE Lai/verispec/core/domain/math/BatteryCurrent;
+	public static final field MILLIAMP_CEILING J
+	public final fun inferUnit (Ljava/util/List;)Lai/verispec/core/domain/math/BatteryCurrent$Unit;
+	public final fun meanDischargePowerMilliWatts (Ljava/util/List;)Ljava/lang/Double;
+}
+
+public final class ai/verispec/core/domain/math/BatteryCurrent$Unit : java/lang/Enum {
+	public static final field MICROAMPS Lai/verispec/core/domain/math/BatteryCurrent$Unit;
+	public static final field MILLIAMPS Lai/verispec/core/domain/math/BatteryCurrent$Unit;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getToMicroAmps ()J
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/math/BatteryCurrent$Unit;
+	public static fun values ()[Lai/verispec/core/domain/math/BatteryCurrent$Unit;
+}
+
+public final class ai/verispec/core/domain/math/Numerics {
+	public static final field INSTANCE Lai/verispec/core/domain/math/Numerics;
+	public final fun cosineSimilarity ([F[F)D
+	public final fun lInfDistance ([F[F)D
+	public final fun mean (Ljava/util/List;)D
+	public final fun meanAbsoluteDifference ([F[F)D
+	public final fun median (Ljava/util/List;)D
+	public final fun percentile (Ljava/util/List;D)J
+	public final fun slope (Ljava/util/List;)D
+	public final fun softmax ([F)[D
+	public final fun standardDeviation (Ljava/util/List;)D
+	public final fun symmetricKlDivergence ([F[FD)D
+	public static synthetic fun symmetricKlDivergence$default (Lai/verispec/core/domain/math/Numerics;[F[FDILjava/lang/Object;)D
+}
+
+public final class ai/verispec/core/domain/math/SustainedLoad {
+	public static final field INSTANCE Lai/verispec/core/domain/math/SustainedLoad;
+	public static final field MAX_STEADY_CV D
+	public static final field MAX_STEADY_DRIFT D
+	public static final field OUTLIER_FRACTION D
+	public static final field PEAK_WINDOW I
+	public static final field STEADY_WINDOW I
+	public static final field STEADY_WINDOWS_PER_RUN I
+	public final fun steadyState (Ljava/util/List;IDD)Lai/verispec/core/domain/math/SustainedLoad$SteadyState;
+	public static synthetic fun steadyState$default (Lai/verispec/core/domain/math/SustainedLoad;Ljava/util/List;IDDILjava/lang/Object;)Lai/verispec/core/domain/math/SustainedLoad$SteadyState;
+	public final fun steadyWindow (I)I
+	public final fun windowedPeak (Ljava/util/List;I)D
+	public static synthetic fun windowedPeak$default (Lai/verispec/core/domain/math/SustainedLoad;Ljava/util/List;IILjava/lang/Object;)D
+}
+
+public final class ai/verispec/core/domain/math/SustainedLoad$SteadyState {
+	public fun <init> (ID)V
+	public final fun component1 ()I
+	public final fun component2 ()D
+	public final fun copy (ID)Lai/verispec/core/domain/math/SustainedLoad$SteadyState;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/math/SustainedLoad$SteadyState;IDILjava/lang/Object;)Lai/verispec/core/domain/math/SustainedLoad$SteadyState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getStartIndex ()I
+	public final fun getValue ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/math/WorkloadInputs {
+	public static final field INSTANCE Lai/verispec/core/domain/math/WorkloadInputs;
+	public final fun deterministicTensor (JIIDD)[F
+	public final fun forIteration (Lai/verispec/core/domain/model/RunManifest;I)Lai/verispec/core/domain/model/WorkloadInput;
+}
+
+public final class ai/verispec/core/domain/model/BackendCapabilities {
+	public static final field Companion Lai/verispec/core/domain/model/BackendCapabilities$Companion;
+	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;)V
+	public synthetic fun <init> (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun component10 ()Z
+	public final fun component11 ()Ljava/util/List;
+	public final fun component2 ()Z
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/Set;
+	public final fun component6 ()Ljava/util/Set;
+	public final fun component7 ()I
+	public final fun component8 ()Z
+	public final fun component9 ()Z
+	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;)Lai/verispec/core/domain/model/BackendCapabilities;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/BackendCapabilities;Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/BackendCapabilities;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvailable ()Z
+	public final fun getMaxThreads ()I
+	public final fun getNotes ()Ljava/util/List;
+	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun getRuntimeVersion ()Ljava/lang/String;
+	public final fun getSupportedDelegates ()Ljava/util/Set;
+	public final fun getSupportedFormats ()Ljava/util/Set;
+	public final fun getSupportsLogitProjection ()Z
+	public final fun getSupportsTensorInference ()Z
+	public final fun getSupportsTextGeneration ()Z
+	public final fun getUnavailableReason ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/BackendCapabilities$Companion {
+	public final fun unavailable (Lai/verispec/core/domain/model/RuntimeId;Ljava/lang/String;)Lai/verispec/core/domain/model/BackendCapabilities;
+}
+
+public final class ai/verispec/core/domain/model/BackendRef {
+	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;I)V
+	public final fun component1 ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun component2 ()Lai/verispec/core/domain/model/SemVer;
+	public final fun component3 ()Lai/verispec/core/domain/model/Delegate;
+	public final fun component4 ()I
+	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;I)Lai/verispec/core/domain/model/BackendRef;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/BackendRef;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;IILjava/lang/Object;)Lai/verispec/core/domain/model/BackendRef;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun getRuntimeVersion ()Lai/verispec/core/domain/model/SemVer;
+	public final fun getThreadCount ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/BundleId {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lai/verispec/core/domain/model/BundleId;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public static final fun getShort-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/BundleSummary {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;JIDILai/verispec/core/domain/model/SignatureStatus;IIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-JI-hqGs ()Ljava/lang/String;
+	public final fun component10 ()I
+	public final fun component11 ()D
+	public final fun component12 ()I
+	public final fun component13 ()Lai/verispec/core/domain/model/SignatureStatus;
+	public final fun component14 ()I
+	public final fun component15 ()I
+	public final fun component16 ()Z
+	public final fun component2-SYVN0CI ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun component7 ()Lai/verispec/core/domain/model/Delegate;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()J
+	public final fun copy--5X5qwI (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;JIDILai/verispec/core/domain/model/SignatureStatus;IIZ)Lai/verispec/core/domain/model/BundleSummary;
+	public static synthetic fun copy--5X5qwI$default (Lai/verispec/core/domain/model/BundleSummary;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;JIDILai/verispec/core/domain/model/SignatureStatus;IIZILjava/lang/Object;)Lai/verispec/core/domain/model/BundleSummary;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBundleId-JI-hqGs ()Ljava/lang/String;
+	public final fun getCoveredClauses ()I
+	public final fun getCreatedAtEpochMillis ()J
+	public final fun getDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public final fun getDeviceFingerprint ()Ljava/lang/String;
+	public final fun getImported ()Z
+	public final fun getIterationCount ()I
+	public final fun getLabel ()Ljava/lang/String;
+	public final fun getManifestId-SYVN0CI ()Ljava/lang/String;
+	public final fun getMeanDecodeTokensPerSecond ()D
+	public final fun getQuantization ()Ljava/lang/String;
+	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun getSignatureStatus ()Lai/verispec/core/domain/model/SignatureStatus;
+	public final fun getSocModel ()Ljava/lang/String;
+	public final fun getThrottledIterations ()I
+	public final fun getTotalClauses ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/CatalogVersion {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lai/verispec/core/domain/model/CatalogVersion;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ClauseCoverage {
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/RegulatoryFramework;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/CoverageStatus;Ljava/util/Set;Ljava/util/Set;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-_9U_sM4 ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/domain/model/RegulatoryFramework;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Lai/verispec/core/domain/model/CoverageStatus;
+	public final fun component6 ()Ljava/util/Set;
+	public final fun component7 ()Ljava/util/Set;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun copy-mThoj1Y (Ljava/lang/String;Lai/verispec/core/domain/model/RegulatoryFramework;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/CoverageStatus;Ljava/util/Set;Ljava/util/Set;Ljava/lang/String;)Lai/verispec/core/domain/model/ClauseCoverage;
+	public static synthetic fun copy-mThoj1Y$default (Lai/verispec/core/domain/model/ClauseCoverage;Ljava/lang/String;Lai/verispec/core/domain/model/RegulatoryFramework;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/CoverageStatus;Ljava/util/Set;Ljava/util/Set;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/ClauseCoverage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClauseId-_9U_sM4 ()Ljava/lang/String;
+	public final fun getFramework ()Lai/verispec/core/domain/model/RegulatoryFramework;
+	public final fun getGapDescription ()Ljava/lang/String;
+	public final fun getMissing ()Ljava/util/Set;
+	public final fun getReference ()Ljava/lang/String;
+	public final fun getSatisfied ()Ljava/util/Set;
+	public final fun getStatus ()Lai/verispec/core/domain/model/CoverageStatus;
+	public final fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ClauseDefinition {
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/RegulatoryFramework;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-_9U_sM4 ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/domain/model/RegulatoryFramework;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/Set;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun copy-dvgKJtU (Ljava/lang/String;Lai/verispec/core/domain/model/RegulatoryFramework;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/lang/String;)Lai/verispec/core/domain/model/ClauseDefinition;
+	public static synthetic fun copy-dvgKJtU$default (Lai/verispec/core/domain/model/ClauseDefinition;Ljava/lang/String;Lai/verispec/core/domain/model/RegulatoryFramework;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/ClauseDefinition;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEvidence ()Ljava/util/Set;
+	public final fun getFramework ()Lai/verispec/core/domain/model/RegulatoryFramework;
+	public final fun getId-_9U_sM4 ()Ljava/lang/String;
+	public final fun getRationale ()Ljava/lang/String;
+	public final fun getReference ()Ljava/lang/String;
+	public final fun getRequirement ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ClauseId {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lai/verispec/core/domain/model/ClauseId;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ClockReading {
+	public fun <init> (Ljava/util/List;Ljava/lang/Long;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun copy (Ljava/util/List;Ljava/lang/Long;)Lai/verispec/core/domain/model/ClockReading;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/ClockReading;Ljava/util/List;Ljava/lang/Long;ILjava/lang/Object;)Lai/verispec/core/domain/model/ClockReading;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCpuKhz ()Ljava/util/List;
+	public final fun getGpuKhz ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/CoverageStatus : java/lang/Enum {
+	public static final field NOT_COVERED Lai/verispec/core/domain/model/CoverageStatus;
+	public static final field PARTIAL Lai/verispec/core/domain/model/CoverageStatus;
+	public static final field SATISFIED Lai/verispec/core/domain/model/CoverageStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/CoverageStatus;
+	public static fun values ()[Lai/verispec/core/domain/model/CoverageStatus;
+}
+
+public final class ai/verispec/core/domain/model/Delegate : java/lang/Enum {
+	public static final field CPU Lai/verispec/core/domain/model/Delegate;
+	public static final field GPU Lai/verispec/core/domain/model/Delegate;
+	public static final field NNAPI Lai/verispec/core/domain/model/Delegate;
+	public static final field QNN Lai/verispec/core/domain/model/Delegate;
+	public static final field VENDOR_NPU Lai/verispec/core/domain/model/Delegate;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/Delegate;
+	public static fun values ()[Lai/verispec/core/domain/model/Delegate;
+}
+
+public final class ai/verispec/core/domain/model/DetachedSignature {
+	public synthetic fun <init> (Ljava/lang/String;[BLjava/lang/String;JZZLjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAlgorithm ()Ljava/lang/String;
+	public final fun getAttestationChallenge-bg13i64 ()Ljava/lang/String;
+	public final fun getHardwareBacked ()Z
+	public final fun getKeyId-jcu4v2A ()Ljava/lang/String;
+	public final fun getSignature ()[B
+	public final fun getSignedAtEpochMillis ()J
+	public final fun getStrongBox ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/DeviceConditions {
+	public fun <init> (Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;Ljava/lang/Integer;ZZLjava/lang/Integer;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun copy (Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;Ljava/lang/Integer;ZZLjava/lang/Integer;)Lai/verispec/core/domain/model/DeviceConditions;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/DeviceConditions;Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;Ljava/lang/Integer;ZZLjava/lang/Integer;ILjava/lang/Object;)Lai/verispec/core/domain/model/DeviceConditions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBatteryPercent ()Ljava/lang/Integer;
+	public final fun getBatteryTemperatureDeciC ()Ljava/lang/Integer;
+	public final fun getPlugged ()Z
+	public final fun getScreenOn ()Z
+	public final fun getThermalHeadroom ()Ljava/lang/Float;
+	public final fun getThermalStatus ()Lai/verispec/core/domain/model/ThermalStatus;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/DeviceProfile {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SocIdentity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlinx/datetime/LocalDate;JILjava/util/List;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Lkotlinx/datetime/LocalDate;
+	public final fun component11 ()J
+	public final fun component12 ()I
+	public final fun component13 ()Ljava/util/List;
+	public final fun component14 ()Ljava/lang/String;
+	public final fun component15 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lai/verispec/core/domain/model/SocIdentity;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()I
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SocIdentity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlinx/datetime/LocalDate;JILjava/util/List;Ljava/lang/String;Ljava/lang/String;)Lai/verispec/core/domain/model/DeviceProfile;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/DeviceProfile;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SocIdentity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlinx/datetime/LocalDate;JILjava/util/List;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/DeviceProfile;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAndroidRelease ()Ljava/lang/String;
+	public final fun getApiLevel ()I
+	public final fun getCpuCoreCount ()I
+	public final fun getDeviceModel ()Ljava/lang/String;
+	public final fun getFingerprint ()Ljava/lang/String;
+	public final fun getGpuDriverVersion ()Ljava/lang/String;
+	public final fun getGpuRenderer ()Ljava/lang/String;
+	public final fun getKernelVersion ()Ljava/lang/String;
+	public final fun getManufacturer ()Ljava/lang/String;
+	public final fun getNpuDriverVersion ()Ljava/lang/String;
+	public final fun getSecurityPatch ()Lkotlinx/datetime/LocalDate;
+	public final fun getSoc ()Lai/verispec/core/domain/model/SocIdentity;
+	public final fun getSupportedAbis ()Ljava/util/List;
+	public final fun getThermalHalVersion ()Ljava/lang/String;
+	public final fun getTotalRamBytes ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/EncodedCertificate {
+	public fun <init> ([B)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDer ()[B
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/EnvelopeValidity : java/lang/Enum {
+	public static final field INSUFFICIENT_DATA Lai/verispec/core/domain/model/EnvelopeValidity;
+	public static final field NO_PRECONDITION_GATE Lai/verispec/core/domain/model/EnvelopeValidity;
+	public static final field PRECONDITIONS_UNMET Lai/verispec/core/domain/model/EnvelopeValidity;
+	public static final field VALID Lai/verispec/core/domain/model/EnvelopeValidity;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/EnvelopeValidity;
+	public static fun values ()[Lai/verispec/core/domain/model/EnvelopeValidity;
+}
+
+public final class ai/verispec/core/domain/model/EvidenceBundle {
+	public static final field Companion Lai/verispec/core/domain/model/EvidenceBundle$Companion;
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;Ljava/util/List;Lai/verispec/core/domain/model/DetachedSignature;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-JI-hqGs ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/domain/model/SemVer;
+	public final fun component3 ()Lai/verispec/core/domain/model/RunManifest;
+	public final fun component4 ()Lai/verispec/core/domain/model/DeviceProfile;
+	public final fun component5 ()Lai/verispec/core/domain/model/ProvenanceRecord;
+	public final fun component6 ()Lai/verispec/core/domain/model/Observations;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Lai/verispec/core/domain/model/DetachedSignature;
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy-KtokP2k (Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;Ljava/util/List;Lai/verispec/core/domain/model/DetachedSignature;Ljava/util/List;)Lai/verispec/core/domain/model/EvidenceBundle;
+	public static synthetic fun copy-KtokP2k$default (Lai/verispec/core/domain/model/EvidenceBundle;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;Ljava/util/List;Lai/verispec/core/domain/model/DetachedSignature;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/EvidenceBundle;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttestationChain ()Ljava/util/List;
+	public final fun getBundleId-JI-hqGs ()Ljava/lang/String;
+	public final fun getClauseCoverage ()Ljava/util/List;
+	public final fun getDevice ()Lai/verispec/core/domain/model/DeviceProfile;
+	public final fun getManifest ()Lai/verispec/core/domain/model/RunManifest;
+	public final fun getObservations ()Lai/verispec/core/domain/model/Observations;
+	public final fun getProvenance ()Lai/verispec/core/domain/model/ProvenanceRecord;
+	public final fun getSchemaVersion ()Lai/verispec/core/domain/model/SemVer;
+	public final fun getSignature ()Lai/verispec/core/domain/model/DetachedSignature;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun unsigned ()Lai/verispec/core/domain/model/UnsignedBundle;
+}
+
+public final class ai/verispec/core/domain/model/EvidenceBundle$Companion {
+	public final fun getCURRENT_SCHEMA_VERSION ()Lai/verispec/core/domain/model/SemVer;
+}
+
+public final class ai/verispec/core/domain/model/EvidenceFacts {
+	public static final field Companion Lai/verispec/core/domain/model/EvidenceFacts$Companion;
+	public static final field MIN_ITERATIONS_FOR_ENVELOPE I
+	public fun <init> (Ljava/util/Map;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun copy (Ljava/util/Map;)Lai/verispec/core/domain/model/EvidenceFacts;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/EvidenceFacts;Ljava/util/Map;ILjava/lang/Object;)Lai/verispec/core/domain/model/EvidenceFacts;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFacts ()Ljava/util/Map;
+	public fun hashCode ()I
+	public final fun status (Lai/verispec/core/domain/model/EvidenceRequirement;)Lai/verispec/core/domain/model/FactStatus;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/EvidenceFacts$Companion {
+	public final fun derive (Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;ZZZZ)Lai/verispec/core/domain/model/EvidenceFacts;
+}
+
+public final class ai/verispec/core/domain/model/EvidenceRequirement : java/lang/Enum {
+	public static final field CAPABILITY_GAPS_RECORDED Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field DEVICE_PROFILE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field DRIVER_PROVENANCE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field HARDWARE_ATTESTATION Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field MEMORY_ENVELOPE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field MODEL_PROVENANCE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field NUMERICAL_DIVERGENCE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field OUTPUT_PRIVACY Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field PERFORMANCE_ENVELOPE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field POWER_TIMELINE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field QUANTIZATION_DELTA Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field REPRODUCIBLE_MANIFEST Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field RUNTIME_PROVENANCE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field SIGNATURE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static final field THERMAL_TIMELINE Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/EvidenceRequirement;
+	public static fun values ()[Lai/verispec/core/domain/model/EvidenceRequirement;
+}
+
+public final class ai/verispec/core/domain/model/ExportFormat : java/lang/Enum {
+	public static final field JSON Lai/verispec/core/domain/model/ExportFormat;
+	public static final field PDF Lai/verispec/core/domain/model/ExportFormat;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/ExportFormat;
+	public static fun values ()[Lai/verispec/core/domain/model/ExportFormat;
+}
+
+public final class ai/verispec/core/domain/model/ExportedArtifact {
+	public fun <init> (Lai/verispec/core/domain/model/ExportFormat;Ljava/lang/String;Ljava/lang/String;[B)V
+	public final fun getBytes ()[B
+	public final fun getFileName ()Ljava/lang/String;
+	public final fun getFormat ()Lai/verispec/core/domain/model/ExportFormat;
+	public final fun getMimeType ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/FactStatus : java/lang/Enum {
+	public static final field ABSENT Lai/verispec/core/domain/model/FactStatus;
+	public static final field PARTIAL Lai/verispec/core/domain/model/FactStatus;
+	public static final field PRESENT Lai/verispec/core/domain/model/FactStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/FactStatus;
+	public static fun values ()[Lai/verispec/core/domain/model/FactStatus;
+}
+
+public final class ai/verispec/core/domain/model/HardwareSummary {
+	public static final field Companion Lai/verispec/core/domain/model/HardwareSummary$Companion;
+	public fun <init> (Lkotlin/ranges/IntRange;Lkotlin/ranges/LongRange;Lkotlin/ranges/LongRange;Ljava/lang/Double;Lai/verispec/core/domain/model/TelemetryInventory;)V
+	public final fun component1 ()Lkotlin/ranges/IntRange;
+	public final fun component2 ()Lkotlin/ranges/LongRange;
+	public final fun component3 ()Lkotlin/ranges/LongRange;
+	public final fun component4 ()Ljava/lang/Double;
+	public final fun component5 ()Lai/verispec/core/domain/model/TelemetryInventory;
+	public final fun copy (Lkotlin/ranges/IntRange;Lkotlin/ranges/LongRange;Lkotlin/ranges/LongRange;Ljava/lang/Double;Lai/verispec/core/domain/model/TelemetryInventory;)Lai/verispec/core/domain/model/HardwareSummary;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/HardwareSummary;Lkotlin/ranges/IntRange;Lkotlin/ranges/LongRange;Lkotlin/ranges/LongRange;Ljava/lang/Double;Lai/verispec/core/domain/model/TelemetryInventory;ILjava/lang/Object;)Lai/verispec/core/domain/model/HardwareSummary;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBatteryTemperatureDeciC ()Lkotlin/ranges/IntRange;
+	public final fun getFastestCoreKhz ()Lkotlin/ranges/LongRange;
+	public final fun getGpuKhz ()Lkotlin/ranges/LongRange;
+	public final fun getInventory ()Lai/verispec/core/domain/model/TelemetryInventory;
+	public final fun getScreenOnFraction ()Ljava/lang/Double;
+	public fun hashCode ()I
+	public final fun rows ()Ljava/util/List;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/HardwareSummary$Companion {
+	public final fun of (Lai/verispec/core/domain/model/Observations;)Lai/verispec/core/domain/model/HardwareSummary;
+}
+
+public final class ai/verispec/core/domain/model/InferenceResult {
+	public synthetic fun <init> (Ljava/lang/String;[FJJIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDecodeTokens ()I
+	public final fun getDecodeTokensPerSecond ()D
+	public final fun getLogitProjection ()[F
+	public final fun getOutputSha256-jcu4v2A ()Ljava/lang/String;
+	public final fun getPrefillTokens ()I
+	public final fun getPrefillTokensPerSecond ()D
+	public final fun getTimeToFirstTokenMicros ()J
+	public final fun getTotalMicros ()J
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/IterationRecord {
+	public fun <init> (IJJJIIDDLai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;ZLai/verispec/core/domain/model/ClockReading;)V
+	public synthetic fun <init> (IJJJIIDDLai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;ZLai/verispec/core/domain/model/ClockReading;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun component11 ()Z
+	public final fun component12 ()Lai/verispec/core/domain/model/ClockReading;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()D
+	public final fun component8 ()D
+	public final fun component9 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun copy (IJJJIIDDLai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;ZLai/verispec/core/domain/model/ClockReading;)Lai/verispec/core/domain/model/IterationRecord;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/IterationRecord;IJJJIIDDLai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;ZLai/verispec/core/domain/model/ClockReading;ILjava/lang/Object;)Lai/verispec/core/domain/model/IterationRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClocks ()Lai/verispec/core/domain/model/ClockReading;
+	public final fun getDecodeTokens ()I
+	public final fun getDecodeTokensPerSecond ()D
+	public final fun getElapsedMillis ()J
+	public final fun getIndex ()I
+	public final fun getPrefillTokens ()I
+	public final fun getPrefillTokensPerSecond ()D
+	public final fun getThermalStatusAtEnd ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun getThermalStatusAtStart ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun getTimeToFirstTokenMicros ()J
+	public final fun getTotalMicros ()J
+	public final fun getWasThrottled ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class ai/verispec/core/domain/model/LoadedModel {
+	public abstract fun getEffectiveDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public abstract fun getRef ()Lai/verispec/core/domain/model/ModelRef;
+	public abstract fun getRequestedDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public abstract fun getRuntimeVersionObserved ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ManifestId {
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lai/verispec/core/domain/model/ManifestId;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public static final fun getShort-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/MemoryEnvelope {
+	public static final field Companion Lai/verispec/core/domain/model/MemoryEnvelope$Companion;
+	public fun <init> (JJLjava/lang/Long;JJ)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/lang/Long;
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun copy (JJLjava/lang/Long;JJ)Lai/verispec/core/domain/model/MemoryEnvelope;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/MemoryEnvelope;JJLjava/lang/Long;JJILjava/lang/Object;)Lai/verispec/core/domain/model/MemoryEnvelope;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvailableAtEndKb ()J
+	public final fun getAvailableAtStartKb ()J
+	public final fun getPeakNativeHeapKb ()J
+	public final fun getPeakPssKb ()J
+	public final fun getPeakRssKb ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/MemoryEnvelope$Companion {
+	public final fun from (Ljava/util/List;)Lai/verispec/core/domain/model/MemoryEnvelope;
+}
+
+public final class ai/verispec/core/domain/model/MemorySnapshot {
+	public fun <init> (JJLjava/lang/Long;J)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/lang/Long;
+	public final fun component4 ()J
+	public final fun copy (JJLjava/lang/Long;J)Lai/verispec/core/domain/model/MemorySnapshot;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/MemorySnapshot;JJLjava/lang/Long;JILjava/lang/Object;)Lai/verispec/core/domain/model/MemorySnapshot;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAvailableSystemKb ()J
+	public final fun getNativeHeapKb ()J
+	public final fun getPssKb ()J
+	public final fun getRssKb ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ModelFormat : java/lang/Enum {
+	public static final field EXECUTORCH Lai/verispec/core/domain/model/ModelFormat;
+	public static final field GGUF Lai/verispec/core/domain/model/ModelFormat;
+	public static final field LITERT Lai/verispec/core/domain/model/ModelFormat;
+	public static final field ONNX Lai/verispec/core/domain/model/ModelFormat;
+	public static final field TFLITE Lai/verispec/core/domain/model/ModelFormat;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/ModelFormat;
+	public static fun values ()[Lai/verispec/core/domain/model/ModelFormat;
+}
+
+public final class ai/verispec/core/domain/model/ModelRef {
+	public synthetic fun <init> (Lai/verispec/core/domain/model/ModelFormat;Ljava/lang/String;Ljava/lang/Long;Lai/verispec/core/domain/model/QuantizationSpec;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/ModelFormat;
+	public final fun component2-jcu4v2A ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/Long;
+	public final fun component4 ()Lai/verispec/core/domain/model/QuantizationSpec;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy-HxQ247A (Lai/verispec/core/domain/model/ModelFormat;Ljava/lang/String;Ljava/lang/Long;Lai/verispec/core/domain/model/QuantizationSpec;Ljava/lang/String;)Lai/verispec/core/domain/model/ModelRef;
+	public static synthetic fun copy-HxQ247A$default (Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/ModelFormat;Ljava/lang/String;Ljava/lang/Long;Lai/verispec/core/domain/model/QuantizationSpec;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/ModelRef;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFormat ()Lai/verispec/core/domain/model/ModelFormat;
+	public final fun getParameterCount ()Ljava/lang/Long;
+	public final fun getQuantization ()Lai/verispec/core/domain/model/QuantizationSpec;
+	public final fun getSha256-jcu4v2A ()Ljava/lang/String;
+	public final fun getSourceUri ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/Observations {
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/domain/model/MemoryEnvelope;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/domain/model/PreconditionOutcome;Lai/verispec/core/domain/model/TelemetryInventory;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/domain/model/MemoryEnvelope;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/domain/model/PreconditionOutcome;Lai/verispec/core/domain/model/TelemetryInventory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component10 ()Lai/verispec/core/domain/model/TelemetryInventory;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lai/verispec/core/domain/model/MemoryEnvelope;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()J
+	public final fun component8 ()J
+	public final fun component9 ()Lai/verispec/core/domain/model/PreconditionOutcome;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/domain/model/MemoryEnvelope;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/domain/model/PreconditionOutcome;Lai/verispec/core/domain/model/TelemetryInventory;)Lai/verispec/core/domain/model/Observations;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/Observations;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lai/verispec/core/domain/model/MemoryEnvelope;Ljava/util/List;Ljava/lang/String;JJLai/verispec/core/domain/model/PreconditionOutcome;Lai/verispec/core/domain/model/TelemetryInventory;ILjava/lang/Object;)Lai/verispec/core/domain/model/Observations;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIterations ()Ljava/util/List;
+	public final fun getMemoryPeaks ()Lai/verispec/core/domain/model/MemoryEnvelope;
+	public final fun getOutputDigests ()Ljava/util/List;
+	public final fun getPowerTimeline ()Ljava/util/List;
+	public final fun getPreconditions ()Lai/verispec/core/domain/model/PreconditionOutcome;
+	public final fun getRunDurationMillis ()J
+	public final fun getRunStartedAtEpochMillis ()J
+	public final fun getStoppedEarlyReason ()Ljava/lang/String;
+	public final fun getTelemetry ()Lai/verispec/core/domain/model/TelemetryInventory;
+	public final fun getThermalTimeline ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/OutputDigest {
+	public synthetic fun <init> (ILjava/lang/String;[FLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIterationIndex ()I
+	public final fun getLogitProjection ()[F
+	public final fun getSha256-jcu4v2A ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/PowerSample {
+	public fun <init> (JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Z
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Ljava/lang/Boolean;
+	public final fun copy (JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;)Lai/verispec/core/domain/model/PowerSample;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/PowerSample;JLjava/lang/Long;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/lang/Integer;Ljava/lang/Boolean;ILjava/lang/Object;)Lai/verispec/core/domain/model/PowerSample;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBatteryLevelPercent ()Ljava/lang/Integer;
+	public final fun getBatteryTemperatureDeciC ()Ljava/lang/Integer;
+	public final fun getCurrentMicroAmps ()Ljava/lang/Long;
+	public final fun getElapsedMillis ()J
+	public final fun getPowerMilliWatts ()Ljava/lang/Double;
+	public final fun getScreenOn ()Ljava/lang/Boolean;
+	public final fun getVoltageMilliVolts ()Ljava/lang/Integer;
+	public fun hashCode ()I
+	public final fun isCharging ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/PreconditionOutcome {
+	public fun <init> (ZJLjava/util/List;Lai/verispec/core/domain/model/DeviceConditions;)V
+	public final fun component1 ()Z
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun copy (ZJLjava/util/List;Lai/verispec/core/domain/model/DeviceConditions;)Lai/verispec/core/domain/model/PreconditionOutcome;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/PreconditionOutcome;ZJLjava/util/List;Lai/verispec/core/domain/model/DeviceConditions;ILjava/lang/Object;)Lai/verispec/core/domain/model/PreconditionOutcome;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConditionsAtStart ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun getSatisfied ()Z
+	public final fun getUnmetAtStart ()Ljava/util/List;
+	public final fun getWaitedMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/PreconditionPolicy {
+	public static final field Companion Lai/verispec/core/domain/model/PreconditionPolicy$Companion;
+	public fun <init> ()V
+	public fun <init> (Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;ZILai/verispec/core/domain/model/ScreenPolicy;JJZ)V
+	public synthetic fun <init> (Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;ZILai/verispec/core/domain/model/ScreenPolicy;JJZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun component2 ()Ljava/lang/Float;
+	public final fun component3 ()Z
+	public final fun component4 ()I
+	public final fun component5 ()Lai/verispec/core/domain/model/ScreenPolicy;
+	public final fun component6 ()J
+	public final fun component7 ()J
+	public final fun component8 ()Z
+	public final fun copy (Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;ZILai/verispec/core/domain/model/ScreenPolicy;JJZ)Lai/verispec/core/domain/model/PreconditionPolicy;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/PreconditionPolicy;Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;ZILai/verispec/core/domain/model/ScreenPolicy;JJZILjava/lang/Object;)Lai/verispec/core/domain/model/PreconditionPolicy;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun evaluate (Lai/verispec/core/domain/model/DeviceConditions;)Ljava/util/List;
+	public final fun getMaxWaitMillis ()J
+	public final fun getMinBatteryPercent ()I
+	public final fun getMinHeadroomMargin ()Ljava/lang/Float;
+	public final fun getProceedIfUnmet ()Z
+	public final fun getRequireUnplugged ()Z
+	public final fun getRequiredThermalStatus ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun getScreenPolicy ()Lai/verispec/core/domain/model/ScreenPolicy;
+	public final fun getStabilizationWindowMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/PreconditionPolicy$Companion {
+	public final fun getDEFAULT ()Lai/verispec/core/domain/model/PreconditionPolicy;
+}
+
+public abstract interface class ai/verispec/core/domain/model/PreconditionState {
+}
+
+public final class ai/verispec/core/domain/model/PreconditionState$Satisfied : ai/verispec/core/domain/model/PreconditionState {
+	public fun <init> (JLai/verispec/core/domain/model/DeviceConditions;)V
+	public final fun component1 ()J
+	public final fun component2 ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun copy (JLai/verispec/core/domain/model/DeviceConditions;)Lai/verispec/core/domain/model/PreconditionState$Satisfied;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/PreconditionState$Satisfied;JLai/verispec/core/domain/model/DeviceConditions;ILjava/lang/Object;)Lai/verispec/core/domain/model/PreconditionState$Satisfied;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAt ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun getWaitedMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/PreconditionState$TimedOut : ai/verispec/core/domain/model/PreconditionState {
+	public fun <init> (JLjava/util/List;JLai/verispec/core/domain/model/DeviceConditions;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()J
+	public final fun component4 ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun copy (JLjava/util/List;JLai/verispec/core/domain/model/DeviceConditions;)Lai/verispec/core/domain/model/PreconditionState$TimedOut;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/PreconditionState$TimedOut;JLjava/util/List;JLai/verispec/core/domain/model/DeviceConditions;ILjava/lang/Object;)Lai/verispec/core/domain/model/PreconditionState$TimedOut;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHeldMillis ()J
+	public final fun getLatest ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun getUnmet ()Ljava/util/List;
+	public final fun getWaitedMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/PreconditionState$Waiting : ai/verispec/core/domain/model/PreconditionState {
+	public fun <init> (Ljava/util/List;JJLai/verispec/core/domain/model/DeviceConditions;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun copy (Ljava/util/List;JJLai/verispec/core/domain/model/DeviceConditions;)Lai/verispec/core/domain/model/PreconditionState$Waiting;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/PreconditionState$Waiting;Ljava/util/List;JJLai/verispec/core/domain/model/DeviceConditions;ILjava/lang/Object;)Lai/verispec/core/domain/model/PreconditionState$Waiting;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHeldMillis ()J
+	public final fun getLatest ()Lai/verispec/core/domain/model/DeviceConditions;
+	public final fun getUnmet ()Ljava/util/List;
+	public final fun getWaitedMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ProvenanceRecord {
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-jcu4v2A ()Ljava/lang/String;
+	public final fun component10 ()Lai/verispec/core/domain/model/SemVer;
+	public final fun component11 ()J
+	public final fun component12 ()Ljava/util/List;
+	public final fun component2 ()Lai/verispec/core/domain/model/ModelFormat;
+	public final fun component3 ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun component4 ()Lai/verispec/core/domain/model/SemVer;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Lai/verispec/core/domain/model/Delegate;
+	public final fun component7 ()Lai/verispec/core/domain/model/Delegate;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy-ypuuUug (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;)Lai/verispec/core/domain/model/ProvenanceRecord;
+	public static synthetic fun copy-ypuuUug$default (Lai/verispec/core/domain/model/ProvenanceRecord;Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/ProvenanceRecord;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCapturedAtEpochMillis ()J
+	public final fun getDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public final fun getDelegateActuallyUsed ()Lai/verispec/core/domain/model/Delegate;
+	public final fun getGpuDriverVersion ()Ljava/lang/String;
+	public final fun getModelFormat ()Lai/verispec/core/domain/model/ModelFormat;
+	public final fun getModelSha256-jcu4v2A ()Ljava/lang/String;
+	public final fun getNotes ()Ljava/util/List;
+	public final fun getNpuDriverVersion ()Ljava/lang/String;
+	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun getRuntimeVersionDeclared ()Lai/verispec/core/domain/model/SemVer;
+	public final fun getRuntimeVersionObserved ()Ljava/lang/String;
+	public final fun getToolVersion ()Lai/verispec/core/domain/model/SemVer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/QuantizationDelta {
+	public fun <init> (IDLjava/lang/Double;Ljava/lang/Double;Ljava/lang/Double;)V
+	public final fun component1 ()I
+	public final fun component2 ()D
+	public final fun component3 ()Ljava/lang/Double;
+	public final fun component4 ()Ljava/lang/Double;
+	public final fun component5 ()Ljava/lang/Double;
+	public final fun copy (IDLjava/lang/Double;Ljava/lang/Double;Ljava/lang/Double;)Lai/verispec/core/domain/model/QuantizationDelta;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/QuantizationDelta;IDLjava/lang/Double;Ljava/lang/Double;Ljava/lang/Double;ILjava/lang/Object;)Lai/verispec/core/domain/model/QuantizationDelta;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDigestAgreementRate ()D
+	public final fun getMaxLInfDelta ()Ljava/lang/Double;
+	public final fun getMeanAbsoluteDelta ()Ljava/lang/Double;
+	public final fun getMeanCosineSimilarity ()Ljava/lang/Double;
+	public final fun getPairedIterations ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/QuantizationSpec {
+	public static final field Companion Lai/verispec/core/domain/model/QuantizationSpec$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/Double;Z)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/Double;
+	public final fun component3 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/Double;Z)Lai/verispec/core/domain/model/QuantizationSpec;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/QuantizationSpec;Ljava/lang/String;Ljava/lang/Double;ZILjava/lang/Object;)Lai/verispec/core/domain/model/QuantizationSpec;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBitsPerWeight ()Ljava/lang/Double;
+	public final fun getScheme ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isFloatingPoint ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/QuantizationSpec$Companion {
+	public final fun getFP16 ()Lai/verispec/core/domain/model/QuantizationSpec;
+	public final fun getFP32 ()Lai/verispec/core/domain/model/QuantizationSpec;
+	public final fun getINT8 ()Lai/verispec/core/domain/model/QuantizationSpec;
+	public final fun getQ4_K_M ()Lai/verispec/core/domain/model/QuantizationSpec;
+}
+
+public final class ai/verispec/core/domain/model/RegulatoryFramework : java/lang/Enum {
+	public static final field EU_AI_ACT Lai/verispec/core/domain/model/RegulatoryFramework;
+	public static final field FDA_PCCP Lai/verispec/core/domain/model/RegulatoryFramework;
+	public static final field ISO_IEC_42001 Lai/verispec/core/domain/model/RegulatoryFramework;
+	public static final field ISO_PAS_8800 Lai/verispec/core/domain/model/RegulatoryFramework;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/RegulatoryFramework;
+	public static fun values ()[Lai/verispec/core/domain/model/RegulatoryFramework;
+}
+
+public abstract interface class ai/verispec/core/domain/model/RunFailure {
+	public abstract fun getMessage ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunFailure$BackendUnavailable : ai/verispec/core/domain/model/RunFailure {
+	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;Ljava/lang/String;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;Ljava/lang/String;)Lai/verispec/core/domain/model/RunFailure$BackendUnavailable;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunFailure$BackendUnavailable;Lai/verispec/core/domain/model/RuntimeId;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunFailure$BackendUnavailable;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getMessage ()Ljava/lang/String;
+	public final fun getReason ()Ljava/lang/String;
+	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunFailure$Cancelled : ai/verispec/core/domain/model/RunFailure {
+	public static final field INSTANCE Lai/verispec/core/domain/model/RunFailure$Cancelled;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunFailure$DelegateUnavailable : ai/verispec/core/domain/model/RunFailure {
+	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/Delegate;Ljava/util/Set;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun component2 ()Lai/verispec/core/domain/model/Delegate;
+	public final fun component3 ()Ljava/util/Set;
+	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/Delegate;Ljava/util/Set;)Lai/verispec/core/domain/model/RunFailure$DelegateUnavailable;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunFailure$DelegateUnavailable;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/Delegate;Ljava/util/Set;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunFailure$DelegateUnavailable;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public fun getMessage ()Ljava/lang/String;
+	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun getSupported ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunFailure$InferenceFailed : ai/verispec/core/domain/model/RunFailure {
+	public fun <init> (ILjava/lang/String;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;)Lai/verispec/core/domain/model/RunFailure$InferenceFailed;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunFailure$InferenceFailed;ILjava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunFailure$InferenceFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDetail ()Ljava/lang/String;
+	public final fun getIteration ()I
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunFailure$InvalidManifest : ai/verispec/core/domain/model/RunFailure {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lai/verispec/core/domain/model/RunFailure$InvalidManifest;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunFailure$InvalidManifest;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunFailure$InvalidManifest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIssues ()Ljava/util/List;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunFailure$ModelLoadFailed : ai/verispec/core/domain/model/RunFailure {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lai/verispec/core/domain/model/RunFailure$ModelLoadFailed;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunFailure$ModelLoadFailed;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunFailure$ModelLoadFailed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDetail ()Ljava/lang/String;
+	public fun getMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunFailure$UnsupportedFormat : ai/verispec/core/domain/model/RunFailure {
+	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/ModelFormat;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/RuntimeId;
+	public final fun component2 ()Lai/verispec/core/domain/model/ModelFormat;
+	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/ModelFormat;)Lai/verispec/core/domain/model/RunFailure$UnsupportedFormat;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunFailure$UnsupportedFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/ModelFormat;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunFailure$UnsupportedFormat;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFormat ()Lai/verispec/core/domain/model/ModelFormat;
+	public fun getMessage ()Ljava/lang/String;
+	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunManifest {
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/BackendRef;Lai/verispec/core/domain/model/Workload;Lai/verispec/core/domain/model/RunSchedule;JLai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/PreconditionPolicy;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/BackendRef;Lai/verispec/core/domain/model/Workload;Lai/verispec/core/domain/model/RunSchedule;JLai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/PreconditionPolicy;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-SYVN0CI ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/domain/model/ModelRef;
+	public final fun component3 ()Lai/verispec/core/domain/model/BackendRef;
+	public final fun component4 ()Lai/verispec/core/domain/model/Workload;
+	public final fun component5 ()Lai/verispec/core/domain/model/RunSchedule;
+	public final fun component6 ()J
+	public final fun component7 ()Lai/verispec/core/domain/model/SemVer;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Lai/verispec/core/domain/model/PreconditionPolicy;
+	public final fun copy-PiNlDZ4 (Ljava/lang/String;Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/BackendRef;Lai/verispec/core/domain/model/Workload;Lai/verispec/core/domain/model/RunSchedule;JLai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/PreconditionPolicy;)Lai/verispec/core/domain/model/RunManifest;
+	public static synthetic fun copy-PiNlDZ4$default (Lai/verispec/core/domain/model/RunManifest;Ljava/lang/String;Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/BackendRef;Lai/verispec/core/domain/model/Workload;Lai/verispec/core/domain/model/RunSchedule;JLai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/PreconditionPolicy;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunManifest;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackend ()Lai/verispec/core/domain/model/BackendRef;
+	public final fun getLabel ()Ljava/lang/String;
+	public final fun getManifestId-SYVN0CI ()Ljava/lang/String;
+	public final fun getModel ()Lai/verispec/core/domain/model/ModelRef;
+	public final fun getPreconditions ()Lai/verispec/core/domain/model/PreconditionPolicy;
+	public final fun getSchedule ()Lai/verispec/core/domain/model/RunSchedule;
+	public final fun getSeed ()J
+	public final fun getToolVersion ()Lai/verispec/core/domain/model/SemVer;
+	public final fun getWorkload ()Lai/verispec/core/domain/model/Workload;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class ai/verispec/core/domain/model/RunProgress {
+}
+
+public final class ai/verispec/core/domain/model/RunProgress$AwaitingPreconditions : ai/verispec/core/domain/model/RunProgress {
+	public fun <init> (Lai/verispec/core/domain/model/PreconditionState;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/PreconditionState;
+	public final fun copy (Lai/verispec/core/domain/model/PreconditionState;)Lai/verispec/core/domain/model/RunProgress$AwaitingPreconditions;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunProgress$AwaitingPreconditions;Lai/verispec/core/domain/model/PreconditionState;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunProgress$AwaitingPreconditions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getState ()Lai/verispec/core/domain/model/PreconditionState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunProgress$Completed : ai/verispec/core/domain/model/RunProgress {
+	public fun <init> (Lai/verispec/core/domain/model/Observations;Lai/verispec/core/domain/model/LoadedModel;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/Observations;
+	public final fun component2 ()Lai/verispec/core/domain/model/LoadedModel;
+	public final fun copy (Lai/verispec/core/domain/model/Observations;Lai/verispec/core/domain/model/LoadedModel;)Lai/verispec/core/domain/model/RunProgress$Completed;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunProgress$Completed;Lai/verispec/core/domain/model/Observations;Lai/verispec/core/domain/model/LoadedModel;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunProgress$Completed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLoaded ()Lai/verispec/core/domain/model/LoadedModel;
+	public final fun getObservations ()Lai/verispec/core/domain/model/Observations;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunProgress$Failed : ai/verispec/core/domain/model/RunProgress {
+	public fun <init> (Lai/verispec/core/domain/model/RunFailure;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/RunFailure;
+	public final fun copy (Lai/verispec/core/domain/model/RunFailure;)Lai/verispec/core/domain/model/RunProgress$Failed;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunProgress$Failed;Lai/verispec/core/domain/model/RunFailure;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunProgress$Failed;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFailure ()Lai/verispec/core/domain/model/RunFailure;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunProgress$Iteration : ai/verispec/core/domain/model/RunProgress {
+	public fun <init> (Lai/verispec/core/domain/model/IterationRecord;Lai/verispec/core/domain/model/OutputDigest;Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;II)V
+	public final fun component1 ()Lai/verispec/core/domain/model/IterationRecord;
+	public final fun component2 ()Lai/verispec/core/domain/model/OutputDigest;
+	public final fun component3 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun component4 ()Ljava/lang/Float;
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun copy (Lai/verispec/core/domain/model/IterationRecord;Lai/verispec/core/domain/model/OutputDigest;Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;II)Lai/verispec/core/domain/model/RunProgress$Iteration;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunProgress$Iteration;Lai/verispec/core/domain/model/IterationRecord;Lai/verispec/core/domain/model/OutputDigest;Lai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;IIILjava/lang/Object;)Lai/verispec/core/domain/model/RunProgress$Iteration;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCompleted ()I
+	public final fun getDigest ()Lai/verispec/core/domain/model/OutputDigest;
+	public final fun getFraction ()F
+	public final fun getLiveHeadroom ()Ljava/lang/Float;
+	public final fun getLiveThermal ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun getRecord ()Lai/verispec/core/domain/model/IterationRecord;
+	public final fun getTotal ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunProgress$ModelLoaded : ai/verispec/core/domain/model/RunProgress {
+	public fun <init> (Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;J)V
+	public final fun component1 ()Lai/verispec/core/domain/model/Delegate;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()J
+	public final fun copy (Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;J)Lai/verispec/core/domain/model/RunProgress$ModelLoaded;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunProgress$ModelLoaded;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;JILjava/lang/Object;)Lai/verispec/core/domain/model/RunProgress$ModelLoaded;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEffectiveDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public final fun getLoadMillis ()J
+	public final fun getRuntimeVersionObserved ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunProgress$Started : ai/verispec/core/domain/model/RunProgress {
+	public fun <init> (IILai/verispec/core/domain/model/BackendCapabilities;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()Lai/verispec/core/domain/model/BackendCapabilities;
+	public final fun copy (IILai/verispec/core/domain/model/BackendCapabilities;)Lai/verispec/core/domain/model/RunProgress$Started;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunProgress$Started;IILai/verispec/core/domain/model/BackendCapabilities;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunProgress$Started;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCapabilities ()Lai/verispec/core/domain/model/BackendCapabilities;
+	public final fun getTotalIterations ()I
+	public final fun getWarmupIterations ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunProgress$Warmup : ai/verispec/core/domain/model/RunProgress {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Lai/verispec/core/domain/model/RunProgress$Warmup;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunProgress$Warmup;IIILjava/lang/Object;)Lai/verispec/core/domain/model/RunProgress$Warmup;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIndex ()I
+	public final fun getTotal ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunSchedule {
+	public fun <init> (IIJLjava/lang/Long;)V
+	public synthetic fun <init> (IIJLjava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/lang/Long;
+	public final fun copy (IIJLjava/lang/Long;)Lai/verispec/core/domain/model/RunSchedule;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RunSchedule;IIJLjava/lang/Long;ILjava/lang/Object;)Lai/verispec/core/domain/model/RunSchedule;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getInterIterationDelayMillis ()J
+	public final fun getIterations ()I
+	public final fun getSustainedDurationMillis ()Ljava/lang/Long;
+	public final fun getWarmupIterations ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RuntimeId : java/lang/Enum {
+	public static final field EXECUTORCH Lai/verispec/core/domain/model/RuntimeId;
+	public static final field LITERT Lai/verispec/core/domain/model/RuntimeId;
+	public static final field LITERT_LM Lai/verispec/core/domain/model/RuntimeId;
+	public static final field LLAMA_CPP Lai/verispec/core/domain/model/RuntimeId;
+	public static final field MEDIAPIPE Lai/verispec/core/domain/model/RuntimeId;
+	public static final field ONNX_RUNTIME Lai/verispec/core/domain/model/RuntimeId;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/RuntimeId;
+	public static fun values ()[Lai/verispec/core/domain/model/RuntimeId;
+}
+
+public final class ai/verispec/core/domain/model/ScreenPolicy : java/lang/Enum {
+	public static final field OFF Lai/verispec/core/domain/model/ScreenPolicy;
+	public static final field ON Lai/verispec/core/domain/model/ScreenPolicy;
+	public static final field ON_DIMMED Lai/verispec/core/domain/model/ScreenPolicy;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/ScreenPolicy;
+	public static fun values ()[Lai/verispec/core/domain/model/ScreenPolicy;
+}
+
+public final class ai/verispec/core/domain/model/SemVer : java/lang/Comparable {
+	public static final field Companion Lai/verispec/core/domain/model/SemVer$Companion;
+	public fun <init> (IIILjava/lang/String;)V
+	public synthetic fun <init> (IIILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lai/verispec/core/domain/model/SemVer;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()I
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (IIILjava/lang/String;)Lai/verispec/core/domain/model/SemVer;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/SemVer;IIILjava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/SemVer;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMajor ()I
+	public final fun getMinor ()I
+	public final fun getPatch ()I
+	public final fun getPreRelease ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/SemVer$Companion {
+	public final fun parse (Ljava/lang/String;)Lai/verispec/core/domain/model/SemVer;
+	public final fun parseOrNull (Ljava/lang/String;)Lai/verispec/core/domain/model/SemVer;
+}
+
+public final class ai/verispec/core/domain/model/Severity : java/lang/Enum {
+	public static final field ERROR Lai/verispec/core/domain/model/Severity;
+	public static final field WARNING Lai/verispec/core/domain/model/Severity;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/Severity;
+	public static fun values ()[Lai/verispec/core/domain/model/Severity;
+}
+
+public final class ai/verispec/core/domain/model/Sha256 {
+	public static final field Companion Lai/verispec/core/domain/model/Sha256$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lai/verispec/core/domain/model/Sha256;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getHex ()Ljava/lang/String;
+	public static final fun getShort-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/Sha256$Companion {
+	public final fun fromBytes-T3v2b3Q ([B)Ljava/lang/String;
+	public final fun isHex (Ljava/lang/String;)Z
+}
+
+public final class ai/verispec/core/domain/model/SignatureStatus : java/lang/Enum {
+	public static final field INVALID Lai/verispec/core/domain/model/SignatureStatus;
+	public static final field NO_HARDWARE_BACKING Lai/verispec/core/domain/model/SignatureStatus;
+	public static final field UNVERIFIED Lai/verispec/core/domain/model/SignatureStatus;
+	public static final field VALID Lai/verispec/core/domain/model/SignatureStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/SignatureStatus;
+	public static fun values ()[Lai/verispec/core/domain/model/SignatureStatus;
+}
+
+public final class ai/verispec/core/domain/model/SocIdentity {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lai/verispec/core/domain/model/SocIdentity;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/SocIdentity;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/SocIdentity;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Ljava/lang/String;
+	public final fun getRevision ()Ljava/lang/String;
+	public final fun getVendor ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/TelemetryInventory {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Lai/verispec/core/domain/model/TelemetryInventory;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/TelemetryInventory;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/TelemetryInventory;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getReadable ()Ljava/util/List;
+	public final fun getUnavailable ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ThermalEnvelope {
+	public fun <init> (IDLjava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Long;IILai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;DJLai/verispec/core/domain/model/EnvelopeValidity;)V
+	public final fun component1 ()I
+	public final fun component10 ()Ljava/lang/Float;
+	public final fun component11 ()D
+	public final fun component12 ()J
+	public final fun component13 ()Lai/verispec/core/domain/model/EnvelopeValidity;
+	public final fun component2 ()D
+	public final fun component3 ()Ljava/lang/Double;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Ljava/lang/Double;
+	public final fun component6 ()Ljava/lang/Long;
+	public final fun component7 ()I
+	public final fun component8 ()I
+	public final fun component9 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun copy (IDLjava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Long;IILai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;DJLai/verispec/core/domain/model/EnvelopeValidity;)Lai/verispec/core/domain/model/ThermalEnvelope;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/ThermalEnvelope;IDLjava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Long;IILai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;DJLai/verispec/core/domain/model/EnvelopeValidity;ILjava/lang/Object;)Lai/verispec/core/domain/model/ThermalEnvelope;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDecayPercent ()Ljava/lang/Double;
+	public final fun getIterationsAnalyzed ()I
+	public final fun getMateriallyThrottledIterations ()I
+	public final fun getMaxThermalStatus ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun getMeanTimeToFirstTokenMicros ()D
+	public final fun getMinHeadroom ()Ljava/lang/Float;
+	public final fun getP95TimeToFirstTokenMicros ()J
+	public final fun getPeakDecodeTokensPerSecond ()D
+	public final fun getSteadyStateDecodeTokensPerSecond ()Ljava/lang/Double;
+	public final fun getSteadyStateFromIteration ()Ljava/lang/Integer;
+	public final fun getThrottledIterations ()I
+	public final fun getTimeToFirstThrottleMillis ()Ljava/lang/Long;
+	public final fun getValidity ()Lai/verispec/core/domain/model/EnvelopeValidity;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ThermalSample {
+	public fun <init> (JLai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;Ljava/util/Map;)V
+	public synthetic fun <init> (JLai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun component3 ()Ljava/lang/Float;
+	public final fun component4 ()Ljava/util/Map;
+	public final fun copy (JLai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;Ljava/util/Map;)Lai/verispec/core/domain/model/ThermalSample;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/ThermalSample;JLai/verispec/core/domain/model/ThermalStatus;Ljava/lang/Float;Ljava/util/Map;ILjava/lang/Object;)Lai/verispec/core/domain/model/ThermalSample;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getElapsedMillis ()J
+	public final fun getHeadroom ()Ljava/lang/Float;
+	public final fun getStatus ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun getZoneTemperaturesCelsius ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ThermalStatus : java/lang/Enum {
+	public static final field CRITICAL Lai/verispec/core/domain/model/ThermalStatus;
+	public static final field Companion Lai/verispec/core/domain/model/ThermalStatus$Companion;
+	public static final field EMERGENCY Lai/verispec/core/domain/model/ThermalStatus;
+	public static final field LIGHT Lai/verispec/core/domain/model/ThermalStatus;
+	public static final field MODERATE Lai/verispec/core/domain/model/ThermalStatus;
+	public static final field NONE Lai/verispec/core/domain/model/ThermalStatus;
+	public static final field SEVERE Lai/verispec/core/domain/model/ThermalStatus;
+	public static final field SHUTDOWN Lai/verispec/core/domain/model/ThermalStatus;
+	public static final field UNKNOWN Lai/verispec/core/domain/model/ThermalStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isThrottleOnset ()Z
+	public final fun isThrottling ()Z
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/ThermalStatus;
+	public static fun values ()[Lai/verispec/core/domain/model/ThermalStatus;
+}
+
+public final class ai/verispec/core/domain/model/ThermalStatus$Companion {
+	public final fun maxOf (Lai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;)Lai/verispec/core/domain/model/ThermalStatus;
+}
+
+public abstract interface class ai/verispec/core/domain/model/UnmetCondition {
+	public fun getDescription ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/UnmetCondition$BatteryTooLow : ai/verispec/core/domain/model/UnmetCondition {
+	public fun <init> (Ljava/lang/Integer;I)V
+	public final fun component1 ()Ljava/lang/Integer;
+	public final fun component2 ()I
+	public final fun copy (Ljava/lang/Integer;I)Lai/verispec/core/domain/model/UnmetCondition$BatteryTooLow;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/UnmetCondition$BatteryTooLow;Ljava/lang/Integer;IILjava/lang/Object;)Lai/verispec/core/domain/model/UnmetCondition$BatteryTooLow;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCurrent ()Ljava/lang/Integer;
+	public fun getDescription ()Ljava/lang/String;
+	public final fun getRequired ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/UnmetCondition$Charging : ai/verispec/core/domain/model/UnmetCondition {
+	public static final field INSTANCE Lai/verispec/core/domain/model/UnmetCondition$Charging;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDescription ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/UnmetCondition$DefaultImpls {
+	public static fun getDescription (Lai/verispec/core/domain/model/UnmetCondition;)Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/UnmetCondition$HeadroomTooLow : ai/verispec/core/domain/model/UnmetCondition {
+	public fun <init> (FF)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun copy (FF)Lai/verispec/core/domain/model/UnmetCondition$HeadroomTooLow;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/UnmetCondition$HeadroomTooLow;FFILjava/lang/Object;)Lai/verispec/core/domain/model/UnmetCondition$HeadroomTooLow;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDescription ()Ljava/lang/String;
+	public final fun getMargin ()F
+	public final fun getRequired ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/UnmetCondition$ScreenState : ai/verispec/core/domain/model/UnmetCondition {
+	public fun <init> (ZLai/verispec/core/domain/model/ScreenPolicy;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Lai/verispec/core/domain/model/ScreenPolicy;
+	public final fun copy (ZLai/verispec/core/domain/model/ScreenPolicy;)Lai/verispec/core/domain/model/UnmetCondition$ScreenState;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/UnmetCondition$ScreenState;ZLai/verispec/core/domain/model/ScreenPolicy;ILjava/lang/Object;)Lai/verispec/core/domain/model/UnmetCondition$ScreenState;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getDescription ()Ljava/lang/String;
+	public final fun getRequired ()Lai/verispec/core/domain/model/ScreenPolicy;
+	public final fun getScreenOn ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/UnmetCondition$ThermalStatusTooHigh : ai/verispec/core/domain/model/UnmetCondition {
+	public fun <init> (Lai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun component2 ()Lai/verispec/core/domain/model/ThermalStatus;
+	public final fun copy (Lai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;)Lai/verispec/core/domain/model/UnmetCondition$ThermalStatusTooHigh;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/UnmetCondition$ThermalStatusTooHigh;Lai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;ILjava/lang/Object;)Lai/verispec/core/domain/model/UnmetCondition$ThermalStatusTooHigh;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCurrent ()Lai/verispec/core/domain/model/ThermalStatus;
+	public fun getDescription ()Ljava/lang/String;
+	public final fun getRequired ()Lai/verispec/core/domain/model/ThermalStatus;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/UnsignedBundle {
+	public fun <init> (Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;Ljava/util/List;)V
+	public final fun component1 ()Lai/verispec/core/domain/model/SemVer;
+	public final fun component2 ()Lai/verispec/core/domain/model/RunManifest;
+	public final fun component3 ()Lai/verispec/core/domain/model/DeviceProfile;
+	public final fun component4 ()Lai/verispec/core/domain/model/ProvenanceRecord;
+	public final fun component5 ()Lai/verispec/core/domain/model/Observations;
+	public final fun component6 ()Ljava/util/List;
+	public final fun copy (Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;Ljava/util/List;)Lai/verispec/core/domain/model/UnsignedBundle;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/UnsignedBundle;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/UnsignedBundle;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClauseCoverage ()Ljava/util/List;
+	public final fun getDevice ()Lai/verispec/core/domain/model/DeviceProfile;
+	public final fun getManifest ()Lai/verispec/core/domain/model/RunManifest;
+	public final fun getObservations ()Lai/verispec/core/domain/model/Observations;
+	public final fun getProvenance ()Lai/verispec/core/domain/model/ProvenanceRecord;
+	public final fun getSchemaVersion ()Lai/verispec/core/domain/model/SemVer;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ValidationIssue {
+	public fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/Severity;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/domain/model/Severity;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lai/verispec/core/domain/model/Severity;Ljava/lang/String;)Lai/verispec/core/domain/model/ValidationIssue;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/ValidationIssue;Ljava/lang/String;Lai/verispec/core/domain/model/Severity;Ljava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/ValidationIssue;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getField ()Ljava/lang/String;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getSeverity ()Lai/verispec/core/domain/model/Severity;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/ValidationResult {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lai/verispec/core/domain/model/ValidationResult;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/ValidationResult;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/ValidationResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getErrors ()Ljava/util/List;
+	public final fun getIssues ()Ljava/util/List;
+	public final fun getWarnings ()Ljava/util/List;
+	public fun hashCode ()I
+	public final fun isValid ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/VerificationReport {
+	public synthetic fun <init> (Ljava/lang/String;ZZZZZZZLjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-JI-hqGs ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun component7 ()Z
+	public final fun component8 ()Z
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy-KtokP2k (Ljava/lang/String;ZZZZZZZLjava/util/List;)Lai/verispec/core/domain/model/VerificationReport;
+	public static synthetic fun copy-KtokP2k$default (Lai/verispec/core/domain/model/VerificationReport;Ljava/lang/String;ZZZZZZZLjava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/VerificationReport;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttestationChainValid ()Z
+	public final fun getBundleId-JI-hqGs ()Ljava/lang/String;
+	public final fun getCanonicalHashMatches ()Z
+	public final fun getChallengeBoundToManifest ()Z
+	public final fun getHardwareBacked ()Z
+	public final fun getIssues ()Ljava/util/List;
+	public final fun getSchemaVersionSupported ()Z
+	public final fun getSignatureValid ()Z
+	public final fun getStrongBox ()Z
+	public fun hashCode ()I
+	public final fun isTrustworthy ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class ai/verispec/core/domain/model/Workload {
+}
+
+public final class ai/verispec/core/domain/model/Workload$TensorInference : ai/verispec/core/domain/model/Workload {
+	public fun <init> (Ljava/util/List;DD)V
+	public synthetic fun <init> (Ljava/util/List;DDILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()D
+	public final fun component3 ()D
+	public final fun copy (Ljava/util/List;DD)Lai/verispec/core/domain/model/Workload$TensorInference;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/Workload$TensorInference;Ljava/util/List;DDILjava/lang/Object;)Lai/verispec/core/domain/model/Workload$TensorInference;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getElementCount ()I
+	public final fun getInputMax ()D
+	public final fun getInputMin ()D
+	public final fun getInputShape ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/Workload$TextGeneration : ai/verispec/core/domain/model/Workload {
+	public fun <init> (Ljava/util/List;IDI)V
+	public synthetic fun <init> (Ljava/util/List;IDIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()I
+	public final fun component3 ()D
+	public final fun component4 ()I
+	public final fun copy (Ljava/util/List;IDI)Lai/verispec/core/domain/model/Workload$TextGeneration;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/Workload$TextGeneration;Ljava/util/List;IDIILjava/lang/Object;)Lai/verispec/core/domain/model/Workload$TextGeneration;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxNewTokens ()I
+	public final fun getPrompts ()Ljava/util/List;
+	public final fun getTemperature ()D
+	public final fun getTopK ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/WorkloadInput {
+	public fun <init> (ILjava/lang/String;[FLjava/util/List;I)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIterationIndex ()I
+	public final fun getMaxNewTokens ()I
+	public final fun getPrompt ()Ljava/lang/String;
+	public final fun getTensor ()[F
+	public final fun getTensorShape ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class ai/verispec/core/domain/port/AttestationVerifier {
+	public abstract fun verifyChain (Ljava/util/List;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
+}
+
+public final class ai/verispec/core/domain/port/AttestationVerifier$ChainResult {
+	public synthetic fun <init> (ZZZLjava/lang/String;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4-bg13i64 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy-gsP3vs4 (ZZZLjava/lang/String;Ljava/util/List;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
+	public static synthetic fun copy-gsP3vs4$default (Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;ZZZLjava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChainValid ()Z
+	public final fun getChallenge-bg13i64 ()Ljava/lang/String;
+	public final fun getHardwareBacked ()Z
+	public final fun getIssues ()Ljava/util/List;
+	public final fun getStrongBox ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class ai/verispec/core/domain/port/Canonicalizer {
+	public abstract fun bundleBytes (Lai/verispec/core/domain/model/UnsignedBundle;)[B
+	public abstract fun manifestBytes (Lai/verispec/core/domain/model/RunManifest;)[B
+}
+
+public abstract interface class ai/verispec/core/domain/port/ClauseCatalog {
+	public abstract fun catalog-iDKAoDE (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun latestVersion-D6byOxU (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/Clock {
+	public abstract fun epochMillis ()J
+	public abstract fun monotonicNanos ()J
+}
+
+public abstract interface class ai/verispec/core/domain/port/DeviceConditionSource {
+	public abstract fun read (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/DeviceProfiler {
+	public abstract fun profile (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/EvidenceRepository {
+	public abstract fun delete-tXVpvBk (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun export-hbdu2UI (Ljava/lang/String;Lai/verispec/core/domain/model/ExportFormat;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun load-tXVpvBk (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun observeAll ()Lkotlinx/coroutines/flow/Flow;
+	public abstract fun save-tN-N9HU (Lai/verispec/core/domain/model/EvidenceBundle;ZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun save-tN-N9HU$default (Lai/verispec/core/domain/port/EvidenceRepository;Lai/verispec/core/domain/model/EvidenceBundle;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class ai/verispec/core/domain/port/EvidenceRepository$DefaultImpls {
+	public static synthetic fun save-tN-N9HU$default (Lai/verispec/core/domain/port/EvidenceRepository;Lai/verispec/core/domain/model/EvidenceBundle;ZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/EvidenceSigner {
+	public abstract fun attestationChain-G5gj6YI (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun sign-bK6zllo ([BLjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/HardwareTelemetrySource {
+	public abstract fun clocks ()Lai/verispec/core/domain/model/ClockReading;
+	public abstract fun inventory (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/Hasher {
+	public abstract fun sha256-T3v2b3Q ([B)Ljava/lang/String;
+}
+
+public abstract interface class ai/verispec/core/domain/port/InferenceBackend {
+	public abstract fun capabilities (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getId ()Lai/verispec/core/domain/model/RuntimeId;
+	public abstract fun infer (Lai/verispec/core/domain/model/LoadedModel;Lai/verispec/core/domain/model/WorkloadInput;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun load (Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/Delegate;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun unload (Lai/verispec/core/domain/model/LoadedModel;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/MemoryTelemetrySource {
+	public abstract fun snapshot (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public abstract interface class ai/verispec/core/domain/port/PowerTelemetrySource {
+	public abstract fun stream ()Lkotlinx/coroutines/flow/Flow;
+}
+
+public abstract interface class ai/verispec/core/domain/port/SignatureVerifier {
+	public abstract fun verify ([BLai/verispec/core/domain/model/DetachedSignature;Lai/verispec/core/domain/model/EncodedCertificate;)Z
+}
+
+public abstract interface class ai/verispec/core/domain/port/ThermalTelemetrySource {
+	public abstract fun halVersion (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun stream ()Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class ai/verispec/core/domain/usecase/AssembleEvidenceUseCase {
+	public fun <init> (Lai/verispec/core/domain/port/Canonicalizer;Lai/verispec/core/domain/port/Hasher;Lai/verispec/core/domain/port/Clock;)V
+	public final fun buildProvenance (Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/LoadedModel;Ljava/util/List;)Lai/verispec/core/domain/model/ProvenanceRecord;
+	public final fun invoke (Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/LoadedModel;Lai/verispec/core/domain/model/Observations;Ljava/util/List;Ljava/util/List;)Lai/verispec/core/domain/usecase/AssembleEvidenceUseCase$Assembled;
+	public static synthetic fun invoke$default (Lai/verispec/core/domain/usecase/AssembleEvidenceUseCase;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/LoadedModel;Lai/verispec/core/domain/model/Observations;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/usecase/AssembleEvidenceUseCase$Assembled;
+}
+
+public final class ai/verispec/core/domain/usecase/AssembleEvidenceUseCase$Assembled {
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/UnsignedBundle;[BLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-JI-hqGs ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/domain/model/UnsignedBundle;
+	public final fun component3 ()[B
+	public final fun copy-hbdu2UI (Ljava/lang/String;Lai/verispec/core/domain/model/UnsignedBundle;[B)Lai/verispec/core/domain/usecase/AssembleEvidenceUseCase$Assembled;
+	public static synthetic fun copy-hbdu2UI$default (Lai/verispec/core/domain/usecase/AssembleEvidenceUseCase$Assembled;Ljava/lang/String;Lai/verispec/core/domain/model/UnsignedBundle;[BILjava/lang/Object;)Lai/verispec/core/domain/usecase/AssembleEvidenceUseCase$Assembled;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBundleId-JI-hqGs ()Ljava/lang/String;
+	public final fun getCanonicalBytes ()[B
+	public final fun getUnsigned ()Lai/verispec/core/domain/model/UnsignedBundle;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/usecase/AwaitPreconditionsUseCase {
+	public static final field Companion Lai/verispec/core/domain/usecase/AwaitPreconditionsUseCase$Companion;
+	public static final field DEFAULT_POLL_MILLIS J
+	public fun <init> (Lai/verispec/core/domain/port/DeviceConditionSource;Lai/verispec/core/domain/port/Clock;J)V
+	public synthetic fun <init> (Lai/verispec/core/domain/port/DeviceConditionSource;Lai/verispec/core/domain/port/Clock;JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun invoke (Lai/verispec/core/domain/model/PreconditionPolicy;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class ai/verispec/core/domain/usecase/AwaitPreconditionsUseCase$Companion {
+}
+
+public final class ai/verispec/core/domain/usecase/ComputeQuantizationDeltaUseCase {
+	public fun <init> ()V
+	public final fun invoke (Ljava/util/List;Ljava/util/List;)Lai/verispec/core/domain/model/QuantizationDelta;
+}
+
+public final class ai/verispec/core/domain/usecase/ComputeThermalEnvelopeUseCase {
+	public static final field Companion Lai/verispec/core/domain/usecase/ComputeThermalEnvelopeUseCase$Companion;
+	public fun <init> ()V
+	public final fun invoke (Lai/verispec/core/domain/model/Observations;)Lai/verispec/core/domain/model/ThermalEnvelope;
+}
+
+public final class ai/verispec/core/domain/usecase/ComputeThermalEnvelopeUseCase$Companion {
+	public final fun validity (Lai/verispec/core/domain/model/Observations;)Lai/verispec/core/domain/model/EnvelopeValidity;
+}
+
+public final class ai/verispec/core/domain/usecase/ExecuteRunUseCase {
+	public static final field MEMORY_SAMPLE_EVERY I
+	public fun <init> (Ljava/util/Map;Lai/verispec/core/domain/port/ThermalTelemetrySource;Lai/verispec/core/domain/port/PowerTelemetrySource;Lai/verispec/core/domain/port/MemoryTelemetrySource;Lai/verispec/core/domain/port/Clock;Lai/verispec/core/domain/port/HardwareTelemetrySource;)V
+	public synthetic fun <init> (Ljava/util/Map;Lai/verispec/core/domain/port/ThermalTelemetrySource;Lai/verispec/core/domain/port/PowerTelemetrySource;Lai/verispec/core/domain/port/MemoryTelemetrySource;Lai/verispec/core/domain/port/Clock;Lai/verispec/core/domain/port/HardwareTelemetrySource;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun invoke (Lai/verispec/core/domain/model/RunManifest;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class ai/verispec/core/domain/usecase/ExportBundleUseCase {
+	public fun <init> (Lai/verispec/core/domain/port/EvidenceRepository;)V
+	public final fun invoke-hbdu2UI (Ljava/lang/String;Lai/verispec/core/domain/model/ExportFormat;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class ai/verispec/core/domain/usecase/ManifestIdentity {
+	public fun <init> (Lai/verispec/core/domain/port/Canonicalizer;Lai/verispec/core/domain/port/Hasher;)V
+	public final fun compute-y3m7k9U (Lai/verispec/core/domain/model/RunManifest;)Ljava/lang/String;
+	public final fun getPlaceholder-SYVN0CI ()Ljava/lang/String;
+	public final fun withComputedId (Lai/verispec/core/domain/model/RunManifest;)Lai/verispec/core/domain/model/RunManifest;
+}
+
+public final class ai/verispec/core/domain/usecase/MapClausesUseCase {
+	public fun <init> (Lai/verispec/core/domain/port/ClauseCatalog;)V
+	public final fun invoke-1pedJ54 (Lai/verispec/core/domain/model/EvidenceFacts;Ljava/util/Set;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun invoke-1pedJ54$default (Lai/verispec/core/domain/usecase/MapClausesUseCase;Lai/verispec/core/domain/model/EvidenceFacts;Ljava/util/Set;Ljava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class ai/verispec/core/domain/usecase/ProfileDeviceUseCase {
+	public fun <init> (Lai/verispec/core/domain/port/DeviceProfiler;)V
+	public final fun invoke (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class ai/verispec/core/domain/usecase/SignEvidenceUseCase {
+	public fun <init> (Lai/verispec/core/domain/port/EvidenceSigner;)V
+	public final fun invoke (Lai/verispec/core/domain/usecase/AssembleEvidenceUseCase$Assembled;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class ai/verispec/core/domain/usecase/ValidateManifestUseCase {
+	public static final field Companion Lai/verispec/core/domain/usecase/ValidateManifestUseCase$Companion;
+	public static final field MAX_NEW_TOKENS_WARN I
+	public static final field MAX_TENSOR_ELEMENTS I
+	public static final field MAX_THREADS I
+	public static final field MIN_ITERATIONS_FOR_ENVELOPE I
+	public fun <init> (Lai/verispec/core/domain/port/Canonicalizer;Lai/verispec/core/domain/port/Hasher;)V
+	public final fun invoke (Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/BackendCapabilities;)Lai/verispec/core/domain/model/ValidationResult;
+	public static synthetic fun invoke$default (Lai/verispec/core/domain/usecase/ValidateManifestUseCase;Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/BackendCapabilities;ILjava/lang/Object;)Lai/verispec/core/domain/model/ValidationResult;
+}
+
+public final class ai/verispec/core/domain/usecase/ValidateManifestUseCase$Companion {
+}
+
+public final class ai/verispec/core/domain/usecase/VerifyBundleUseCase {
+	public fun <init> (Lai/verispec/core/domain/port/Canonicalizer;Lai/verispec/core/domain/port/Hasher;Lai/verispec/core/domain/port/SignatureVerifier;Lai/verispec/core/domain/port/AttestationVerifier;)V
+	public final fun invoke (Lai/verispec/core/domain/model/EvidenceBundle;)Lai/verispec/core/domain/model/VerificationReport;
+}
+

@@ -1,0 +1,67 @@
+# VeriSpec-AI clause catalog — FDA guidance "Marketing Submission Recommendations
+# for a Predetermined Change Control Plan for Artificial Intelligence-Enabled
+# Device Software Functions" (final, December 2024). Paraphrased; not guidance text.
+catalogVersion: "2026.1"
+framework: FDA_PCCP
+source: "FDA PCCP final guidance (Dec 2024): Description of Modifications, Modification Protocol, Impact Assessment"
+clauses:
+  - id: FDA-PCCP-DOM
+    reference: "Description of Modifications"
+    title: "Specific, verifiable description of planned modifications"
+    requirement: >
+      The PCCP shall describe each planned modification specifically enough that
+      it can be verified, including changes to the model, its inputs, and the
+      hardware or software platform it runs on.
+    evidence: [REPRODUCIBLE_MANIFEST, MODEL_PROVENANCE, RUNTIME_PROVENANCE]
+    rationale: >
+      A manifest diff between two bundles is a verifiable description of a
+      modification: new model hash, new runtime, new delegate.
+
+  - id: FDA-PCCP-MP-DATA
+    reference: "Modification Protocol §1 Data management"
+    title: "Data management practices for verification"
+    requirement: >
+      The Modification Protocol shall describe how data used to verify a
+      modification is collected, managed and protected, including how patient
+      information is safeguarded.
+    evidence: [OUTPUT_PRIVACY, REPRODUCIBLE_MANIFEST]
+    rationale: >
+      Evidence bundles carry output digests, never raw outputs, so verification
+      artefacts cannot leak input-derived patient information.
+
+  - id: FDA-PCCP-MP-PERF
+    reference: "Modification Protocol §3 Performance evaluation"
+    title: "Performance evaluation methods and acceptance criteria"
+    requirement: >
+      The Modification Protocol shall specify the performance evaluation methods,
+      metrics, statistical analyses and acceptance criteria used to verify that a
+      modified device performs as intended.
+    evidence: [PERFORMANCE_ENVELOPE, QUANTIZATION_DELTA, NUMERICAL_DIVERGENCE, DEVICE_PROFILE]
+    rationale: >
+      The envelope, delta and divergence report are the metrics; tying them to a
+      device profile makes acceptance criteria hardware-specific where the
+      modification is a platform change.
+
+  - id: FDA-PCCP-MP-UPDATE
+    reference: "Modification Protocol §4 Update procedures"
+    title: "Update procedures and verification of the deployed software"
+    requirement: >
+      The Modification Protocol shall describe how updates are implemented and
+      how the deployed software is verified after the update, including on the
+      hardware in the field.
+    evidence: [RUNTIME_PROVENANCE, DRIVER_PROVENANCE, SIGNATURE, HARDWARE_ATTESTATION]
+    rationale: >
+      A bundle produced on the updated device, with attested provenance, is
+      post-update verification evidence that did not come from a lab machine.
+
+  - id: FDA-PCCP-IA
+    reference: "Impact Assessment"
+    title: "Assessment of benefits and risks of each modification"
+    requirement: >
+      The Impact Assessment shall compare the modified device to the previous
+      version, identify risks introduced by the modification, and describe how
+      verification activities mitigate those risks.
+    evidence: [QUANTIZATION_DELTA, NUMERICAL_DIVERGENCE, THERMAL_TIMELINE, CAPABILITY_GAPS_RECORDED]
+    rationale: >
+      Comparing bundles before and after a modification quantifies the change;
+      thermal and capability data expose risks that accuracy metrics alone miss.

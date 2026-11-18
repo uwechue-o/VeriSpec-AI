@@ -1,0 +1,29 @@
+# Detekt configuration for VeriSpec-AI. Builds on the default rule set.
+build:
+  maxIssues: 0
+
+style:
+  MagicNumber:
+    active: false
+  MaxLineLength:
+    maxLineLength: 140
+  ReturnCount:
+    max: 4
+  UnusedPrivateMember:
+    active: true
+
+complexity:
+  LongParameterList:
+    # Domain entities are deliberately explicit; wide constructors are the point.
+    functionThreshold: 12
+    constructorThreshold: 16
+  LongMethod:
+    threshold: 120
+  TooManyFunctions:
+    thresholdInClasses: 25
+    thresholdInFiles: 30
+
+naming:
+  FunctionNaming:
+    # Composable functions are PascalCase by convention.
+    ignoreAnnotated: ["Composable"]

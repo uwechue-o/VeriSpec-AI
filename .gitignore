@@ -1,0 +1,56 @@
+*.iml
+.gradle/
+.kotlin/
+/local.properties
+**/local.properties
+/.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+/build/
+**/build/
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.log
+*.hprof
+**/schemas/*.tmp
+
+# Signing keys and credentials. Bundles are signed by a per-run key inside the
+# phone's Keystore, so nothing here should ever need a key file; if one appears
+# (a release keystore, an API token), it stays local.
+/keystore/
+*.jks
+*.keystore
+*.p12
+*.pem
+keystore.properties
+signing.properties
+secrets.properties
+.env
+.env.*
+
+# Model files: large, separately licensed, and fetched on demand by the app
+# (StarterModels pins each by URL and SHA-256), so never committed.
+*.tflite
+*.litertlm
+*.task
+*.pte
+*.gguf
+
+# Evidence pulled off devices by `verispec fleet collect` (default --out bundles).
+# The bundles the manuals draw from live under tools/report/src/main/resources/docs.
+/bundles/
+
+# Personal working files at the repository root: device screenshots and scratch.
+/Screenshot_*.png
+/delete_me_*
+
+# Generated documentation is checked in on purpose: reviewers should get the
+# manuals and README charts without a build. Regenerate with :tools:report:generateDocs
+!DOCS/

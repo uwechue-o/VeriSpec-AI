@@ -1,0 +1,317 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "6690a10a5c109bdeac106edbfc89b4e1",
+    "entities": [
+      {
+        "tableName": "runs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`manifestId` TEXT NOT NULL, `manifestJson` TEXT NOT NULL, `label` TEXT NOT NULL, `status` TEXT NOT NULL, `createdAtEpochMillis` INTEGER NOT NULL, `updatedAtEpochMillis` INTEGER NOT NULL, `failureMessage` TEXT, `bundleId` TEXT, `workRequestId` TEXT, PRIMARY KEY(`manifestId`))",
+        "fields": [
+          {
+            "fieldPath": "manifestId",
+            "columnName": "manifestId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manifestJson",
+            "columnName": "manifestJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAtEpochMillis",
+            "columnName": "createdAtEpochMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtEpochMillis",
+            "columnName": "updatedAtEpochMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "failureMessage",
+            "columnName": "failureMessage",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bundleId",
+            "columnName": "bundleId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "workRequestId",
+            "columnName": "workRequestId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "manifestId"
+          ]
+        }
+      },
+      {
+        "tableName": "iterations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`manifestId` TEXT NOT NULL, `iterationIndex` INTEGER NOT NULL, `elapsedMillis` INTEGER NOT NULL, `timeToFirstTokenMicros` INTEGER NOT NULL, `totalMicros` INTEGER NOT NULL, `prefillTokens` INTEGER NOT NULL, `decodeTokens` INTEGER NOT NULL, `decodeTokensPerSecond` REAL NOT NULL, `prefillTokensPerSecond` REAL NOT NULL, `thermalStatusAtStart` TEXT NOT NULL, `thermalStatusAtEnd` TEXT NOT NULL, `wasThrottled` INTEGER NOT NULL, `outputSha256` TEXT NOT NULL, `logitProjection` BLOB, PRIMARY KEY(`manifestId`, `iterationIndex`))",
+        "fields": [
+          {
+            "fieldPath": "manifestId",
+            "columnName": "manifestId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iterationIndex",
+            "columnName": "iterationIndex",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "elapsedMillis",
+            "columnName": "elapsedMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeToFirstTokenMicros",
+            "columnName": "timeToFirstTokenMicros",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalMicros",
+            "columnName": "totalMicros",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prefillTokens",
+            "columnName": "prefillTokens",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decodeTokens",
+            "columnName": "decodeTokens",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decodeTokensPerSecond",
+            "columnName": "decodeTokensPerSecond",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prefillTokensPerSecond",
+            "columnName": "prefillTokensPerSecond",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thermalStatusAtStart",
+            "columnName": "thermalStatusAtStart",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "thermalStatusAtEnd",
+            "columnName": "thermalStatusAtEnd",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wasThrottled",
+            "columnName": "wasThrottled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outputSha256",
+            "columnName": "outputSha256",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "logitProjection",
+            "columnName": "logitProjection",
+            "affinity": "BLOB"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "manifestId",
+            "iterationIndex"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_iterations_manifestId",
+            "unique": false,
+            "columnNames": [
+              "manifestId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_iterations_manifestId` ON `${TABLE_NAME}` (`manifestId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "bundle_index",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bundleId` TEXT NOT NULL, `manifestId` TEXT NOT NULL, `label` TEXT NOT NULL, `filePath` TEXT NOT NULL, `createdAtEpochMillis` INTEGER NOT NULL, `deviceFingerprint` TEXT NOT NULL, `socModel` TEXT NOT NULL, `runtime` TEXT NOT NULL, `delegate` TEXT NOT NULL, `quantization` TEXT NOT NULL, `iterationCount` INTEGER NOT NULL, `meanDecodeTokensPerSecond` REAL NOT NULL, `throttledIterations` INTEGER NOT NULL, `signatureStatus` TEXT NOT NULL, `coveredClauses` INTEGER NOT NULL, `totalClauses` INTEGER NOT NULL, `imported` INTEGER NOT NULL, PRIMARY KEY(`bundleId`))",
+        "fields": [
+          {
+            "fieldPath": "bundleId",
+            "columnName": "bundleId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manifestId",
+            "columnName": "manifestId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "filePath",
+            "columnName": "filePath",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAtEpochMillis",
+            "columnName": "createdAtEpochMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceFingerprint",
+            "columnName": "deviceFingerprint",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "socModel",
+            "columnName": "socModel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "runtime",
+            "columnName": "runtime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "delegate",
+            "columnName": "delegate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantization",
+            "columnName": "quantization",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iterationCount",
+            "columnName": "iterationCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meanDecodeTokensPerSecond",
+            "columnName": "meanDecodeTokensPerSecond",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "throttledIterations",
+            "columnName": "throttledIterations",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "signatureStatus",
+            "columnName": "signatureStatus",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coveredClauses",
+            "columnName": "coveredClauses",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalClauses",
+            "columnName": "totalClauses",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imported",
+            "columnName": "imported",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "bundleId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_bundle_index_manifestId",
+            "unique": false,
+            "columnNames": [
+              "manifestId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bundle_index_manifestId` ON `${TABLE_NAME}` (`manifestId`)"
+          },
+          {
+            "name": "index_bundle_index_createdAtEpochMillis",
+            "unique": false,
+            "columnNames": [
+              "createdAtEpochMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bundle_index_createdAtEpochMillis` ON `${TABLE_NAME}` (`createdAtEpochMillis`)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6690a10a5c109bdeac106edbfc89b4e1')"
+    ]
+  }
+}
