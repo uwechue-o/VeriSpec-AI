@@ -847,6 +847,18 @@ object DeveloperManual02 {
                 "pattern: no digest matches the Pixel's, but the 64-value projections agree to 1.0e-6 (EfficientNetV2-S) " +
                 "and 1.9e-8 (EfficientNet-Lite0), and the LiteRT run reproduced the Honor's own 2026-11-14 digests on all " +
                 "30 iterations, so its divergence is deterministic, not run-to-run noise. These are functional runs too. " +
+                "Every hardware run so far is on the CPU. The first GPU attempt (MediaPipe, Qwen int8 starter, Pixel 6, " +
+                "2026-11-18) did reach the GPU: MediaPipe placed 1,303 of 1,360 operations on the Mali GPU through OpenCL " +
+                "(ML_DRIFT_CL) and 57 on the CPU, with the GPU clock at 762 MHz. But every generation failed in the native " +
+                "detokenizer (DetokenizerCalculator, token id -1), so that model has no GPU result on that phone. The run " +
+                "also exposed a bug: MediaPipe 0.10.27 ships an ErrorListener it never calls and returns an empty string " +
+                "from the failed generation, so the adapter signed 30 iterations of zero tokens whose digests were the " +
+                "SHA-256 of an empty string. GenerationOutcome now fails any uncancelled generation whose future fails, " +
+                "and any empty response, cancelled or not; ExecuteRunUseCase now also turns a warm-up failure into " +
+                "RunFailure.InferenceFailed (it used to escape the loop). The GPU run now stops at warm-up 1 with no " +
+                "bundle, and CPU runs are unchanged (36 tokens with the earlier digest; exactly 16 under a cap of 16). " +
+                "ExecuteRunUseCaseTest and GenerationOutcomeTest cover both. No NPU path has run: NNAPI is offered by " +
+                "LiteRT only up to Android 14, and QNN and VENDOR_NPU have no adapter. " +
                 "Treat 'it builds' as exactly that and nothing more.",
             java.awt.Color(0.78f, 0.16f, 0.16f),
         )

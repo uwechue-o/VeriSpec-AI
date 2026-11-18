@@ -20,6 +20,8 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -91,6 +93,7 @@ class MediaPipeBackend @Inject constructor(
             var firstToken = 0L
             var end = 0L
             var steps = 0
+            val cancelled = AtomicBoolean(false)
             val start = AdapterSupport.nowMicros()
             // MediaPipe has no per-request token limit (setMaxTokens is the whole
             // context, fixed at load), so maxNewTokens is enforced here: the
@@ -98,12 +101,13 @@ class MediaPipeBackend @Inject constructor(
             // after the requested number of steps. Nothing that calls back into
             // the runtime may run in this listener: MediaPipe throws while a
             // generation is in flight, and inside the JNI callback that aborts.
-            session.generateResponseAsync { partial, finished ->
+            val generation = session.generateResponseAsync { partial, finished ->
                 if (!done.isCompleted) {
                     if (firstToken == 0L && partial.isNotEmpty()) firstToken = AdapterSupport.nowMicros()
                     text.append(partial)
                     if (finished || ++steps >= input.maxNewTokens) {
                         end = AdapterSupport.nowMicros()
+                        cancelled.set(!finished)
                         done.complete(text.toString())
                         if (!finished) runCatching { session.cancelGenerateResponseAsync() }
                     }
@@ -114,6 +118,8 @@ class MediaPipeBackend @Inject constructor(
             // Token counts call into the runtime, so wait until it reports the
             // generation finished (also after a cancel); the timing is already taken.
             withTimeoutOrNull(IDLE_TIMEOUT_MS) { idle.await() }
+            val failure = if (cancelled.get()) null else runCatching { generation.get(IDLE_TIMEOUT_MS, TimeUnit.MILLISECONDS) }.exceptionOrNull()
+            GenerationOutcome.requireAnswer(output, handle.effectiveDelegate, cancelled.get(), failure)
             val decodeTokens = runCatching { handle.llm.sizeInTokens(output) }
             AdapterSupport.textResult(
                 outputText = output,

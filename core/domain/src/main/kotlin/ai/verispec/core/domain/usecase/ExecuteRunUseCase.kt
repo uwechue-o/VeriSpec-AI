@@ -116,7 +116,15 @@ class ExecuteRunUseCase(
             )
 
             for (w in 0 until manifest.schedule.warmupIterations) {
-                backend.infer(loaded, WorkloadInputs.forIteration(manifest, w))
+                try {
+                    backend.infer(loaded, WorkloadInputs.forIteration(manifest, w))
+                } catch (ce: CancellationException) {
+                    throw ce
+                } catch (e: Exception) {
+                    val detail = e.message ?: e::class.simpleName ?: "unknown"
+                    send(RunProgress.Failed(RunFailure.InferenceFailed(w, "during warm-up ${w + 1} of ${manifest.schedule.warmupIterations}: $detail")))
+                    return
+                }
                 send(RunProgress.Warmup(w + 1, manifest.schedule.warmupIterations))
             }
 
