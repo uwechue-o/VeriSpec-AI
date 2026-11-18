@@ -859,6 +859,19 @@ object DeveloperManual02 {
                 "bundle, and CPU runs are unchanged (36 tokens with the earlier digest; exactly 16 under a cap of 16). " +
                 "ExecuteRunUseCaseTest and GenerationOutcomeTest cover both. No NPU path has run: NNAPI is offered by " +
                 "LiteRT only up to Android 14, and QNN and VENDOR_NPU have no adapter. " +
+                "On 2026-11-18 the Galaxy Tab S7+ (Android 13, so NNAPI is offered) ran both paths, 30 iterations each, " +
+                "no gate, all bundles verifying. LiteRT EfficientNet-Lite0 on NNAPI ran at 84.9 inf/s against 46.1 on " +
+                "the CPU with the same settings (the CPU run reproduced the tablet's 2026-11-14 digests 30/30). With " +
+                "debug.nn.vlog set, NNAPI listed qti-default, qti-dsp, qti-gpu and qti-hta and placed all 62 operations " +
+                "on qti-default. The GPU clock rose to 587-670 MHz from 305 MHz, and the outputs moved from the CPU's " +
+                "by up to 1.6e-4 against about 1e-8 between devices on the CPU, which points to the Adreno GPU in reduced " +
+                "precision; the DSP and HTA normally take only quantized models and every starter is float32. So that " +
+                "is an accelerated run, not an NPU result, and the bundle cannot tell: it records NNAPI, not which NNAPI " +
+                "device ran. MediaPipe on the tablet's Adreno GPU failed exactly as on the Pixel's Mali (1,303 of 1,360 " +
+                "operations delegated, then the detokenizer error), now stopping at warm-up 1 with no bundle, so the " +
+                "fault lies with this model on MediaPipe's GPU path rather than one GPU. MediaPipe on the tablet's CPU " +
+                "ran at 24.2 tok/s with the Pixel's output digest. A real NPU run needs an int8 model and a way to name " +
+                "the NNAPI device (LiteRT can select an accelerator by name) and record it. " +
                 "Treat 'it builds' as exactly that and nothing more.",
             java.awt.Color(0.78f, 0.16f, 0.16f),
         )
