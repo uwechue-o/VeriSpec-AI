@@ -361,7 +361,11 @@ object Overview02 {
                 "unplugged Pixel 6, in which it gave the same answer all 500 times and slowed from about 24 to " +
                 "about 18 pieces of words a second as the phone warmed up. All four have since been tried on an " +
                 "Honor Magic V3 as well, where the language model ran about twice as fast and gave exactly the " +
-                "same answers as on the Pixel.",
+                "same answers as on the Pixel. In the first tries away from the main processor, on a Samsung tablet " +
+                "and a OnePlus 8T phone, the language model failed on the graphics processor, and the app now stops " +
+                "cleanly when that happens; Android's route to AI accelerators ran the image model almost twice as " +
+                "fast, but went to a general-purpose path rather than the dedicated AI chip, so nothing has run on " +
+                "an AI chip yet.",
         )
         doc.p(
             "That distinction matters, and it is the reason this section exists. A first comparison of one model " +

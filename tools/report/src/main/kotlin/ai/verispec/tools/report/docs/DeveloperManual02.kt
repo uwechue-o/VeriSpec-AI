@@ -872,6 +872,13 @@ object DeveloperManual02 {
                 "fault lies with this model on MediaPipe's GPU path rather than one GPU. MediaPipe on the tablet's CPU " +
                 "ran at 24.2 tok/s with the Pixel's output digest. A real NPU run needs an int8 model and a way to name " +
                 "the NNAPI device (LiteRT can select an accelerator by name) and record it. " +
+                "Later on 2026-11-18 a OnePlus 8T (Android 14, the same SM8250) repeated the three tests, GPU first, while " +
+                "charging and at LIGHT on every iteration: MediaPipe GPU failed in the same way with no bundle; LiteRT on " +
+                "NNAPI ran at 70.4 inf/s median against 38.3 on the CPU, again with all 62 operations on qti-default; and " +
+                "MediaPipe on the CPU ran at 21.5 tok/s with the Pixel's digest. Its NNAPI outputs equal the tablet's NNAPI " +
+                "outputs on all 30 iterations and its CPU outputs equal the tablet's and the Pixel's, so the NNAPI " +
+                "difference comes from the driver path, not the device; the OnePlus has no readable GPU clock. " +
+                "The first accelerator runs section below charts all of it from the bundles. " +
                 "Treat 'it builds' as exactly that and nothing more.",
             java.awt.Color(0.78f, 0.16f, 0.16f),
         )
@@ -892,6 +899,7 @@ object DeveloperManual02 {
         )
 
         CrossDeviceFigures.developerSection(doc)
+        AcceleratorFigures.developerSection(doc)
 
         doc.h2("The immediate next step")
         doc.p(
