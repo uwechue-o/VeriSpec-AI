@@ -1,5 +1,6 @@
 package ai.verispec.tools.cli
 
+import ai.verispec.core.domain.model.acceleratorSummary
 import ai.verispec.core.domain.model.CoverageStatus
 import ai.verispec.core.domain.model.EvidenceBundle
 import ai.verispec.core.domain.model.HardwareSummary
@@ -214,6 +215,7 @@ class InspectCommand : CliktCommand(name = "inspect") {
                     row("format / quant", "${b.provenance.modelFormat} · ${b.manifest.model.quantization.scheme}")
                     row("runtime", "${b.provenance.runtime} ${b.provenance.runtimeVersionDeclared} (observed ${b.provenance.runtimeVersionObserved ?: "n/a"})")
                     row("delegate", "${b.provenance.delegate} → ${b.provenance.delegateActuallyUsed}")
+                    b.provenance.acceleratorSummary()?.let { row("nnapi device", it) }
                     row("npu driver", b.provenance.npuDriverVersion ?: "not reported")
                     row("gpu driver", b.provenance.gpuDriverVersion ?: "not reported")
                     row("device", "${b.device.manufacturer} ${b.device.deviceModel} · ${b.device.soc.vendor} ${b.device.soc.model}")

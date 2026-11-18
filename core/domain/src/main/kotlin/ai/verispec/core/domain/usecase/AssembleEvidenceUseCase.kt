@@ -53,6 +53,12 @@ class AssembleEvidenceUseCase(
         } else {
             emptyList()
         }
+        val requested = manifest.backend.accelerator
+        val acceleratorNotes = if (requested != null && loaded.acceleratorUsed != requested) {
+            listOf("Accelerator fallback: requested $requested, which the ${manifest.backend.delegate} delegate did not run on")
+        } else {
+            emptyList()
+        }
         return ProvenanceRecord(
             modelSha256 = manifest.model.sha256,
             modelFormat = manifest.model.format,
@@ -65,7 +71,10 @@ class AssembleEvidenceUseCase(
             gpuDriverVersion = device.gpuDriverVersion,
             toolVersion = manifest.toolVersion,
             capturedAtEpochMillis = clock.epochMillis(),
-            notes = (fallbackNotes + notes).sorted(),
+            notes = (fallbackNotes + acceleratorNotes + loaded.loadNotes + notes).sorted(),
+            accelerator = requested,
+            acceleratorActuallyUsed = loaded.acceleratorUsed,
+            acceleratorsAvailable = loaded.acceleratorsAvailable,
         )
     }
 }

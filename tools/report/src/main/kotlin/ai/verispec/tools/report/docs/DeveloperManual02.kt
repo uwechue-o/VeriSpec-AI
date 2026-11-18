@@ -30,7 +30,7 @@ object DeveloperManual02 {
             subtitle = "A conformance evidence toolkit for on-device AI: why it exists, how it works, and how to work on it.",
             meta = listOf(
                 "Toolkit version $TOOL_VERSION",
-                "Bundle schema 1.2.0  ·  clause catalog 2026.1",
+                "Bundle schema 1.3.0  ·  clause catalog 2026.1",
                 "Generated ${LocalDate.now()}",
                 "",
                 "For developers who extend or review the toolkit.",
@@ -328,7 +328,7 @@ object DeveloperManual02 {
             ),
         )
         doc.p(
-            "The published JSON Schema lives at core/evidence/src/main/resources/schemas/evidence-bundle-1.2.0.schema.json, " +
+            "The published JSON Schema lives at core/evidence/src/main/resources/schemas/evidence-bundle-1.3.0.schema.json, " +
                 "versioned separately from the Kotlin, and downstream tools should target the schema, not this " +
                 "implementation. Getting it wrong later costs far more than designing it carefully now.",
         )
@@ -351,6 +351,12 @@ object DeveloperManual02 {
                 "observations.telemetry lists which signals this device let the app read and which it did not, and " +
                 "there is the ON_DIMMED screen policy. Older schema files stay published unchanged, and the 1.1.0 " +
                 "schema rejects a bundle carrying 1.2.0 fields, which is what makes the version bump mean something.",
+        )
+        doc.p(
+            "1.3.0 adds, the same way, the named accelerator behind a delegate: BackendRef.accelerator in the " +
+                "manifest (NNAPI only, validated in its init block), and accelerator, acceleratorActuallyUsed and " +
+                "acceleratorsAvailable in the provenance. A manifest without a name encodes exactly as before, so its " +
+                "id does not move, and the 1.2.0 schema rejects a bundle that carries the new fields.",
         )
     }
 
@@ -608,7 +614,7 @@ object DeveloperManual02 {
                 "Implement capabilities() to probe the runtime honestly: if the native library is missing or the probe throws, return BackendCapabilities.unavailable with a reason a person can act on, and never let an exception escape a probe.",
                 "Implement load() with ModelFiles.resolveAndVerify. It re-hashes the file and refuses to load bytes that don't match the manifest; without that, provenance would be fiction.",
                 "Implement infer() with AdapterSupport for timing and digesting, and don't time the call or hash the output yourself, because the shared helpers are what keep backends comparable.",
-                "Record any fallback in effectiveDelegate: if the manifest asked for NNAPI and the graph wouldn't compile, run on CPU and say so, and the assembler turns the difference into a provenance note automatically.",
+                "Record any fallback in effectiveDelegate: if the manifest asked for NNAPI and the graph wouldn't compile, run on CPU and say so, and the assembler turns the difference into a provenance note automatically. A delegate that is accepted but takes no operations is a fallback too: LiteRT's NNAPI delegate does exactly that on a device that supports none of the model, which is why LiteRtBackend reads the delegation count back (DelegationLog) and reports it in LoadedModel.loadNotes.",
                 "Bind the adapter with @IntoMap and @RuntimeKey in a Hilt module, and add the RuntimeId if it is a new runtime.",
             ),
         )
@@ -866,12 +872,12 @@ object DeveloperManual02 {
                 "on qti-default. The GPU clock rose to 587-670 MHz from 305 MHz, and the outputs moved from the CPU's " +
                 "by up to 1.6e-4 against about 1e-8 between devices on the CPU, which points to the Adreno GPU in reduced " +
                 "precision; the DSP and HTA normally take only quantized models and every starter is float32. So that " +
-                "is an accelerated run, not an NPU result, and the bundle cannot tell: it records NNAPI, not which NNAPI " +
+                "is an accelerated run, not an NPU result, and that bundle cannot tell: it records NNAPI, not which NNAPI " +
                 "device ran. MediaPipe on the tablet's Adreno GPU failed exactly as on the Pixel's Mali (1,303 of 1,360 " +
                 "operations delegated, then the detokenizer error), now stopping at warm-up 1 with no bundle, so the " +
                 "fault lies with this model on MediaPipe's GPU path rather than one GPU. MediaPipe on the tablet's CPU " +
                 "ran at 24.2 tok/s with the Pixel's output digest. A real NPU run needs an int8 model and a way to name " +
-                "the NNAPI device (LiteRT can select an accelerator by name) and record it. " +
+                "the NNAPI device and record it, which schema 1.3.0 now does (see Naming the NNAPI device below). " +
                 "Later on 2026-11-18 a OnePlus 8T (Android 14, the same SM8250) repeated the three tests, GPU first, while " +
                 "charging and at LIGHT on every iteration: MediaPipe GPU failed in the same way with no bundle; LiteRT on " +
                 "NNAPI ran at 70.4 inf/s median against 38.3 on the CPU, again with all 62 operations on qti-default; and " +

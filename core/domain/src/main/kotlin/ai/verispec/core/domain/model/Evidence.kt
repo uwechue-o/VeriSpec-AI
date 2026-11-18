@@ -19,7 +19,29 @@ data class ProvenanceRecord(
     val capturedAtEpochMillis: Long,
     /** Recorded degradations: e.g. "StrongBox unavailable, fell back to TEE". */
     val notes: List<String> = emptyList(),
+    /** The device the manifest named behind the delegate; null when none was named. */
+    val accelerator: String? = null,
+    /** The named device the delegate actually ran on; null when the platform chose or the name was refused. */
+    val acceleratorActuallyUsed: String? = null,
+    /** Every device the delegate's platform API listed; null when not listed (non-NNAPI runs, older bundles). */
+    val acceleratorsAvailable: List<AcceleratorDevice>? = null,
 )
+
+/**
+ * The accelerator part of the provenance in words, the same in the app, the CLI and
+ * the PDF; null when the run neither named a device nor listed any (non-NNAPI runs and
+ * bundles from before 1.3.0). An unnamed NNAPI run is never credited to a device.
+ */
+fun ProvenanceRecord.acceleratorSummary(): String? {
+    val listed = acceleratorsAvailable?.joinToString(", ") { "${it.name} (${it.type.name.lowercase()})" }
+    if (accelerator == null && listed == null) return null
+    val choice = when {
+        accelerator == null -> "none named, so NNAPI chose and did not report which device"
+        acceleratorActuallyUsed == accelerator -> "$accelerator named, delegate bound to it"
+        else -> "$accelerator named but not used"
+    }
+    return if (listed == null) choice else "$choice; listed: $listed"
+}
 
 /** DER-encoded X.509 certificate. Kept as bytes so the domain stays framework-free. */
 class EncodedCertificate(val der: ByteArray) {
@@ -103,9 +125,11 @@ data class EvidenceBundle(
          * which are absent (never null) when unused, so 1.0.0 bundles still verify.
          * 1.2.0 added, the same way, battery temperature and screen state per power
          * sample, CPU/GPU clocks per iteration, the telemetry inventory and the
-         * ON_DIMMED screen policy.
+         * ON_DIMMED screen policy. 1.3.0 added, the same way, the named accelerator
+         * behind a delegate (manifest and provenance), the one actually used and the
+         * devices the platform listed.
          */
-        val CURRENT_SCHEMA_VERSION = SemVer(1, 2, 0)
+        val CURRENT_SCHEMA_VERSION = SemVer(1, 3, 0)
     }
 }
 

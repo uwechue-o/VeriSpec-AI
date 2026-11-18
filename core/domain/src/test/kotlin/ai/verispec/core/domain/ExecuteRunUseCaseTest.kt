@@ -148,6 +148,16 @@ class ExecuteRunUseCaseTest : StringSpec({
         loaded.requestedDelegate shouldBe Delegate.GPU
         loaded.effectiveDelegate shouldBe Delegate.CPU
     }
+
+    "the accelerator named in the manifest reaches the backend, and none is passed otherwise" {
+        val named = ScriptedBackend(caps = capabilities(setOf(Delegate.CPU, Delegate.NNAPI)))
+        execute(named, manifest(delegate = Delegate.NNAPI, accelerator = "qti-hta")).last().shouldBeInstanceOf<RunProgress.Completed>()
+        named.acceleratorRequested shouldBe "qti-hta"
+
+        val unnamed = ScriptedBackend()
+        execute(unnamed, manifest()).last().shouldBeInstanceOf<RunProgress.Completed>()
+        unnamed.acceleratorRequested shouldBe null
+    }
 })
 
 private fun execute(
@@ -192,10 +202,11 @@ private fun manifest(
     capMillis: Long? = null,
     format: ModelFormat = ModelFormat.LITERT,
     delegate: Delegate = Delegate.CPU,
+    accelerator: String? = null,
 ) = RunManifest(
     manifestId = ManifestId("a".repeat(64)),
     model = ModelRef(format, Sha256("b".repeat(64)), null, QuantizationSpec.INT8, null),
-    backend = BackendRef(RuntimeId.MEDIAPIPE, SemVer(0, 10, 27), delegate, threadCount = 4),
+    backend = BackendRef(RuntimeId.MEDIAPIPE, SemVer(0, 10, 27), delegate, threadCount = 4, accelerator = accelerator),
     workload = Workload.TextGeneration(listOf("Summarise the following paragraph in one sentence."), maxNewTokens = 16),
     schedule = RunSchedule(iterations, warmup, sustainedDurationMillis = capMillis),
     seed = 42,
@@ -220,11 +231,13 @@ private class ScriptedBackend(
     val calls = mutableListOf<Int>()
     var loads = 0
     var unloads = 0
+    var acceleratorRequested: String? = null
 
     override suspend fun capabilities() = caps
 
-    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int): LoadedModel {
+    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int, accelerator: String?): LoadedModel {
         loads++
+        acceleratorRequested = accelerator
         loadFailure?.let { throw it }
         return object : LoadedModel {
             override val ref = model

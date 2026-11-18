@@ -63,7 +63,7 @@ class MediaPipeBackend @Inject constructor(
         )
     }
 
-    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int): LoadedModel = withContext(Dispatchers.IO) {
+    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int, accelerator: String?): LoadedModel = withContext(Dispatchers.IO) {
         val file = ModelFiles.resolveAndVerify(model)
         val backend = if (delegate == Delegate.GPU) LlmInference.Backend.GPU else LlmInference.Backend.CPU
         val options = LlmInference.LlmInferenceOptions.builder()

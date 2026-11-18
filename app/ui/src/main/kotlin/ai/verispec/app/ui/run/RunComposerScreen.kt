@@ -6,6 +6,7 @@ import ai.verispec.app.ui.common.KeyValueRow
 import ai.verispec.app.ui.common.SectionTitle
 import ai.verispec.app.ui.common.StatusChip
 import ai.verispec.app.ui.theme.StatusColors
+import ai.verispec.core.domain.model.AcceleratorDevice
 import ai.verispec.core.domain.model.Delegate
 import ai.verispec.core.domain.model.ModelFormat
 import ai.verispec.core.domain.model.RuntimeId
@@ -75,6 +76,9 @@ fun RunComposerScreen(state: RunUiState.Configuring, onIntent: (RunIntent) -> Un
                 cap.runtime.name,
                 "${cap.runtimeVersion ?: "?"} · ${cap.supportedDelegates.joinToString("/")} · ${cap.supportedFormats.joinToString("/")}",
             )
+            if (cap.accelerators.isNotEmpty()) {
+                KeyValueRow("  NNAPI devices", cap.accelerators.joinToString(", ") { "${it.name} (${it.type.name.lowercase()})" })
+            }
         }
         OutlinedButton(onClick = { onIntent(RunIntent.RefreshCapabilities) }) { Text("Re-probe backends") }
 
@@ -101,6 +105,12 @@ fun RunComposerScreen(state: RunUiState.Configuring, onIntent: (RunIntent) -> Un
         SectionTitle("Backend")
         EnumDropdown("Runtime", RuntimeId.entries, form.runtime) { update { copy(runtime = it) } }
         EnumDropdown("Delegate", Delegate.entries, form.delegate) { update { copy(delegate = it) } }
+        if (form.delegate == Delegate.NNAPI) {
+            AcceleratorDropdown(
+                devices = state.capabilities.firstOrNull { it.runtime == form.runtime }?.accelerators.orEmpty(),
+                selected = form.accelerator,
+            ) { update { copy(accelerator = it) } }
+        }
         OutlinedTextField(form.runtimeVersion, { v -> update { copy(runtimeVersion = v) } }, label = { Text("Runtime version declared (e.g. 1.4.0)") }, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(form.threads, { v -> update { copy(threads = v) } }, label = { Text("Threads") }, modifier = Modifier.fillMaxWidth())
 
@@ -199,6 +209,45 @@ private fun StarterModelDropdown(enabled: Boolean, onSelect: (StarterModel) -> U
                     onClick = { onSelect(m); open = false },
                 )
             }
+        }
+    }
+}
+
+/**
+ * Binds the NNAPI delegate to one device, or leaves the choice to NNAPI (blank). NNAPI does
+ * not report its own choice, so only a named device is recorded as the one used.
+ */
+@Composable
+private fun AcceleratorDropdown(devices: List<AcceleratorDevice>, selected: String, onSelect: (String) -> Unit) {
+    var open by remember { mutableStateOf(false) }
+    Column {
+        OutlinedButton(onClick = { open = true }, modifier = Modifier.fillMaxWidth()) {
+            Text("NNAPI device: ${selected.ifBlank { "let NNAPI choose (not recorded)" }}")
+        }
+        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+            DropdownMenuItem(text = { Text("Let NNAPI choose") }, onClick = { onSelect(""); open = false })
+            devices.forEach { d ->
+                DropdownMenuItem(
+                    text = {
+                        Column {
+                            Text(d.name)
+                            Text(
+                                listOfNotNull(d.type.name.lowercase(), d.version, d.featureLevel?.let { "feature level $it" }).joinToString(" · "),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    },
+                    onClick = { onSelect(d.name); open = false },
+                )
+            }
+        }
+        if (devices.isEmpty()) {
+            Text(
+                "This device lists no NNAPI devices, so none can be named.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

@@ -1,5 +1,7 @@
 package ai.verispec.core.evidence.wire
 
+import ai.verispec.core.domain.model.AcceleratorDevice
+import ai.verispec.core.domain.model.AcceleratorType
 import ai.verispec.core.domain.model.BackendRef
 import ai.verispec.core.domain.model.BundleId
 import ai.verispec.core.domain.model.ClauseCoverage
@@ -47,7 +49,9 @@ fun QuantizationSpec.toDto() = QuantizationDto(scheme, bitsPerWeight, isFloating
 
 fun ModelRef.toDto() = ModelRefDto(format.name, sha256.hex, parameterCount, quantization.toDto(), sourceUri)
 
-fun BackendRef.toDto() = BackendRefDto(runtime.name, runtimeVersion.toString(), delegate.name, threadCount)
+fun BackendRef.toDto() = BackendRefDto(runtime.name, runtimeVersion.toString(), delegate.name, threadCount, accelerator)
+
+fun AcceleratorDevice.toDto() = AcceleratorDeviceDto(name, type.name, version, featureLevel)
 
 fun Workload.toDto(): WorkloadDto = when (this) {
     is Workload.TextGeneration -> WorkloadDto.TextGeneration(prompts, maxNewTokens, temperature, topK)
@@ -127,6 +131,9 @@ fun ProvenanceRecord.toDto() = ProvenanceDto(
     toolVersion = toolVersion.toString(),
     capturedAtEpochMillis = capturedAtEpochMillis,
     notes = notes,
+    accelerator = accelerator,
+    acceleratorActuallyUsed = acceleratorActuallyUsed,
+    acceleratorsAvailable = acceleratorsAvailable?.map { it.toDto() },
 )
 
 fun ThermalSample.toDto() = ThermalSampleDto(elapsedMillis, status.name, headroom, zoneTemperaturesCelsius)
@@ -226,6 +233,14 @@ fun BackendRefDto.toDomain() = BackendRef(
     runtimeVersion = SemVer.parse(runtimeVersion),
     delegate = Delegate.valueOf(delegate),
     threadCount = threadCount,
+    accelerator = accelerator,
+)
+
+fun AcceleratorDeviceDto.toDomain() = AcceleratorDevice(
+    name = name,
+    type = runCatching { AcceleratorType.valueOf(type) }.getOrDefault(AcceleratorType.UNKNOWN),
+    version = version,
+    featureLevel = featureLevel,
 )
 
 fun WorkloadDto.toDomain(): Workload = when (this) {
@@ -295,6 +310,9 @@ fun ProvenanceDto.toDomain() = ProvenanceRecord(
     toolVersion = SemVer.parse(toolVersion),
     capturedAtEpochMillis = capturedAtEpochMillis,
     notes = notes,
+    accelerator = accelerator,
+    acceleratorActuallyUsed = acceleratorActuallyUsed,
+    acceleratorsAvailable = acceleratorsAvailable?.map { it.toDomain() },
 )
 
 fun ThermalSampleDto.toDomain() = ThermalSample(elapsedMillis, ThermalStatus.valueOf(status), headroom, zoneTemperaturesCelsius)

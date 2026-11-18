@@ -1,5 +1,7 @@
 package ai.verispec.core.evidence
 
+import ai.verispec.core.domain.model.AcceleratorDevice
+import ai.verispec.core.domain.model.AcceleratorType
 import ai.verispec.core.domain.model.BackendRef
 import ai.verispec.core.domain.model.BundleId
 import ai.verispec.core.domain.model.ClauseCoverage
@@ -128,7 +130,29 @@ object Fixtures {
         toolVersion = manifest.toolVersion,
         capturedAtEpochMillis = 1_760_000_000_500L,
         notes = listOf("StrongBox unavailable; key generated in TEE"),
+        accelerator = manifest.backend.accelerator,
+        acceleratorActuallyUsed = manifest.backend.accelerator,
+        acceleratorsAvailable = if (manifest.backend.accelerator != null) snapdragon865NnapiDevices else null,
     )
+
+    /** The NNAPI devices the OnePlus 8T (SM8250, Android 14) listed on 2026-11-18. */
+    val snapdragon865NnapiDevices = listOf(
+        AcceleratorDevice("qti-default", AcceleratorType.ACCELERATOR, "1.3-23:build_kona", 30),
+        AcceleratorDevice("qti-dsp", AcceleratorType.ACCELERATOR, "1.3-23:build_kona", 30),
+        AcceleratorDevice("qti-gpu", AcceleratorType.GPU, "1.3-23:build_kona", 30),
+        AcceleratorDevice("qti-hta", AcceleratorType.ACCELERATOR, "1.3-23:build_kona", 30),
+        AcceleratorDevice("nnapi-reference", AcceleratorType.CPU, "R.196abd8-2-3", 1_000_008),
+    )
+
+    /** A 1.3.0 manifest: LiteRT on NNAPI with one named device. */
+    fun acceleratorManifest(name: String = "qti-hta"): RunManifest {
+        val base = manifest().copy(
+            model = manifest().model.copy(format = ModelFormat.TFLITE, quantization = QuantizationSpec.INT8),
+            backend = BackendRef(RuntimeId.LITERT, SemVer(1, 4, 0), Delegate.NNAPI, threadCount = 4, accelerator = name),
+            workload = Workload.TensorInference(listOf(1, 224, 224, 3)),
+        )
+        return base.copy(manifestId = ManifestId(Hashing.sha256(EvidenceCanonicalizer.manifestBytes(base)).hex))
+    }
 
     fun coverage() = listOf(
         ClauseCoverage(

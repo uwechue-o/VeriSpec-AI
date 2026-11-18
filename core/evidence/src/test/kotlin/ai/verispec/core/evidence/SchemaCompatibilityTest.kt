@@ -100,6 +100,37 @@ class SchemaCompatibilityTest : StringSpec({
         schemaErrors("/schemas/evidence-bundle-1.2.0.schema.json", resource("/golden/bundle-1.0.0.json")).shouldBeEmpty()
     }
 
+    "a 1.3.0 accelerator bundle round-trips byte for byte and records the device in manifest and provenance" {
+        val bundle = Fixtures.bundle(Fixtures.acceleratorManifest())
+        val bytes = BundleCodec.encode(bundle)
+        val decoded = BundleCodec.decode(bytes)
+        decoded shouldBe bundle
+        BundleCodec.encode(decoded) shouldBe bytes
+        Hashing.sha256(EvidenceCanonicalizer.bundleBytes(decoded.unsigned())).hex shouldBe decoded.bundleId.value
+        decoded.manifest.backend.accelerator shouldBe "qti-hta"
+        decoded.provenance.acceleratorActuallyUsed shouldBe "qti-hta"
+        decoded.provenance.acceleratorsAvailable shouldBe Fixtures.snapdragon865NnapiDevices
+    }
+
+    "without a named accelerator the 1.3.0 fields are absent, so manifest ids do not move" {
+        val json = BundleCodec.encode(Fixtures.bundle()).toString(Charsets.UTF_8)
+        json shouldNotContain "accelerator"
+        Fixtures.manifest().manifestId shouldNotBe Fixtures.acceleratorManifest().manifestId
+    }
+
+    "a 1.3.0 bundle validates against the 1.3.0 schema, and older bundles still do" {
+        schemaErrors("/schemas/evidence-bundle-1.3.0.schema.json", BundleCodec.encodePretty(Fixtures.bundle(Fixtures.acceleratorManifest())))
+            .shouldBeEmpty()
+        schemaErrors("/schemas/evidence-bundle-1.3.0.schema.json", BundleCodec.encodePretty(Fixtures.bundle(Fixtures.dimmedManifest(), hardware = true)))
+            .shouldBeEmpty()
+        schemaErrors("/schemas/evidence-bundle-1.3.0.schema.json", resource("/golden/bundle-1.0.0.json")).shouldBeEmpty()
+    }
+
+    "the 1.2.0 schema rejects 1.3.0 accelerator fields, so the version bump is real" {
+        schemaErrors("/schemas/evidence-bundle-1.2.0.schema.json", BundleCodec.encodePretty(Fixtures.bundle(Fixtures.acceleratorManifest())))
+            .isNotEmpty() shouldBe true
+    }
+
     "the 1.1.0 schema rejects 1.2.0 hardware fields, so the version bump is real" {
         schemaErrors("/schemas/evidence-bundle-1.1.0.schema.json", BundleCodec.encodePretty(Fixtures.bundle(Fixtures.dimmedManifest(), hardware = true)))
             .isNotEmpty() shouldBe true

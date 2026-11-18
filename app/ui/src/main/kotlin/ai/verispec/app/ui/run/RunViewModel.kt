@@ -9,6 +9,7 @@ import ai.verispec.app.ui.common.ChartPoint
 import ai.verispec.app.ui.common.throughputUnit
 import ai.verispec.core.domain.math.SustainedLoad
 import ai.verispec.core.domain.model.BackendRef
+import ai.verispec.core.domain.model.Delegate
 import ai.verispec.core.domain.model.BundleId
 import ai.verispec.core.domain.model.ManifestId
 import ai.verispec.core.domain.model.ModelRef
@@ -321,7 +322,10 @@ object ManifestFormMapper {
                 quantization = quant,
                 sourceUri = form.modelFileUri,
             ),
-            backend = BackendRef(form.runtime, runtimeVersion, form.delegate, threads),
+            backend = BackendRef(
+                form.runtime, runtimeVersion, form.delegate, threads,
+                accelerator = form.accelerator.trim().takeIf { form.delegate == Delegate.NNAPI && it.isNotEmpty() },
+            ),
             workload = workload,
             schedule = RunSchedule(iterations, warmup, delay, sustained),
             preconditions = preconditions,

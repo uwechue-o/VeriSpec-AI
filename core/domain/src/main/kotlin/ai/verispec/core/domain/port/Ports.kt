@@ -35,7 +35,8 @@ import kotlinx.coroutines.flow.Flow
 interface InferenceBackend {
     val id: RuntimeId
     suspend fun capabilities(): BackendCapabilities
-    suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int): LoadedModel
+    /** [accelerator] names one device behind [delegate] (see [ai.verispec.core.domain.model.BackendRef.accelerator]); null lets the platform choose. */
+    suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int, accelerator: String?): LoadedModel
     suspend fun infer(model: LoadedModel, input: WorkloadInput): InferenceResult
     suspend fun unload(model: LoadedModel)
 }

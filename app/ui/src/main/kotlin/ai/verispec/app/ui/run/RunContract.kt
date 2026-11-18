@@ -28,6 +28,8 @@ data class ManifestForm(
     val runtime: RuntimeId = RuntimeId.LITERT,
     val runtimeVersion: String = "",
     val delegate: Delegate = Delegate.CPU,
+    /** NNAPI device to bind the delegate to; blank lets NNAPI choose. Ignored for other delegates. */
+    val accelerator: String = "",
     val threads: String = "4",
     val workloadKind: WorkloadKind = WorkloadKind.TENSOR_INFERENCE,
     val prompts: String = "Summarise the following paragraph in one sentence.",

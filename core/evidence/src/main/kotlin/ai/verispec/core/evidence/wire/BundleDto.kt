@@ -33,6 +33,9 @@ data class BackendRefDto(
     val runtimeVersion: String,
     val delegate: String,
     val threadCount: Int,
+    @OptIn(ExperimentalSerializationApi::class)
+    @EncodeDefault(EncodeDefault.Mode.NEVER)
+    val accelerator: String? = null,
 )
 
 @Serializable
@@ -165,6 +168,23 @@ data class ProvenanceDto(
     val toolVersion: String,
     val capturedAtEpochMillis: Long,
     val notes: List<String>,
+    @OptIn(ExperimentalSerializationApi::class)
+    @EncodeDefault(EncodeDefault.Mode.NEVER)
+    val accelerator: String? = null,
+    @OptIn(ExperimentalSerializationApi::class)
+    @EncodeDefault(EncodeDefault.Mode.NEVER)
+    val acceleratorActuallyUsed: String? = null,
+    @OptIn(ExperimentalSerializationApi::class)
+    @EncodeDefault(EncodeDefault.Mode.NEVER)
+    val acceleratorsAvailable: List<AcceleratorDeviceDto>? = null,
+)
+
+@Serializable
+data class AcceleratorDeviceDto(
+    val name: String,
+    val type: String,
+    val version: String?,
+    val featureLevel: Long?,
 )
 
 @Serializable

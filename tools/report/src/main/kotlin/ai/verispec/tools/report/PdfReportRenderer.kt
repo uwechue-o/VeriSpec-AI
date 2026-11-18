@@ -1,5 +1,6 @@
 package ai.verispec.tools.report
 
+import ai.verispec.core.domain.model.acceleratorSummary
 import ai.verispec.core.domain.math.SustainedLoad
 import ai.verispec.core.domain.model.CoverageStatus
 import ai.verispec.core.domain.model.EnvelopeValidity
@@ -99,6 +100,7 @@ class PdfReportRenderer {
         p.kv("Parameters", b.manifest.model.parameterCount?.toString() ?: "not declared")
         p.kv("Runtime", "${b.provenance.runtime} declared ${b.provenance.runtimeVersionDeclared}, observed ${b.provenance.runtimeVersionObserved ?: "not reported"}")
         p.kv("Delegate", "requested ${b.provenance.delegate}, executed on ${b.provenance.delegateActuallyUsed}")
+        b.provenance.acceleratorSummary()?.let { p.kv("NNAPI device", it) }
         p.kv("NPU driver", b.provenance.npuDriverVersion ?: "not reported by platform")
         p.kv("GPU driver", b.provenance.gpuDriverVersion ?: "not reported by platform")
         b.provenance.notes.take(MAX_LIST).forEach { p.bullet(it) }

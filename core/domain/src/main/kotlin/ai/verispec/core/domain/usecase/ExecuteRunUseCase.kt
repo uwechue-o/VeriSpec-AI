@@ -100,7 +100,7 @@ class ExecuteRunUseCase(
 
             val loadStart = clock.monotonicNanos()
             loaded = try {
-                backend.load(manifest.model, manifest.backend.delegate, manifest.backend.threadCount)
+                backend.load(manifest.model, manifest.backend.delegate, manifest.backend.threadCount, manifest.backend.accelerator)
             } catch (ce: CancellationException) {
                 throw ce
             } catch (e: Exception) {

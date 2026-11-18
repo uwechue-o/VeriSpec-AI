@@ -1,5 +1,6 @@
 package ai.verispec.app.ui.bundles
 
+import ai.verispec.core.domain.model.acceleratorSummary
 import ai.verispec.app.ui.common.ChartPoint
 import ai.verispec.app.ui.common.DecayChart
 import ai.verispec.app.ui.common.KeyValueRow
@@ -158,6 +159,7 @@ fun BundleDetailScreen(
                 KeyValueRow("format / quant", "${b.provenance.modelFormat} / ${b.manifest.model.quantization.scheme}")
                 KeyValueRow("runtime", "${b.provenance.runtime} ${b.provenance.runtimeVersionDeclared} (observed ${b.provenance.runtimeVersionObserved ?: "n/a"})")
                 KeyValueRow("delegate", "${b.provenance.delegate} → ${b.provenance.delegateActuallyUsed}")
+                b.provenance.acceleratorSummary()?.let { KeyValueRow("NNAPI device", it) }
                 KeyValueRow("NPU driver", b.provenance.npuDriverVersion ?: "not reported")
                 KeyValueRow("GPU driver", b.provenance.gpuDriverVersion ?: "not reported")
                 b.provenance.notes.forEach { Text("• $it", style = MaterialTheme.typography.bodySmall) }

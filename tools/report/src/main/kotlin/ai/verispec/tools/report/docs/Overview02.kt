@@ -365,7 +365,8 @@ object Overview02 {
                 "and a OnePlus 8T phone, the language model failed on the graphics processor, and the app now stops " +
                 "cleanly when that happens; Android's route to AI accelerators ran the image model almost twice as " +
                 "fast, but went to a general-purpose path rather than the dedicated AI chip, so nothing has run on " +
-                "an AI chip yet.",
+                "an AI chip yet. A test can now name the chip it wants, and the sealed result records whether that " +
+                "chip actually did the work: on the OnePlus the AI chip refused the image model, and the result says so.",
         )
         doc.p(
             "That distinction matters, and it is the reason this section exists. A first comparison of one model " +

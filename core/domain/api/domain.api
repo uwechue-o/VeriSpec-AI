@@ -63,13 +63,42 @@ public final class ai/verispec/core/domain/math/WorkloadInputs {
 	public final fun forIteration (Lai/verispec/core/domain/model/RunManifest;I)Lai/verispec/core/domain/model/WorkloadInput;
 }
 
+public final class ai/verispec/core/domain/model/AcceleratorDevice {
+	public fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/AcceleratorType;Ljava/lang/String;Ljava/lang/Long;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lai/verispec/core/domain/model/AcceleratorType;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/Long;
+	public final fun copy (Ljava/lang/String;Lai/verispec/core/domain/model/AcceleratorType;Ljava/lang/String;Ljava/lang/Long;)Lai/verispec/core/domain/model/AcceleratorDevice;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/AcceleratorDevice;Ljava/lang/String;Lai/verispec/core/domain/model/AcceleratorType;Ljava/lang/String;Ljava/lang/Long;ILjava/lang/Object;)Lai/verispec/core/domain/model/AcceleratorDevice;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFeatureLevel ()Ljava/lang/Long;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getType ()Lai/verispec/core/domain/model/AcceleratorType;
+	public final fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/AcceleratorType : java/lang/Enum {
+	public static final field ACCELERATOR Lai/verispec/core/domain/model/AcceleratorType;
+	public static final field CPU Lai/verispec/core/domain/model/AcceleratorType;
+	public static final field GPU Lai/verispec/core/domain/model/AcceleratorType;
+	public static final field OTHER Lai/verispec/core/domain/model/AcceleratorType;
+	public static final field UNKNOWN Lai/verispec/core/domain/model/AcceleratorType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/AcceleratorType;
+	public static fun values ()[Lai/verispec/core/domain/model/AcceleratorType;
+}
+
 public final class ai/verispec/core/domain/model/BackendCapabilities {
 	public static final field Companion Lai/verispec/core/domain/model/BackendCapabilities$Companion;
-	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;)V
-	public synthetic fun <init> (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lai/verispec/core/domain/model/RuntimeId;
 	public final fun component10 ()Z
 	public final fun component11 ()Ljava/util/List;
+	public final fun component12 ()Ljava/util/List;
 	public final fun component2 ()Z
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
@@ -78,9 +107,10 @@ public final class ai/verispec/core/domain/model/BackendCapabilities {
 	public final fun component7 ()I
 	public final fun component8 ()Z
 	public final fun component9 ()Z
-	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;)Lai/verispec/core/domain/model/BackendCapabilities;
-	public static synthetic fun copy$default (Lai/verispec/core/domain/model/BackendCapabilities;Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/BackendCapabilities;
+	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;Ljava/util/List;)Lai/verispec/core/domain/model/BackendCapabilities;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/BackendCapabilities;Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/BackendCapabilities;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccelerators ()Ljava/util/List;
 	public final fun getAvailable ()Z
 	public final fun getMaxThreads ()I
 	public final fun getNotes ()Ljava/util/List;
@@ -101,14 +131,17 @@ public final class ai/verispec/core/domain/model/BackendCapabilities$Companion {
 }
 
 public final class ai/verispec/core/domain/model/BackendRef {
-	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;I)V
+	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;ILjava/lang/String;)V
+	public synthetic fun <init> (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;ILjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lai/verispec/core/domain/model/RuntimeId;
 	public final fun component2 ()Lai/verispec/core/domain/model/SemVer;
 	public final fun component3 ()Lai/verispec/core/domain/model/Delegate;
 	public final fun component4 ()I
-	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;I)Lai/verispec/core/domain/model/BackendRef;
-	public static synthetic fun copy$default (Lai/verispec/core/domain/model/BackendRef;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;IILjava/lang/Object;)Lai/verispec/core/domain/model/BackendRef;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;ILjava/lang/String;)Lai/verispec/core/domain/model/BackendRef;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/BackendRef;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Lai/verispec/core/domain/model/Delegate;ILjava/lang/String;ILjava/lang/Object;)Lai/verispec/core/domain/model/BackendRef;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccelerator ()Ljava/lang/String;
 	public final fun getDelegate ()Lai/verispec/core/domain/model/Delegate;
 	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
 	public final fun getRuntimeVersion ()Lai/verispec/core/domain/model/SemVer;
@@ -425,6 +458,10 @@ public final class ai/verispec/core/domain/model/EvidenceFacts$Companion {
 	public final fun derive (Lai/verispec/core/domain/model/RunManifest;Lai/verispec/core/domain/model/DeviceProfile;Lai/verispec/core/domain/model/ProvenanceRecord;Lai/verispec/core/domain/model/Observations;ZZZZ)Lai/verispec/core/domain/model/EvidenceFacts;
 }
 
+public final class ai/verispec/core/domain/model/EvidenceKt {
+	public static final fun acceleratorSummary (Lai/verispec/core/domain/model/ProvenanceRecord;)Ljava/lang/String;
+}
+
 public final class ai/verispec/core/domain/model/EvidenceRequirement : java/lang/Enum {
 	public static final field CAPABILITY_GAPS_RECORDED Lai/verispec/core/domain/model/EvidenceRequirement;
 	public static final field DEVICE_PROFILE Lai/verispec/core/domain/model/EvidenceRequirement;
@@ -545,10 +582,19 @@ public final class ai/verispec/core/domain/model/IterationRecord {
 }
 
 public abstract interface class ai/verispec/core/domain/model/LoadedModel {
+	public fun getAcceleratorUsed ()Ljava/lang/String;
+	public fun getAcceleratorsAvailable ()Ljava/util/List;
 	public abstract fun getEffectiveDelegate ()Lai/verispec/core/domain/model/Delegate;
+	public fun getLoadNotes ()Ljava/util/List;
 	public abstract fun getRef ()Lai/verispec/core/domain/model/ModelRef;
 	public abstract fun getRequestedDelegate ()Lai/verispec/core/domain/model/Delegate;
 	public abstract fun getRuntimeVersionObserved ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/LoadedModel$DefaultImpls {
+	public static fun getAcceleratorUsed (Lai/verispec/core/domain/model/LoadedModel;)Ljava/lang/String;
+	public static fun getAcceleratorsAvailable (Lai/verispec/core/domain/model/LoadedModel;)Ljava/util/List;
+	public static fun getLoadNotes (Lai/verispec/core/domain/model/LoadedModel;)Ljava/util/List;
 }
 
 public final class ai/verispec/core/domain/model/ManifestId {
@@ -803,12 +849,15 @@ public final class ai/verispec/core/domain/model/PreconditionState$Waiting : ai/
 }
 
 public final class ai/verispec/core/domain/model/ProvenanceRecord {
-	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-jcu4v2A ()Ljava/lang/String;
 	public final fun component10 ()Lai/verispec/core/domain/model/SemVer;
 	public final fun component11 ()J
 	public final fun component12 ()Ljava/util/List;
+	public final fun component13 ()Ljava/lang/String;
+	public final fun component14 ()Ljava/lang/String;
+	public final fun component15 ()Ljava/util/List;
 	public final fun component2 ()Lai/verispec/core/domain/model/ModelFormat;
 	public final fun component3 ()Lai/verispec/core/domain/model/RuntimeId;
 	public final fun component4 ()Lai/verispec/core/domain/model/SemVer;
@@ -817,9 +866,12 @@ public final class ai/verispec/core/domain/model/ProvenanceRecord {
 	public final fun component7 ()Lai/verispec/core/domain/model/Delegate;
 	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy-ypuuUug (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;)Lai/verispec/core/domain/model/ProvenanceRecord;
-	public static synthetic fun copy-ypuuUug$default (Lai/verispec/core/domain/model/ProvenanceRecord;Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/ProvenanceRecord;
+	public final fun copy-yyh8ev8 (Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lai/verispec/core/domain/model/ProvenanceRecord;
+	public static synthetic fun copy-yyh8ev8$default (Lai/verispec/core/domain/model/ProvenanceRecord;Ljava/lang/String;Lai/verispec/core/domain/model/ModelFormat;Lai/verispec/core/domain/model/RuntimeId;Lai/verispec/core/domain/model/SemVer;Ljava/lang/String;Lai/verispec/core/domain/model/Delegate;Lai/verispec/core/domain/model/Delegate;Ljava/lang/String;Ljava/lang/String;Lai/verispec/core/domain/model/SemVer;JLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/ProvenanceRecord;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccelerator ()Ljava/lang/String;
+	public final fun getAcceleratorActuallyUsed ()Ljava/lang/String;
+	public final fun getAcceleratorsAvailable ()Ljava/util/List;
 	public final fun getCapturedAtEpochMillis ()J
 	public final fun getDelegate ()Lai/verispec/core/domain/model/Delegate;
 	public final fun getDelegateActuallyUsed ()Lai/verispec/core/domain/model/Delegate;
@@ -1597,7 +1649,7 @@ public abstract interface class ai/verispec/core/domain/port/InferenceBackend {
 	public abstract fun capabilities (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getId ()Lai/verispec/core/domain/model/RuntimeId;
 	public abstract fun infer (Lai/verispec/core/domain/model/LoadedModel;Lai/verispec/core/domain/model/WorkloadInput;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun load (Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/Delegate;ILkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun load (Lai/verispec/core/domain/model/ModelRef;Lai/verispec/core/domain/model/Delegate;ILjava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun unload (Lai/verispec/core/domain/model/LoadedModel;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

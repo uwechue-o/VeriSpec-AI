@@ -38,8 +38,18 @@ data class BackendRef(
     val runtimeVersion: SemVer,
     val delegate: Delegate,
     val threadCount: Int,
+    /**
+     * One named device behind the delegate, e.g. "qti-hta" under NNAPI, so the run
+     * goes to that device or falls back visibly instead of wherever the platform
+     * chooses. Null lets the platform choose. Only NNAPI takes a name today.
+     */
+    val accelerator: String? = null,
 ) {
-    init { require(threadCount > 0) { "threadCount must be positive" } }
+    init {
+        require(threadCount > 0) { "threadCount must be positive" }
+        require(accelerator == null || accelerator.isNotBlank()) { "accelerator must not be blank" }
+        require(accelerator == null || delegate == Delegate.NNAPI) { "an accelerator can only be named for the NNAPI delegate" }
+    }
 }
 
 /**

@@ -59,7 +59,7 @@ class ExecuTorchBackend @Inject constructor() : InferenceBackend {
         )
     }
 
-    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int): LoadedModel = withContext(Dispatchers.IO) {
+    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int, accelerator: String?): LoadedModel = withContext(Dispatchers.IO) {
         val file = ModelFiles.resolveAndVerify(model)
         val module = Module.load(file.absolutePath)
         Handle(model, delegate, Delegate.CPU, RUNTIME_VERSION, module)

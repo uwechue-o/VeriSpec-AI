@@ -3,6 +3,7 @@ package ai.verispec.tools.report.docs
 import ai.verispec.core.domain.model.Delegate
 import ai.verispec.core.domain.model.EvidenceBundle
 import ai.verispec.core.domain.model.RuntimeId
+import ai.verispec.core.domain.model.acceleratorSummary
 import ai.verispec.core.evidence.BundleCodec
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -39,6 +40,11 @@ object AcceleratorFigures {
     val tabLlm by lazy { load("tab-s7plus-mediapipe-cpu.json", RuntimeId.MEDIAPIPE, Delegate.CPU) }
     val oneplusLlm by lazy { load("oneplus8t-mediapipe-cpu.json", RuntimeId.MEDIAPIPE, Delegate.CPU) }
     val pixelLlm by lazy { load("pixel6-mediapipe-cpu.json", RuntimeId.MEDIAPIPE, Delegate.CPU) }
+
+    /* Schema 1.3.0: the same OnePlus run with NNAPI bound to one named device. */
+    val namedGpu by lazy { load("oneplus8t-litert-nnapi-qti-gpu.json", RuntimeId.LITERT, Delegate.NNAPI) }
+    val namedDefault by lazy { load("oneplus8t-litert-nnapi-qti-default.json", RuntimeId.LITERT, Delegate.NNAPI) }
+    val namedHta by lazy { load("oneplus8t-litert-nnapi-qti-hta.json", RuntimeId.LITERT, Delegate.NNAPI) }
 
     /** Comparisons are per iteration index, so the runs being compared must share model and seed. */
     private fun checkComparable(bundles: List<EvidenceBundle>) {
@@ -185,10 +191,22 @@ object AcceleratorFigures {
                 "then caught up with the others.",
         )
         doc.p(
-            "So the accelerator route works and is faster, but on these devices it doesn't reach the AI chip, and the " +
-                "sealed result can only say that the route was used, not which chip did the work. Reaching the AI chip " +
-                "will most likely need a model stored in a smaller number format, which the AI chips on these devices " +
-                "are built for, and the toolkit will need to name and record the chip it asks for.",
+            "So the accelerator route works and is faster, but on these devices it doesn't reach the AI chip. At the " +
+                "time, a sealed result could only say that the route was used, not which chip did the work.",
+        )
+        checkComparable(listOf(namedGpu, namedDefault, namedHta, oneplusCpu))
+        doc.p(
+            "That has since changed. A test can now name the one chip it wants, and the sealed result lists every " +
+                "chip the device offered, records which one the test was tied to, and says how much of the model " +
+                "that chip actually took. Later on 18 November the OnePlus ran the image model three more times, each " +
+                "tied to a different chip. The graphics chip took the whole model and ran at %.1f inferences a second. "
+                    .format(median(namedGpu)) +
+                "Android's default choice gave exactly the same answers as the graphics chip, which settles what it " +
+                "was. The dedicated AI chip refused the whole model, because it only works with smaller number " +
+                "formats, and the sealed result says so: it records that the test fell back to the main processor, " +
+                "and its answers match the main processor's exactly. So nothing has run on an AI chip yet, but the " +
+                "toolkit can now ask for one and will say plainly whether it got it. Reaching the AI chip will most " +
+                "likely need a model stored in a smaller number format.",
         )
     }
 
@@ -258,10 +276,60 @@ object AcceleratorFigures {
             "MediaPipe decode tok/s per iteration on the CPU, 36 tokens per iteration. The OnePlus run dips to %.1f in the first iterations, at LIGHT, then recovers."
                 .format(min(oneplusLlm)),
         )
+        namedSection(doc)
+    }
+
+    /** Schema 1.3.0: NNAPI bound to a named device, and what the bundles record. */
+    private fun namedSection(doc: DocPdf) {
+        checkComparable(listOf(namedGpu, namedDefault, namedHta, oneplusCpu, oneplusNnapi))
+        doc.h2("Naming the NNAPI device (schema 1.3.0)")
         doc.p(
-            "Open: the bundle records the NNAPI delegate but not the NNAPI device, so it cannot show whether a run " +
-                "reached an NPU. Next is a manifest field naming the accelerator (NnApiDelegate.Options.setAcceleratorName), " +
-                "recorded in the bundle, plus an int8 starter, since qti-dsp and qti-hta take quantized models.",
+            "The runs above could not say which NNAPI device ran: the bundle recorded NNAPI and nothing more. " +
+                "Schema 1.3.0 adds BackendRef.accelerator, which LiteRtBackend passes to " +
+                "NnApiDelegate.Options.setAcceleratorName, binding the delegate to that one device. The provenance " +
+                "records it as accelerator and acceleratorActuallyUsed, plus acceleratorsAvailable: every device " +
+                "ANeuralNetworks_getDevice lists, with its NDK type, driver version and feature level, read through a " +
+                "small JNI library (libverispec_nnapi) because LiteRT's Java API cannot list them. All three are " +
+                "optional and absent when unused, so older bundles and manifest ids are unchanged. The Run Composer " +
+                "offers the listed devices; Bundle Detail, verispec inspect and the PDF report print one shared " +
+                "summary (ProvenanceRecord.acceleratorSummary), which never credits a device to an unnamed run.",
+        )
+        doc.p(
+            "Binding is not proof of execution. A named device that supports no operation is still accepted by " +
+                "the delegate, and LiteRT then runs the whole graph on XNNPACK without an error: the first qti-hta run " +
+                "on the OnePlus was signed as NNAPI on qti-hta although its digests equal the CPU run's on every " +
+                "iteration. LiteRT's Java API cannot count delegated operations, so DelegationLog writes a marker to " +
+                "the app's own log before the interpreter is built and reads back LiteRT's \"Replacing N out of M " +
+                "node(s) with delegate (TfLiteNnapiDelegate)\" line. None taken: the run is recorded as CPU and the " +
+                "device as not used, with a note. Some or all taken: the count goes into the provenance notes. Log " +
+                "unreadable: a note says the share is not recorded. The check applies to unnamed NNAPI runs too.",
+        )
+        doc.table(
+            "OnePlus 8T, Lite0, NNAPI bound to" to "Recorded",
+            listOf(namedGpu, namedDefault, namedHta).map { b ->
+                val p = b.provenance
+                val type = p.acceleratorsAvailable?.firstOrNull { it.name == p.accelerator }?.type?.name?.lowercase() ?: "?"
+                "${p.accelerator} ($type)" to
+                    "delegate %s → %s; %s; median %.1f inf/s; digests equal to the unnamed NNAPI run %s, to the CPU run %s. %s"
+                        .format(
+                            p.delegate, p.delegateActuallyUsed, p.acceleratorSummary()?.substringBefore(";") ?: "-", median(b),
+                            pct(digestAgreement(oneplusNnapi, b)), pct(digestAgreement(oneplusCpu, b)),
+                            p.notes.firstOrNull { "LiteRT log" in it }
+                                ?: "Signed before the delegation-log check; logcat showed 62 of 62 operations on NNAPI.",
+                        )
+            },
+            leftFraction = 0.30f,
+        )
+        doc.p(
+            ("The OnePlus lists five devices: %s. qti-default reports itself as an ACCELERATOR, yet its outputs equal " +
+                "qti-gpu's on every iteration, as did the unnamed runs, so on this phone NNAPI's default is the Adreno GPU. " +
+                "The qti-hta driver logged \"{CONVOLUTION_2D, TENSOR_FP32} is not supported\" for every convolution. The " +
+                "named runs had %d, %d and %d of 30 iterations throttled against 30 of 30 for the unnamed ones, which is " +
+                "why they are faster. A real NPU result still needs an int8 starter.")
+                .format(
+                    namedGpu.provenance.acceleratorsAvailable.orEmpty().joinToString(", ") { "${it.name} (${it.type.name})" },
+                    throttled(namedGpu), throttled(namedDefault), throttled(namedHta),
+                ),
         )
     }
 

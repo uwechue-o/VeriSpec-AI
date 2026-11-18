@@ -56,7 +56,7 @@ class LlamaCppBackend @Inject constructor() : InferenceBackend {
         )
     }
 
-    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int): LoadedModel = withContext(Dispatchers.IO) {
+    override suspend fun load(model: ModelRef, delegate: Delegate, threadCount: Int, accelerator: String?): LoadedModel = withContext(Dispatchers.IO) {
         check(LlamaNative.ensureLoaded()) { LlamaNative.loadError ?: "native library not loaded" }
         val file = ModelFiles.resolveAndVerify(model)
         val gpuLayers = if (delegate == Delegate.GPU) ALL_GPU_LAYERS else 0
