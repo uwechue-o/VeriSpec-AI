@@ -4,6 +4,7 @@
 
 **Signed, checkable evidence of how an AI model really behaves on real phones.**
 
+![License: All rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey)
 ![Platform: Android 10+](https://img.shields.io/badge/platform-Android%2010%2B-3DDC84?logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?logo=kotlin&logoColor=white)
 ![Engines: LiteRT · ExecuTorch · llama.cpp · MediaPipe](https://img.shields.io/badge/engines-LiteRT%20%C2%B7%20ExecuTorch%20%C2%B7%20llama.cpp%20%C2%B7%20MediaPipe-orange)
@@ -94,6 +95,8 @@ It confirms that the file has not been changed since it was signed, that the sig
 
 The tool can do more than verify, including comparing bundles from different phones and producing a PDF report. Run `verispec --help` to see everything it offers.
 
-## A note on licences
+## Licence
+
+Copyright (c) 2026 uwechue-o. All rights reserved; see [LICENSE](LICENSE). Third-party components keep their own licences.
 
 The PDF reports are produced with Apache PDFBox, which uses the permissive Apache-2.0 licence. The more familiar iText library was ruled out because its AGPL licence would pass strict obligations on to anyone using this toolkit, which matters for the medical-device and automotive companies it is meant for.
