@@ -103,6 +103,27 @@ object AcceleratorFigures {
         return CrossDeviceFigures.render(chart)
     }
 
+    /**
+     * The OnePlus with NNAPI bound to each of three devices, inferences per second per
+     * iteration. The run that qti-hta refused is labelled by what it actually ran on.
+     */
+    fun namedDeviceThroughput(): BufferedImage {
+        checkComparable(listOf(namedGpu, namedDefault, namedHta))
+        val chart = CrossDeviceFigures.base("Iteration", "Inferences per second", xMax = 30.0, xLabelEvery = 5.0)
+        chart.styler.yAxisMin = 0.0
+        chart.styler.yAxisMax = 100.0
+        listOf(
+            Triple(namedGpu, CrossDeviceFigures.PIXEL, false),
+            Triple(namedDefault, CrossDeviceFigures.HONOR, true),
+            Triple(namedHta, ONEPLUS, false),
+        ).forEach { (b, colour, dashed) ->
+            val p = b.provenance
+            val ran = if (p.acceleratorActuallyUsed == p.accelerator) "ran there" else "refused, ran on the ${p.delegateActuallyUsed}"
+            CrossDeviceFigures.line(chart, "${p.accelerator}: $ran", indices(b), throughput(b), colour, dashed = dashed)
+        }
+        return CrossDeviceFigures.render(chart)
+    }
+
     /* ------------------------------------------------------------------ numbers */
 
     private fun indices(b: EvidenceBundle) = b.observations.iterations.map { it.index.toDouble() }

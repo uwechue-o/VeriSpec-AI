@@ -17,6 +17,10 @@
 
 *The same image model (EfficientNet-Lite0 on LiteRT) run 300 times on three devices. Each one runs at its own speed: the Honor barely changes, while the Pixel 6 slows down the most as it warms.*
 
+<img src="DOCS/readme/oneplus-nnapi-devices.png" alt="EfficientNet-Lite0 on a OnePlus 8T, with Android's AI accelerator route tied to three different chips: the graphics chip and Android's default run at about 86 inferences per second, while the AI chip refused the model and the run fell back to the main processor at about 39" width="720">
+
+*The same image model on a OnePlus 8T, each time tied to a different chip through Android's route to AI accelerators. The graphics chip (`qti-gpu`) and Android's default choice (`qti-default`) both run it at about 86 inferences a second and give identical answers, so the default is really the graphics chip. The dedicated AI chip (`qti-hta`) refused the model, which uses a number format it cannot handle, and the run fell back to the main processor at about 39. The signed result records that fallback instead of claiming the AI chip did the work.*
+
 <img src="DOCS/readme/app-live-run.png" alt="The VeriSpec-AI app's Live Run screen during the long language-model run" width="300">
 
 *The app's Live Run screen, part-way through the 70-minute run above.*
@@ -33,7 +37,7 @@ The project is written in Kotlin with Jetpack Compose, and comes with an Android
 
 Each run produces one evidence bundle. Inside it you will find:
 
-- **Where it came from**: which model file was used, which AI engine ran it, and which phone, chip and Android version it ran on, all recorded at the time of the run rather than typed in by hand.
+- **Where it came from**: which model file was used, which AI engine ran it, and which phone, chip and Android version it ran on, all recorded at the time of the run rather than typed in by hand. When a run asks for a particular processor, such as the graphics chip or a dedicated AI chip, the bundle also lists the processors the phone offered and records whether the one asked for actually did the work.
 - **How it performed over time**: its best speed, the speed it settled at, how long it took before the phone started slowing itself down to manage heat, and how much power it drew.
 - **How consistent it was**: fingerprints of every answer the model gave, so runs on different phones can be compared to see whether they agree.
 - **What the rules ask for**: a list linking each piece of evidence to the regulations and standards that call for it (such as the EU AI Act and ISO/IEC 42001), with any gaps named openly.
@@ -51,6 +55,8 @@ The app also offers a handful of ready-made starter models, which it downloads o
 ## How far it has got
 
 All four engines have now run real models on a Google Pixel 6. LiteRT has been tested the most, including a comparison of the same model on three different phones (a Pixel 6, an Honor Magic V3 and a Samsung Galaxy Tab S7+). The built-in language model has also been through a long test of over an hour, and all four engines have had short trials on the Honor Magic V3 too, where the language models gave exactly the same answers as on the Pixel. The other engines have so far had shorter trials that show they work, rather than full measurements, and every result so far comes from a small number of phones. The manuals describe exactly what has and has not been tested.
+
+The first tests away from the main processor ran on a Samsung Galaxy Tab S7+ and a OnePlus 8T, which share the same Qualcomm chip. Through Android's route to AI accelerators, the image model ran almost twice as fast as on the main processor, and the two devices gave identical answers there, but the work went to the graphics chip rather than the dedicated AI chip. The language model failed on the graphics chip of every device tried (the Pixel 6, the tablet and the OnePlus), and the app now stops cleanly when that happens rather than sealing an empty result. On the OnePlus, the language model on the main processor gave exactly the same answers as on the Pixel 6. Nothing has run on a dedicated AI chip yet; that will most likely need a model stored in a smaller number format, which those chips are built for.
 
 ## Learning more
 

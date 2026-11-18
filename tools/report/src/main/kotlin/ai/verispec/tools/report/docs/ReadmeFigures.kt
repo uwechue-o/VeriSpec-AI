@@ -19,6 +19,7 @@ import javax.imageio.ImageIO
  * - the long MediaPipe run of Qwen2.5-0.5B on the Pixel 6 (2026-11-16), decode speed
  *   and battery temperature over 70 minutes;
  * - the first cross-device run (2026-11-14), from [CrossDeviceFigures];
+ * - the OnePlus 8T with NNAPI bound to three named devices (2026-11-18), from [AcceleratorFigures];
  * - the app's own Live Run screen during the long run, copied from [AppScreenFigures].
  */
 object ReadmeFigures {
@@ -85,6 +86,7 @@ object ReadmeFigures {
         val dir = File(args.firstOrNull() ?: error("usage: ReadmeFigures <output dir>")).apply { mkdirs() }
         write(longRunChart(), File(dir, "pixel6-llm-long-run.png"))
         write(CrossDeviceFigures.throughput(), File(dir, "cross-device-throughput.png"))
+        write(AcceleratorFigures.namedDeviceThroughput(), File(dir, "oneplus-nnapi-devices.png"))
         write(AppScreenFigures.liveRun, File(dir, "app-live-run.png"))
     }
 }
