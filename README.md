@@ -97,7 +97,14 @@ The command-line tool can check any bundle on a computer:
 verispec verify bundle.json
 ```
 
-It confirms that the file has not been changed since it was signed, that the signature came from genuine Android hardware whose certificate chain leads back to Google, and that the signature belongs to this particular run. The app's Verify screen does the same check on the phone. A few deeper checks, such as whether the phone's security key has since been revoked, are not done yet, and the manuals explain what that means.
+It confirms:
+- that the file has not been changed since it was signed;
+- that the signature came from genuine Android hardware whose certificate chain leads back to Google;
+- that the signature belongs to this particular run;
+- that the phone was locked and running its manufacturer's own software;
+- that the key was made by the real VeriSpec-AI app, recognised by the certificate the app was signed with.
+
+So far the only app build it recognises is the developer's own test build; `--trusted-signer` adds another, such as your own build's signing key. The app's Verify screen does the same check on the phone, and also accepts its own build. Whether the phone's security key has since been revoked is not checked yet, and the manuals explain what that means.
 
 The tool can do more than verify, including comparing bundles from different phones and producing a PDF report. Run `verispec --help` to see everything it offers.
 

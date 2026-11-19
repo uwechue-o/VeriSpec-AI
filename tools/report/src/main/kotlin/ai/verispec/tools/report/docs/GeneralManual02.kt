@@ -427,13 +427,13 @@ object GeneralManual02 {
             "On Windows, start the program through the shell launcher, sh tools/cli/build/install/verispec/bin/verispec, " +
                 "because the .bat launcher does not work. To fetch the files from connected phones and check each as " +
                 "it arrives, use verispec fleet collect --out bundles instead (this needs a development build of the " +
-                "app). For every file the program prints each of the four checks below, whether the key was held in " +
+                "app). For every file the program prints each of the six checks below, whether the key was held in " +
                 "security hardware, the device, and a final verdict of TRUSTWORTHY or NOT TRUSTWORTHY, with any " +
                 "problem named. Running it on your own computer, with your own copy of the program, is what makes " +
                 "the check independent of whoever produced the file.",
         )
 
-        doc.h2("The four checks")
+        doc.h2("The six checks")
         doc.table(
             "Check" to "What it establishes",
             listOf(
@@ -441,10 +441,12 @@ object GeneralManual02 {
                 "Seal valid" to "The electronic signature really does match the contents and the certificate that came with it.",
                 "Certificates valid" to "The chain of certificates holds together and ends at Google's published root certificate for genuine Android security hardware, showing the sealing key really was held in such hardware.",
                 "Sealed for this test" to "The key was created for this specific test, so the seal can't have been moved over from a different one.",
+                "Phone not unlocked" to "The phone's security hardware records that the phone was locked and started the manufacturer's own software, not a modified version.",
+                "Made by the real app" to "The key was created by VeriSpec-AI itself, recognised by the certificate the app was signed with, not by a modified copy.",
             ),
         )
         doc.p(
-            "A file is reported as trustworthy only when all four hold, and when one fails, the report names it and " +
+            "A file is reported as trustworthy only when all six hold, and when one fails, the report names it and " +
                 "says why instead of giving you a single unexplained verdict. The detail matters, because a file that " +
                 "fails the first check has been edited, while a file that fails only the third may simply have come " +
                 "from hardware without the necessary security features.",
@@ -455,13 +457,17 @@ object GeneralManual02 {
             "Read the wording on the verification result",
             "The certificate check only means something if it ends at a starting point you trust. The toolkit " +
                 "uses Google's published root certificates for Android security hardware, and the real results " +
-                "from all three test phones check out against them. Those roots are public, so anyone can confirm " +
+                "from all four test phones check out against them. Those roots are public, so anyone can confirm " +
                 "the toolkit uses the right ones. Someone could alter their own copy of the app to accept a fake " +
                 "root, but that fools only the person using the altered copy, so evidence that matters should be " +
-                "checked by the reviewer, on their own computer. Two further checks are not made yet: whether Google " +
-                "has since withdrawn a phone's certificates, and whether the phone's software had been unlocked or " +
-                "modified. A file that passes is therefore strong evidence of genuine hardware, not proof that the " +
-                "phone was untampered.",
+                "checked by the reviewer, on their own computer. Two more points matter. The record of which app made " +
+                "the key is written by the phone's Android system, not its security hardware, so it is only as " +
+                "reliable as the check that the phone was locked and running its manufacturer's software, which is " +
+                "why both are required. And so far the only copy of the app recognised is the developer's own test " +
+                "build, so anyone who has that build's signing key could make a copy that passes. One check is not " +
+                "made yet: whether Google has since withdrawn a phone's certificates. A file that passes is " +
+                "therefore strong evidence of genuine hardware, an unmodified phone and the real app, not proof " +
+                "that the numbers in it are right.",
         )
     }
 
@@ -614,7 +620,7 @@ object GeneralManual02 {
         doc.bullets(
             listOf(
                 "The evidence file uses a format designed for this project. Switching to one of the existing open standards for this kind of sealed record would cost little now, and reviewers who already know that standard would recognise it, but the cost of switching grows with every file issued.",
-                "Certificate checking starts from Google's published roots, but it does not yet check whether Google has withdrawn a phone's certificates, or whether the phone's software had been unlocked. Adding both would close the remaining gap between \"genuine hardware\" and \"untampered phone\".",
+                "Certificate checking starts from Google's published roots and now checks that the phone was locked and that the real app made the key, but it does not yet check whether Google has withdrawn a phone's certificates. That check needs an internet connection, which the checking program does not assume.",
             ),
         )
     }

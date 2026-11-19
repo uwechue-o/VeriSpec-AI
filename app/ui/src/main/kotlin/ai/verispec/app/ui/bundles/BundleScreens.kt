@@ -1,6 +1,8 @@
 package ai.verispec.app.ui.bundles
 
 import ai.verispec.core.domain.model.acceleratorSummary
+import ai.verispec.core.domain.model.appSummary
+import ai.verispec.core.domain.model.bootSummary
 import ai.verispec.app.ui.common.ChartPoint
 import ai.verispec.app.ui.common.DecayChart
 import ai.verispec.app.ui.common.KeyValueRow
@@ -138,6 +140,8 @@ fun BundleDetailScreen(
                     KeyValueRow("hardware-backed", v.hardwareBacked.toString())
                     KeyValueRow("StrongBox", v.strongBox.toString())
                     KeyValueRow("challenge bound to manifest", v.challengeBoundToManifest.toString())
+                    KeyValueRow("verified boot", v.bootSummary())
+                    KeyValueRow("app identity", v.appSummary())
                     v.issues.forEach { Text("• $it", style = MaterialTheme.typography.bodySmall, color = StatusColors.notCovered) }
                 }
                 KeyValueRow("algorithm", b.signature.algorithm)

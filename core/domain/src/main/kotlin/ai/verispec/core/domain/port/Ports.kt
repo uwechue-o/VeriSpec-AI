@@ -1,5 +1,6 @@
 package ai.verispec.core.domain.port
 
+import ai.verispec.core.domain.model.AttestedApp
 import ai.verispec.core.domain.model.BackendCapabilities
 import ai.verispec.core.domain.model.BundleId
 import ai.verispec.core.domain.model.BundleSummary
@@ -19,6 +20,7 @@ import ai.verispec.core.domain.model.LoadedModel
 import ai.verispec.core.domain.model.MemorySnapshot
 import ai.verispec.core.domain.model.ModelRef
 import ai.verispec.core.domain.model.PowerSample
+import ai.verispec.core.domain.model.RootOfTrust
 import ai.verispec.core.domain.model.RunManifest
 import ai.verispec.core.domain.model.RuntimeId
 import ai.verispec.core.domain.model.Sha256
@@ -93,6 +95,10 @@ interface AttestationVerifier {
         val strongBox: Boolean,
         val challenge: Sha256?,
         val issues: List<String>,
+        /** Null when the leaf carries no hardware-enforced root of trust. */
+        val rootOfTrust: RootOfTrust? = null,
+        /** Null when the leaf carries no attestation application id. */
+        val attestedApp: AttestedApp? = null,
     )
 
     fun verifyChain(chain: List<EncodedCertificate>): ChainResult

@@ -91,6 +91,19 @@ public final class ai/verispec/core/domain/model/AcceleratorType : java/lang/Enu
 	public static fun values ()[Lai/verispec/core/domain/model/AcceleratorType;
 }
 
+public final class ai/verispec/core/domain/model/AttestedApp {
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Lai/verispec/core/domain/model/AttestedApp;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/AttestedApp;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/AttestedApp;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPackageNames ()Ljava/util/List;
+	public final fun getSignerDigests ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class ai/verispec/core/domain/model/BackendCapabilities {
 	public static final field Companion Lai/verispec/core/domain/model/BackendCapabilities$Companion;
 	public fun <init> (Lai/verispec/core/domain/model/RuntimeId;ZLjava/lang/String;Ljava/lang/String;Ljava/util/Set;Ljava/util/Set;IZZZLjava/util/List;Ljava/util/List;)V
@@ -941,6 +954,20 @@ public final class ai/verispec/core/domain/model/RegulatoryFramework : java/lang
 	public static fun values ()[Lai/verispec/core/domain/model/RegulatoryFramework;
 }
 
+public final class ai/verispec/core/domain/model/RootOfTrust {
+	public fun <init> (ZLai/verispec/core/domain/model/VerifiedBootState;)V
+	public final fun component1 ()Z
+	public final fun component2 ()Lai/verispec/core/domain/model/VerifiedBootState;
+	public final fun copy (ZLai/verispec/core/domain/model/VerifiedBootState;)Lai/verispec/core/domain/model/RootOfTrust;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/RootOfTrust;ZLai/verispec/core/domain/model/VerifiedBootState;ILjava/lang/Object;)Lai/verispec/core/domain/model/RootOfTrust;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDeviceLocked ()Z
+	public final fun getVerifiedBootState ()Lai/verispec/core/domain/model/VerifiedBootState;
+	public fun hashCode ()I
+	public final fun isVerified ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract interface class ai/verispec/core/domain/model/RunFailure {
 	public abstract fun getMessage ()Ljava/lang/String;
 }
@@ -1033,6 +1060,11 @@ public final class ai/verispec/core/domain/model/RunFailure$UnsupportedFormat : 
 	public final fun getRuntime ()Lai/verispec/core/domain/model/RuntimeId;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/RunKt {
+	public static final fun appSummary (Lai/verispec/core/domain/model/VerificationReport;)Ljava/lang/String;
+	public static final fun bootSummary (Lai/verispec/core/domain/model/VerificationReport;)Ljava/lang/String;
 }
 
 public final class ai/verispec/core/domain/model/RunManifest {
@@ -1372,6 +1404,21 @@ public final class ai/verispec/core/domain/model/ThermalStatus$Companion {
 	public final fun maxOf (Lai/verispec/core/domain/model/ThermalStatus;Lai/verispec/core/domain/model/ThermalStatus;)Lai/verispec/core/domain/model/ThermalStatus;
 }
 
+public final class ai/verispec/core/domain/model/TrustedApps {
+	public fun <init> (Ljava/util/Set;Ljava/util/Set;)V
+	public final fun accepts (Lai/verispec/core/domain/model/AttestedApp;)Z
+	public final fun component1 ()Ljava/util/Set;
+	public final fun component2 ()Ljava/util/Set;
+	public final fun copy (Ljava/util/Set;Ljava/util/Set;)Lai/verispec/core/domain/model/TrustedApps;
+	public static synthetic fun copy$default (Lai/verispec/core/domain/model/TrustedApps;Ljava/util/Set;Ljava/util/Set;ILjava/lang/Object;)Lai/verispec/core/domain/model/TrustedApps;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPackageNames ()Ljava/util/Set;
+	public final fun getSignerDigests ()Ljava/util/Set;
+	public fun hashCode ()I
+	public final fun plus (Lai/verispec/core/domain/model/TrustedApps;)Lai/verispec/core/domain/model/TrustedApps;
+	public fun toString ()Ljava/lang/String;
+}
+
 public abstract interface class ai/verispec/core/domain/model/UnmetCondition {
 	public fun getDescription ()Ljava/lang/String;
 }
@@ -1495,8 +1542,12 @@ public final class ai/verispec/core/domain/model/ValidationResult {
 }
 
 public final class ai/verispec/core/domain/model/VerificationReport {
-	public synthetic fun <init> (Ljava/lang/String;ZZZZZZZLjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;ZZZZZZZZZLai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-JI-hqGs ()Ljava/lang/String;
+	public final fun component10 ()Z
+	public final fun component11 ()Lai/verispec/core/domain/model/RootOfTrust;
+	public final fun component12 ()Lai/verispec/core/domain/model/AttestedApp;
+	public final fun component13 ()Ljava/util/List;
 	public final fun component2 ()Z
 	public final fun component3 ()Z
 	public final fun component4 ()Z
@@ -1504,22 +1555,36 @@ public final class ai/verispec/core/domain/model/VerificationReport {
 	public final fun component6 ()Z
 	public final fun component7 ()Z
 	public final fun component8 ()Z
-	public final fun component9 ()Ljava/util/List;
-	public final fun copy-KtokP2k (Ljava/lang/String;ZZZZZZZLjava/util/List;)Lai/verispec/core/domain/model/VerificationReport;
-	public static synthetic fun copy-KtokP2k$default (Lai/verispec/core/domain/model/VerificationReport;Ljava/lang/String;ZZZZZZZLjava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/VerificationReport;
+	public final fun component9 ()Z
+	public final fun copy-b671UNg (Ljava/lang/String;ZZZZZZZZZLai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;Ljava/util/List;)Lai/verispec/core/domain/model/VerificationReport;
+	public static synthetic fun copy-b671UNg$default (Lai/verispec/core/domain/model/VerificationReport;Ljava/lang/String;ZZZZZZZZZLai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/model/VerificationReport;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAppIdentityTrusted ()Z
 	public final fun getAttestationChainValid ()Z
+	public final fun getAttestedApp ()Lai/verispec/core/domain/model/AttestedApp;
 	public final fun getBundleId-JI-hqGs ()Ljava/lang/String;
 	public final fun getCanonicalHashMatches ()Z
 	public final fun getChallengeBoundToManifest ()Z
 	public final fun getHardwareBacked ()Z
 	public final fun getIssues ()Ljava/util/List;
+	public final fun getRootOfTrust ()Lai/verispec/core/domain/model/RootOfTrust;
 	public final fun getSchemaVersionSupported ()Z
 	public final fun getSignatureValid ()Z
 	public final fun getStrongBox ()Z
+	public final fun getVerifiedBoot ()Z
 	public fun hashCode ()I
 	public final fun isTrustworthy ()Z
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class ai/verispec/core/domain/model/VerifiedBootState : java/lang/Enum {
+	public static final field FAILED Lai/verispec/core/domain/model/VerifiedBootState;
+	public static final field SELF_SIGNED Lai/verispec/core/domain/model/VerifiedBootState;
+	public static final field UNVERIFIED Lai/verispec/core/domain/model/VerifiedBootState;
+	public static final field VERIFIED Lai/verispec/core/domain/model/VerifiedBootState;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lai/verispec/core/domain/model/VerifiedBootState;
+	public static fun values ()[Lai/verispec/core/domain/model/VerifiedBootState;
 }
 
 public abstract interface class ai/verispec/core/domain/model/Workload {
@@ -1577,19 +1642,24 @@ public abstract interface class ai/verispec/core/domain/port/AttestationVerifier
 }
 
 public final class ai/verispec/core/domain/port/AttestationVerifier$ChainResult {
-	public synthetic fun <init> (ZZZLjava/lang/String;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ZZZLjava/lang/String;Ljava/util/List;Lai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ZZZLjava/lang/String;Ljava/util/List;Lai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
 	public final fun component2 ()Z
 	public final fun component3 ()Z
 	public final fun component4-bg13i64 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/util/List;
-	public final fun copy-gsP3vs4 (ZZZLjava/lang/String;Ljava/util/List;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
-	public static synthetic fun copy-gsP3vs4$default (Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;ZZZLjava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
+	public final fun component6 ()Lai/verispec/core/domain/model/RootOfTrust;
+	public final fun component7 ()Lai/verispec/core/domain/model/AttestedApp;
+	public final fun copy-knD5jOY (ZZZLjava/lang/String;Ljava/util/List;Lai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
+	public static synthetic fun copy-knD5jOY$default (Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;ZZZLjava/lang/String;Ljava/util/List;Lai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;ILjava/lang/Object;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAttestedApp ()Lai/verispec/core/domain/model/AttestedApp;
 	public final fun getChainValid ()Z
 	public final fun getChallenge-bg13i64 ()Ljava/lang/String;
 	public final fun getHardwareBacked ()Z
 	public final fun getIssues ()Ljava/util/List;
+	public final fun getRootOfTrust ()Lai/verispec/core/domain/model/RootOfTrust;
 	public final fun getStrongBox ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1768,7 +1838,7 @@ public final class ai/verispec/core/domain/usecase/ValidateManifestUseCase$Compa
 }
 
 public final class ai/verispec/core/domain/usecase/VerifyBundleUseCase {
-	public fun <init> (Lai/verispec/core/domain/port/Canonicalizer;Lai/verispec/core/domain/port/Hasher;Lai/verispec/core/domain/port/SignatureVerifier;Lai/verispec/core/domain/port/AttestationVerifier;)V
+	public fun <init> (Lai/verispec/core/domain/port/Canonicalizer;Lai/verispec/core/domain/port/Hasher;Lai/verispec/core/domain/port/SignatureVerifier;Lai/verispec/core/domain/port/AttestationVerifier;Lai/verispec/core/domain/model/TrustedApps;)V
 	public final fun invoke (Lai/verispec/core/domain/model/EvidenceBundle;)Lai/verispec/core/domain/model/VerificationReport;
 }
 

@@ -38,44 +38,57 @@ public final class ai/verispec/core/evidence/verify/AttestationChainVerifier : a
 	public static final field SECURITY_LEVEL_SOFTWARE J
 	public static final field SECURITY_LEVEL_STRONGBOX J
 	public static final field SECURITY_LEVEL_TEE J
+	public static final field TAG_ATTESTATION_APPLICATION_ID I
+	public static final field TAG_ROOT_OF_TRUST I
 	public fun <init> ()V
 	public fun <init> (Ljava/util/Set;Z)V
 	public synthetic fun <init> (Ljava/util/Set;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun parseKeyDescription (Ljava/security/cert/X509Certificate;)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
+	public final fun parseKeyDescription ([B)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
 	public fun verifyChain (Ljava/util/List;)Lai/verispec/core/domain/port/AttestationVerifier$ChainResult;
 }
 
 public final class ai/verispec/core/evidence/verify/AttestationChainVerifier$Companion {
 	public final fun getGOOGLE_ROOT_SPKI_SHA256 ()Ljava/util/Set;
+	public final fun getVERISPEC_APPS ()Lai/verispec/core/domain/model/TrustedApps;
 }
 
 public final class ai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription {
-	public synthetic fun <init> (JJJJLjava/lang/String;[BLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJLjava/lang/String;[BLai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JJJJLjava/lang/String;[BLai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()J
 	public final fun component2 ()J
 	public final fun component3 ()J
 	public final fun component4 ()J
 	public final fun component5-bg13i64 ()Ljava/lang/String;
 	public final fun component6 ()[B
-	public final fun copy-Rt9315E (JJJJLjava/lang/String;[B)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
-	public static synthetic fun copy-Rt9315E$default (Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;JJJJLjava/lang/String;[BILjava/lang/Object;)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
+	public final fun component7 ()Lai/verispec/core/domain/model/RootOfTrust;
+	public final fun component8 ()Lai/verispec/core/domain/model/AttestedApp;
+	public final fun copy-1yR9Bu8 (JJJJLjava/lang/String;[BLai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
+	public static synthetic fun copy-1yR9Bu8$default (Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;JJJJLjava/lang/String;[BLai/verispec/core/domain/model/RootOfTrust;Lai/verispec/core/domain/model/AttestedApp;ILjava/lang/Object;)Lai/verispec/core/evidence/verify/AttestationChainVerifier$KeyDescription;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAttestationSecurityLevel ()J
 	public final fun getAttestationVersion ()J
+	public final fun getAttestedApp ()Lai/verispec/core/domain/model/AttestedApp;
 	public final fun getChallenge-bg13i64 ()Ljava/lang/String;
 	public final fun getChallengeRaw ()[B
 	public final fun getKeymasterSecurityLevel ()J
 	public final fun getKeymasterVersion ()J
+	public final fun getRootOfTrust ()Lai/verispec/core/domain/model/RootOfTrust;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class ai/verispec/core/evidence/verify/Der {
+	public static final field CLASS_CONTEXT I
+	public static final field CLASS_MASK I
 	public static final field Companion Lai/verispec/core/evidence/verify/Der$Companion;
+	public static final field TAG_BOOLEAN I
 	public static final field TAG_ENUMERATED I
 	public static final field TAG_INTEGER I
 	public static final field TAG_OCTET_STRING I
 	public static final field TAG_SEQUENCE I
+	public static final field TAG_SET I
 	public fun <init> ([BII)V
 	public synthetic fun <init> ([BIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun hasMore ()Z
@@ -87,11 +100,15 @@ public final class ai/verispec/core/evidence/verify/Der$Companion {
 }
 
 public final class ai/verispec/core/evidence/verify/Der$Tlv {
-	public fun <init> (I[B)V
+	public fun <init> (I[BI)V
+	public synthetic fun <init> (I[BIILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun asBoolean ()Z
 	public final fun asInt ()J
 	public final fun children ()Ljava/util/List;
 	public final fun getContent ()[B
+	public final fun getNumber ()I
 	public final fun getTag ()I
+	public final fun isContextSpecific ()Z
 	public final fun isOctetString ()Z
 	public final fun isSequence ()Z
 }

@@ -2,6 +2,7 @@ package ai.verispec.app.runner.di
 
 import ai.verispec.core.clauses.YamlClauseCatalog
 import ai.verispec.core.domain.model.RuntimeId
+import ai.verispec.core.domain.model.TrustedApps
 import ai.verispec.core.domain.port.AttestationVerifier
 import ai.verispec.core.domain.port.Canonicalizer
 import ai.verispec.core.domain.port.ClauseCatalog
@@ -99,5 +100,6 @@ object RunnerModule {
         hasher: Hasher,
         signatures: SignatureVerifier,
         attestation: AttestationVerifier,
-    ) = VerifyBundleUseCase(canonicalizer, hasher, signatures, attestation)
+        trustedApps: TrustedApps,
+    ) = VerifyBundleUseCase(canonicalizer, hasher, signatures, attestation, trustedApps)
 }

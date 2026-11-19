@@ -2,7 +2,9 @@ package ai.verispec.core.domain.usecase
 
 import ai.verispec.core.domain.model.EvidenceBundle
 import ai.verispec.core.domain.model.Sha256
+import ai.verispec.core.domain.model.TrustedApps
 import ai.verispec.core.domain.model.VerificationReport
+import ai.verispec.core.domain.model.VerifiedBootState
 import ai.verispec.core.domain.port.AttestationVerifier
 import ai.verispec.core.domain.port.Canonicalizer
 import ai.verispec.core.domain.port.Hasher
@@ -11,12 +13,17 @@ import ai.verispec.core.domain.port.SignatureVerifier
 /**
  * Independent verification of a foreign bundle. Uses only the bundle content and
  * public certificates, never producer-side state, so any third party can run it.
+ *
+ * Beyond the signature, the attestation must show a locked, verified boot and an
+ * app in [trustedApps]: a genuine key in a modified app, or on a modified OS,
+ * could sign anything.
  */
 class VerifyBundleUseCase(
     private val canonicalizer: Canonicalizer,
     private val hasher: Hasher,
     private val signatures: SignatureVerifier,
     private val attestation: AttestationVerifier,
+    private val trustedApps: TrustedApps,
 ) {
     operator fun invoke(bundle: EvidenceBundle): VerificationReport {
         val issues = mutableListOf<String>()
@@ -57,6 +64,23 @@ class VerifyBundleUseCase(
             issues += "Signature claims hardwareBacked=${bundle.signature.hardwareBacked} but chain says ${chain.hardwareBacked}"
         }
 
+        val boot = chain.rootOfTrust
+        when {
+            boot == null -> issues += "Attestation carries no hardware-enforced root of trust, so the boot state is unknown"
+            !boot.deviceLocked -> issues += "Bootloader was unlocked when the key was made, so the OS may have been modified"
+            boot.verifiedBootState != VerifiedBootState.VERIFIED ->
+                issues += "Verified boot state is ${boot.verifiedBootState}, not VERIFIED, so the OS is not the manufacturer's"
+        }
+        val bootOk = boot?.isVerified == true
+
+        val app = chain.attestedApp
+        val appOk = app != null && trustedApps.accepts(app)
+        when {
+            app == null -> issues += "Attestation does not name the app that made the key"
+            !appOk -> issues += "Key was made by ${app.packageNames.joinToString().ifEmpty { "no package" }} signed by " +
+                "${app.signerDigests.joinToString { it.hex.take(16) + "…" }.ifEmpty { "no certificate" }}, which is not a trusted VeriSpec build"
+        }
+
         return VerificationReport(
             bundleId = bundle.bundleId,
             canonicalHashMatches = hashOk && manifestHashOk,
@@ -66,6 +90,10 @@ class VerifyBundleUseCase(
             strongBox = chain.strongBox,
             challengeBoundToManifest = challengeOk,
             schemaVersionSupported = schemaOk,
+            verifiedBoot = bootOk,
+            appIdentityTrusted = appOk,
+            rootOfTrust = boot,
+            attestedApp = app,
             issues = issues.distinct(),
         )
     }

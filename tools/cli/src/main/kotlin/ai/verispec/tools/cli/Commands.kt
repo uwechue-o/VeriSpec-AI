@@ -4,6 +4,9 @@ import ai.verispec.core.domain.model.acceleratorSummary
 import ai.verispec.core.domain.model.CoverageStatus
 import ai.verispec.core.domain.model.EvidenceBundle
 import ai.verispec.core.domain.model.HardwareSummary
+import ai.verispec.core.domain.model.Sha256
+import ai.verispec.core.domain.model.appSummary
+import ai.verispec.core.domain.model.bootSummary
 import ai.verispec.core.domain.model.Workload
 import ai.verispec.core.domain.usecase.VerifyBundleUseCase
 import ai.verispec.core.evidence.BundleCodec
@@ -35,15 +38,32 @@ internal val terminal = Terminal()
 internal fun loadBundle(file: File): EvidenceBundle =
     BundleCodec.decode(file.readText())
 
-/** Google's attestation roots are always trusted; [extraRoots] adds more (e.g. a test lab's own CA). */
-internal fun verifier(extraRoots: Set<String>) = VerifyBundleUseCase(
+/**
+ * Google's attestation roots and the pinned VeriSpec signers are always trusted;
+ * [extraRoots] adds roots (e.g. a test lab's own CA), [extraSigners] app signing
+ * certificates (e.g. a release key or another developer's debug key).
+ */
+internal fun verifier(extraRoots: Set<String> = emptySet(), extraSigners: Set<String> = emptySet()) = VerifyBundleUseCase(
     canonicalizer = EvidenceCanonicalizer,
     hasher = Hashing,
     signatures = JcaSignatureVerifier(),
     attestation = AttestationChainVerifier(
         trustedRootSpkiSha256 = AttestationChainVerifier.GOOGLE_ROOT_SPKI_SHA256 + extraRoots.map { it.lowercase() },
     ),
+    trustedApps = AttestationChainVerifier.VERISPEC_APPS.copy(
+        signerDigests = AttestationChainVerifier.VERISPEC_APPS.signerDigests + extraSigners.map(::signerDigest),
+    ),
 )
+
+/** Accepts keytool's `0E:A6:…` form as well as plain hex. */
+internal fun signerDigest(text: String): Sha256 = Sha256(text.replace(":", "").trim().lowercase())
+
+/** Shared by every command that verifies. */
+internal fun CliktCommand.trustedSignerOption() = option(
+    "--trusted-signer",
+    help = "SHA-256 of an app signing certificate to trust besides the pinned VeriSpec ones " +
+        "(as `keytool -list -v` prints it). Repeatable.",
+).multiple()
 
 private fun ok(text: String) = TextColors.green(text)
 private fun bad(text: String) = TextColors.red(text)
@@ -59,10 +79,11 @@ class VerifyCommand : CliktCommand(name = "verify") {
     private val files by argument("bundle").file(mustExist = true, canBeDir = false).multiple(required = true)
     private val trustedRoots by option("--trusted-root", help = "SHA-256 (hex) of an extra attestation root's SubjectPublicKeyInfo to trust besides Google's. Repeatable.")
         .multiple()
+    private val trustedSigners by trustedSignerOption()
     private val strict by option("--strict", help = "Exit non-zero unless every bundle is fully trustworthy.").flag()
 
     override fun run() {
-        val verify = verifier(trustedRoots.toSet())
+        val verify = verifier(trustedRoots.toSet(), trustedSigners.toSet())
         var allTrustworthy = true
 
         files.forEach { file ->
@@ -80,6 +101,8 @@ class VerifyCommand : CliktCommand(name = "verify") {
                         row("hardware-backed", mark(report.hardwareBacked))
                         row("StrongBox", if (report.strongBox) ok("yes") else warn("no"))
                         row("challenge bound to manifest", mark(report.challengeBoundToManifest))
+                        row("verified boot", if (report.verifiedBoot) ok(report.bootSummary()) else bad(report.bootSummary()))
+                        row("app identity", if (report.appIdentityTrusted) ok(report.appSummary()) else bad(report.appSummary()))
                         row("schema supported", mark(report.schemaVersionSupported))
                         row("device", "${bundle.device.manufacturer} ${bundle.device.deviceModel} (${bundle.device.soc.model})")
                         row("verdict", if (report.isTrustworthy) ok("TRUSTWORTHY") else bad("NOT TRUSTWORTHY"))
@@ -165,11 +188,12 @@ class ReportCommand : CliktCommand(name = "report") {
     private val pdfOut by option("--pdf", help = "PDF output path.").file(canBeDir = false)
     private val jsonOut by option("--json", help = "Analysis JSON output path.").file(canBeDir = false)
     private val trustedRoots by option("--trusted-root").multiple()
+    private val trustedSigners by trustedSignerOption()
     private val skipVerify by option("--no-verify", help = "Do not verify before rendering.").flag()
 
     override fun run() {
         val bundle = loadBundle(bundleFile)
-        val verification = if (skipVerify) null else verifier(trustedRoots.toSet())(bundle)
+        val verification = if (skipVerify) null else verifier(trustedRoots.toSet(), trustedSigners.toSet())(bundle)
         val decay = ComputeDecayUseCase()(bundle)
         val divergence = if (compare.isEmpty()) {
             null

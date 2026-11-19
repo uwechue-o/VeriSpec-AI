@@ -108,12 +108,13 @@ class FleetCollectCommand : CliktCommand(name = "collect") {
         .default("ai.verispec.app.debug")
     private val serialFilter by option("--serial", help = "Only collect from this device serial.")
     private val skipVerify by option("--no-verify", help = "Do not verify collected bundles.").flag()
+    private val trustedSigners by trustedSignerOption()
 
     private data class Collected(val device: String, val fileName: String, val status: String)
 
     override fun run() {
         val results = mutableListOf<Collected>()
-        val verify = if (skipVerify) null else verifier(emptySet())
+        val verify = if (skipVerify) null else verifier(extraSigners = trustedSigners.toSet())
 
         runBlocking {
             StartAdbInteractor().execute()

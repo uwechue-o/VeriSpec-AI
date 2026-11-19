@@ -294,9 +294,10 @@ object Overview02 {
                 "hardware and is created for that one test, and the certificates that come with it are checked " +
                 "against Google's published root certificates for genuine Android security hardware. If the " +
                 "strongest form of that hardware is not available and a weaker one has to be used, the downgrade is " +
-                "written into the record instead of being hidden. One honest caveat remains: the toolkit does not yet " +
-                "check whether Google has since withdrawn a phone's certificates, or whether the phone's software had " +
-                "been unlocked or modified.",
+                "written into the record instead of being hidden. The check also confirms that the phone was locked " +
+                "and running its manufacturer's own software, and that the key was made by the real app rather " +
+                "than a modified copy. One honest caveat remains: the toolkit does not yet check whether Google has " +
+                "since withdrawn a phone's certificates.",
         )
         doc.p(
             "Privacy is built into the evidence format as well. Because the model's raw output is never stored in " +

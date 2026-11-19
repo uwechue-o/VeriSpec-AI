@@ -1,6 +1,8 @@
 package ai.verispec.tools.report
 
 import ai.verispec.core.domain.model.acceleratorSummary
+import ai.verispec.core.domain.model.appSummary
+import ai.verispec.core.domain.model.bootSummary
 import ai.verispec.core.domain.math.SustainedLoad
 import ai.verispec.core.domain.model.CoverageStatus
 import ai.verispec.core.domain.model.EnvelopeValidity
@@ -79,7 +81,7 @@ class PdfReportRenderer {
             p.body("This report was rendered without running verification. Run `verispec verify` to attach a result.")
         } else {
             p.badge(
-                if (v.isTrustworthy) "SIGNATURE AND CHAIN VERIFIED" else "VERIFICATION FAILED",
+                if (v.isTrustworthy) "SIGNATURE, CHAIN, BOOT AND APP VERIFIED" else "VERIFICATION FAILED",
                 if (v.isTrustworthy) OK else BAD,
             )
             p.kv("Canonical content hash", if (v.canonicalHashMatches) "matches bundle id" else "MISMATCH — content altered after signing")
@@ -88,6 +90,8 @@ class PdfReportRenderer {
             p.kv("Hardware-backed key", v.hardwareBacked.toString())
             p.kv("StrongBox", v.strongBox.toString())
             p.kv("Challenge bound to manifest", v.challengeBoundToManifest.toString())
+            p.kv("Verified boot", v.bootSummary())
+            p.kv("App identity", v.appSummary())
             v.issues.take(MAX_LIST).forEach { p.bullet(it) }
         }
         p.gap(4f)

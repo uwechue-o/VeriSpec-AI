@@ -1,5 +1,6 @@
 package ai.verispec.data.attestation.di
 
+import ai.verispec.core.domain.model.TrustedApps
 import ai.verispec.core.domain.port.AttestationVerifier
 import ai.verispec.core.domain.port.Canonicalizer
 import ai.verispec.core.domain.port.Clock
@@ -14,10 +15,13 @@ import ai.verispec.core.evidence.verify.JcaSignatureVerifier
 import ai.verispec.data.attestation.AndroidClock
 import ai.verispec.data.attestation.AndroidDeviceProfiler
 import ai.verispec.data.attestation.KeystoreEvidenceSigner
+import ai.verispec.data.attestation.OwnSigner
+import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -40,5 +44,9 @@ abstract class AttestationModule {
          */
         @Provides @Singleton fun attestationVerifier(): AttestationVerifier =
             AttestationChainVerifier(trustedRootSpkiSha256 = AttestationChainVerifier.GOOGLE_ROOT_SPKI_SHA256)
+
+        /** The pinned VeriSpec builds, plus whichever key signed this one. */
+        @Provides @Singleton fun trustedApps(@ApplicationContext context: Context): TrustedApps =
+            AttestationChainVerifier.VERISPEC_APPS + OwnSigner.of(context)
     }
 }

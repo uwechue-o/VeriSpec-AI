@@ -6,6 +6,8 @@ import ai.verispec.app.ui.common.StatusChip
 import ai.verispec.app.ui.theme.StatusColors
 import ai.verispec.core.domain.model.EvidenceBundle
 import ai.verispec.core.domain.model.VerificationReport
+import ai.verispec.core.domain.model.appSummary
+import ai.verispec.core.domain.model.bootSummary
 import ai.verispec.core.domain.port.EvidenceRepository
 import ai.verispec.core.domain.usecase.VerifyBundleUseCase
 import ai.verispec.core.evidence.BundleCodec
@@ -138,6 +140,8 @@ fun VerifyScreen(viewModel: VerifyViewModel = hiltViewModel()) {
             KeyValueRow("hardware-backed", report.hardwareBacked.toString())
             KeyValueRow("StrongBox", report.strongBox.toString())
             KeyValueRow("challenge bound to manifest", report.challengeBoundToManifest.toString())
+            KeyValueRow("verified boot", report.bootSummary())
+            KeyValueRow("app identity", report.appSummary())
             KeyValueRow("schema", "${bundle.schemaVersion}${if (report.schemaVersionSupported) "" else " (UNSUPPORTED)"}")
 
             if (report.issues.isNotEmpty()) {

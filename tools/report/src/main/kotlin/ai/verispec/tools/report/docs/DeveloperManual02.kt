@@ -288,9 +288,30 @@ object DeveloperManual02 {
                 "trust them by default. The Pixel 6 and Tab S7+ bundles chain to the RSA root, the Honor's to the " +
                 "ECDSA one, and GoogleRootsTest verifies all three. The pins are public, recomputable from " +
                 "android.googleapis.com/attestation/root: patching them in a copy of the app or CLI fools only " +
-                "whoever runs that copy, so the verification that counts is the reviewer's, on their own build. Not " +
-                "yet checked: Google's revocation list and the verified-boot state in the attestation extension, so " +
-                "a leaked attestation key or an unlocked bootloader would still pass.",
+                "whoever runs that copy, so the verification that counts is the reviewer's, on their own build.",
+        )
+        doc.p(
+            "Genuine hardware is not enough on its own: a modified app, or an app on a modified OS, can ask a genuine " +
+                "key to sign anything. So VerifyBundleUseCase also reads two fields of the leaf's KeyDescription. " +
+                "RootOfTrust (tag 704) must come from the hardware-enforced list and say the bootloader was locked and " +
+                "the verified-boot state VERIFIED; a self-signed OS such as a custom ROM, an unlocked bootloader or a " +
+                "missing root of trust fails. AttestationApplicationId (tag 709) names the packages and the SHA-256 " +
+                "of each APK signing certificate; every package must be in TrustedApps and at least one signer must " +
+                "be trusted. That field sits in the software-enforced list because Android's Keystore service, not " +
+                "the secure hardware, writes it, so it is only as good as the verified boot it is paired with, which " +
+                "is why both are required. Der reads the multi-byte tags these lists use.",
+        )
+        doc.p(
+            "AttestationChainVerifier.VERISPEC_APPS pins ai.verispec.app and ai.verispec.app.debug and a single " +
+                "signer, 0ea6f674..., the Android debug key of the machine that built every bundle so far. That is " +
+                "a debug key: anyone holding that keystore can build an app that passes, and another developer's " +
+                "build has a different key. The CLI takes more with --trusted-signer, and on device the app adds " +
+                "the key that signed itself (OwnSigner), so a build from another machine accepts its own bundles " +
+                "but nobody else's unless told. A release key belongs in VERISPEC_APPS once there is one. The " +
+                "verdict also requires the challenge binding now; before 2026-11-19 isTrustworthy ignored it. All " +
+                "16 bundles shipped in tools/report resources (four phones) pass every check. Still not checked: " +
+                "Google's revocation list, which needs the network the offline CLI does not assume, and the OS " +
+                "patch level.",
         )
 
         doc.h2("Regulation moves, so clause mappings are data")
@@ -546,7 +567,7 @@ object DeveloperManual02 {
         doc.table(
             "Command" to "What it does",
             listOf(
-                "verify <bundle>..." to "Checks the canonical hash, signature, attestation chain and challenge binding. Google's attestation roots are always trusted, and repeating --trusted-root adds more; --strict exits non-zero unless every bundle is fully trustworthy, which is what you want in CI.",
+                "verify <bundle>..." to "Checks the canonical hash, signature, attestation chain, challenge binding, verified boot and app identity. Google's attestation roots and the pinned VeriSpec signers are always trusted; repeating --trusted-root adds roots and --trusted-signer adds app signing certificates (keytool's colon form is accepted). --strict exits non-zero unless every bundle is fully trustworthy, which is what you want in CI. report and fleet collect take --trusted-signer too.",
                 "inspect <bundle>" to "Prints provenance, device, performance envelope and clause coverage as tables: the fastest way to see what a file actually contains.",
                 "diverge <a> <b>..." to "Cross-device divergence over two or more bundles of the same manifest, refusing bundles from different manifests instead of producing a meaningless number. --reference picks the baseline; --json writes an analysis document.",
                 "report <bundle>" to "Renders the submission PDF and the machine-readable analysis JSON. --compare adds other bundles for a divergence section; --no-verify skips verification.",
@@ -919,7 +940,7 @@ object DeveloperManual02 {
         doc.bullets(
             listOf(
                 "Bundle format alignment. Aligning with in-toto or SLSA attestation predicates, instead of a custom envelope, would cost little now and earn recognition from reviewers who already know those formats, and the cost grows with every bundle written.",
-                "Revocation and boot state. Chains are pinned to Google's attestation roots, but the verifier does not yet consult Google's revocation list (android.googleapis.com/attestation/status) or read the RootOfTrust verified-boot state, so a revoked attestation key or an unlocked device still verifies. Both are host-side checks; revocation needs network access, which the offline CLI deliberately does not assume.",
+                "Revocation. Chains are pinned to Google's attestation roots and the boot state and app identity are checked, but the verifier does not yet consult Google's revocation list (android.googleapis.com/attestation/status), so a revoked attestation key still verifies. It is a host-side check that needs network access, which the offline CLI deliberately does not assume.",
             ),
         )
     }
@@ -945,7 +966,8 @@ object DeveloperManual02 {
                 "EvidenceBundle" to "The signed artifact, whose unsigned() returns exactly the content that was hashed and signed.",
                 "BackendCapabilities" to "What a backend can actually do on this device, including an explicit unavailable state with a reason.",
                 "ClauseCoverage" to "Status for each clause, with satisfied and missing requirements and a written gap description.",
-                "VerificationReport" to "The result of checking a bundle, where isTrustworthy requires hash, signature, chain and schema all to pass.",
+                "VerificationReport" to "The result of checking a bundle, where isTrustworthy requires hash, signature, chain, schema, challenge binding, verified boot and a trusted app identity all to pass.",
+                "RootOfTrust / AttestedApp / TrustedApps" to "The attested boot state and app identity, read from the leaf certificate, and the apps whose bundles are accepted.",
             ),
         )
 

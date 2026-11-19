@@ -2,6 +2,8 @@ package ai.verispec.tools.report
 
 import ai.verispec.core.domain.model.EvidenceBundle
 import ai.verispec.core.domain.model.VerificationReport
+import ai.verispec.core.domain.model.appSummary
+import ai.verispec.core.domain.model.bootSummary
 import ai.verispec.core.evidence.canonical.CanonicalJson
 import ai.verispec.core.evidence.wire.toDto
 import ai.verispec.tools.analysis.DecayAnalysis
@@ -42,6 +44,10 @@ data class VerificationDto(
     val hardwareBacked: Boolean,
     val strongBox: Boolean,
     val challengeBoundToManifest: Boolean,
+    val verifiedBoot: Boolean,
+    val appIdentityTrusted: Boolean,
+    val bootState: String,
+    val attestedApp: String,
     val issues: List<String>,
 )
 
@@ -129,6 +135,10 @@ class JsonReportRenderer {
                 hardwareBacked = it.hardwareBacked,
                 strongBox = it.strongBox,
                 challengeBoundToManifest = it.challengeBoundToManifest,
+                verifiedBoot = it.verifiedBoot,
+                appIdentityTrusted = it.appIdentityTrusted,
+                bootState = it.bootSummary(),
+                attestedApp = it.appSummary(),
                 issues = it.issues,
             )
         },

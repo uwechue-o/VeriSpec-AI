@@ -7,10 +7,16 @@ package ai.verispec.core.evidence.verify
  */
 class Der(private val bytes: ByteArray, private var pos: Int = 0, private val end: Int = bytes.size) {
 
-    class Tlv(val tag: Int, val content: ByteArray) {
+    /** [tag] is the identifier's first byte; [number] the tag number, also for the multi-byte form. */
+    class Tlv(val tag: Int, val content: ByteArray, val number: Int = tag and 0x1F) {
         val isSequence: Boolean get() = tag == TAG_SEQUENCE
         val isOctetString: Boolean get() = tag == TAG_OCTET_STRING
+        val isContextSpecific: Boolean get() = tag and CLASS_MASK == CLASS_CONTEXT
         fun children(): List<Tlv> = Der(content).readAll()
+        fun asBoolean(): Boolean {
+            require(tag == TAG_BOOLEAN && content.size == 1) { "Expected BOOLEAN, got tag $tag" }
+            return content[0] != 0.toByte()
+        }
         fun asInt(): Long {
             require(tag == TAG_INTEGER || tag == TAG_ENUMERATED) { "Expected INTEGER/ENUMERATED, got tag $tag" }
             require(content.size in 1..8) { "Integer too wide: ${content.size} bytes" }
@@ -27,12 +33,24 @@ class Der(private val bytes: ByteArray, private var pos: Int = 0, private val en
     fun read(): Tlv {
         require(pos < end) { "Unexpected end of DER data" }
         val tag = bytes[pos++].toInt() and 0xFF
-        require((tag and 0x1F) != 0x1F) { "Multi-byte tags not supported" }
+        val number = if (tag and 0x1F == 0x1F) readTagNumber() else tag and 0x1F
         val length = readLength()
         require(pos + length <= end) { "DER length $length exceeds available bytes" }
         val content = bytes.copyOfRange(pos, pos + length)
         pos += length
-        return Tlv(tag, content)
+        return Tlv(tag, content, number)
+    }
+
+    /** High-tag-number form: base-128 digits, high bit set on all but the last. */
+    private fun readTagNumber(): Int {
+        var number = 0
+        repeat(4) {
+            require(pos < end) { "Truncated DER tag" }
+            val b = bytes[pos++].toInt() and 0xFF
+            number = (number shl 7) or (b and 0x7F)
+            if (b and 0x80 == 0) return number
+        }
+        throw IllegalArgumentException("DER tag number too long")
     }
 
     fun readAll(): List<Tlv> {
@@ -53,9 +71,13 @@ class Der(private val bytes: ByteArray, private var pos: Int = 0, private val en
     }
 
     companion object {
+        const val TAG_BOOLEAN = 0x01
         const val TAG_INTEGER = 0x02
         const val TAG_OCTET_STRING = 0x04
         const val TAG_ENUMERATED = 0x0A
         const val TAG_SEQUENCE = 0x30
+        const val TAG_SET = 0x31
+        const val CLASS_MASK = 0xC0
+        const val CLASS_CONTEXT = 0x80
     }
 }
